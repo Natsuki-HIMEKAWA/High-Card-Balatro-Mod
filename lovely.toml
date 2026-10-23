@@ -1,0 +1,21 @@
+[manifest]
+version = "1.0.0"
+priority = -64
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+    if #G.hand.cards < 1 and #G.deck.cards < 1 and #G.play.cards < 1 then
+        end_round()
+    end
+'''
+position = "at"
+payload = '''
+    if #G.hand.cards < 1 and #G.deck.cards < 1 and #G.play.cards < 1 and not self.STATE_COMPLETE then
+        self.STATE_COMPLETE = true
+        end_round()
+    end
+'''
+match_indent = false
+times = 1
