@@ -6,11 +6,11 @@
 
 ## Features
 
-- **New Jokers** — Adds 52 custom Jokers modeled after the X-Playing Cards from *High Card*.
+- **New Jokers** - Adds 52 custom Jokers modeled after the X-Playing Cards from *High Card*.
 - **New Challenges** - Adds 10 new challenges centered around the Jokers introduced above.
-- **Stone Card Logic** — Reveals the normally hidden base value of Stone Cards in a side tooltip.
-- **Vanilla Game Fix** — The included `lovely.toml` file fixes a vanilla game bug that prevents Mr. Bones from working when a Game Over is caused by running out of cards in your deck.
-- **Multilingual Support** — Includes English, Simplified Chinese, and Traditional Chinese translations.
+- **Stone Card Logic** - Reveals the normally hidden base value of Stone Cards in a side tooltip.
+- **Vanilla Game Fix** - The included `lovely.toml` file fixes a vanilla game bug that prevents Mr. Bones from working when a Game Over is caused by running out of cards in your deck.
+- **Multilingual Support** - Includes English, Simplified Chinese, and Traditional Chinese translations.
 
 ## Compatibility
 
