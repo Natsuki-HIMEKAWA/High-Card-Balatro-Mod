@@ -892,7 +892,7 @@ local XPC = {
             set = 'Joker',
             key = 'As'
         }),
-        config = {extra = { rank = 14, x_mult_add = 1.1}},
+        config = {extra = {rank = 14, x_mult_add = 1.1}},
 
         loc_vars = function(self,info_queue,card)
             local ace = 0
@@ -927,7 +927,7 @@ local XPC = {
                         playing_card.ability.slain = nil
                     end
 
-                    if context.first_hand_drawn then
+                    if G.GAME.current_round.hands_played == 0 then
                         if G.GAME.blind.config.blind.key == 'bl_cerulean_bell' then
                             for _, playing_card in ipairs(G.hand.cards) do
                                 if playing_card.ability.forced_selection then
@@ -3851,12 +3851,7 @@ SMODS.Back({
         suit = string.lower(string.sub(suit, 1, 1))
 
         local key = 'j_' .. mod_prefix .. '_' .. rank .. suit
-local center = G.P_CENTERS[key]
 
-if not G.P_CENTERS[key] then
-    print('[HIGH_CARD] Missing Joker center:', key)
-    return
-end
         local edition = nil
 
         if type(x.edition) == 'table' then
@@ -3913,3 +3908,75 @@ end
         }))
     end
 })
+
+challenges = function(poker_hands, jokers)
+    for h, j in pairs(jokers) do
+        local temp = {}
+        for _, key in ipairs(j) do
+            temp[#temp + 1] = {
+                id = 'j_'.. mod_prefix ..'_'.. key,
+                eternal = true
+            }
+        end
+        jokers[h] = temp
+    end
+
+    for _, h in ipairs(poker_hands) do
+        SMODS.Challenge{
+            key = h,
+            deck = {type = 'Challenge Deck'},
+            rules = {
+                custom = {{id = 'no_shop_jokers'}},
+                modifiers = {{id = 'joker_slots', value = 0}}
+            },
+            jokers = jokers[h],
+            consumeables = {},
+            vouchers = {},
+            restrictions = {
+                banned_cards = {
+                    {id = 'c_judgement'},
+                    {id = 'c_wraith'},
+                    {id = 'c_soul'},
+                    {id = 'v_antimatter'},
+                    {id = 'p_buffoon_normal_1', ids = {
+                        'p_buffoon_normal_1','p_buffoon_normal_2','p_buffoon_jumbo_1','p_buffoon_mega_1',
+                    }}
+                },
+                banned_tags = {
+                    {id = 'tag_rare'},
+                    {id = 'tag_uncommon'},
+                    {id = 'tag_holo'},
+                    {id = 'tag_polychrome'},
+                    {id = 'tag_negative'},
+                    {id = 'tag_foil'},
+                    {id = 'tag_buffoon'},
+                    {id = 'tag_top_up'}
+                },
+                banned_other = {
+                    {id = 'bl_final_heart', type = 'blind'},
+                    {id = 'bl_final_leaf', type = 'blind'}
+                }
+            }
+        }
+    end
+end
+
+local poker_hands = {
+    'RF','SF','4K',
+    'FH','FL','ST','3K',
+    '2P','1P','HC'
+}
+local jokers = {
+    ['RF'] = {'As','Ks','Qs','Js','Ts'},
+    ['SF'] = {'Jd','Td','9d','8d','7d'},
+    ['4K'] = {'6s','6h','6d','6c','Jc'},
+    ['FH'] = {'3s','3d','3c','Qh','Qc'},
+    ['FL'] = {'Kh','8h','7h','4h','2h'},
+    ['ST'] = {'5d','4s','3h','2c','Ah'},
+    ['3K'] = {'5s','5h','5c','Kd','Tc'},
+    ['2P'] = {'9h','9c','2s','2d','Kc'},
+    ['1P'] = {'7s','7c','Jh','8c','4d'},
+    ['HC'] = {'Qd','Th','9s','8s','4c'}
+}
+
+challenges(poker_hands, jokers)
