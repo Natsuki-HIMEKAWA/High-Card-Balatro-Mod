@@ -141,10 +141,10 @@ local descriptions = {
             name = 'Love and Peace',
             text = {
                 'Each {C:attention}#1#{} in your {C:attention}full deck{}',
-                'gives {C:white,X:mult}X#2#{} Mult; forces {C:attention}1{}',
-                'card in hand to be selected',
-                'when the first hand is',
-                'drawn, and destroys the',
+                'gives {C:white,X:mult}X#2#{} Mult; always',
+                'forces {C:attention}1{} card in hand to be',
+                'selected if no hands are',
+                'played, and destroys the',
                 '{C:attention}selected{} card if scored',
                 '{C:inactive}(Currently {X:mult,C:white}X#3#{}{C:inactive} Mult){}'
             }
@@ -564,6 +564,18 @@ local misc = {
         k_summoned = 'Summoned!',
         k_activated = 'Activated!',
         k_deactivated = 'Deactivated!'
+    },
+    challenge_names = {
+        ['c_'.. mod_prefix ..'_RF'] = 'Royal Flush',
+        ['c_'.. mod_prefix ..'_SF'] = 'Straight Flush',
+        ['c_'.. mod_prefix ..'_4K'] = 'Four of a Kind',
+        ['c_'.. mod_prefix ..'_FH'] = 'Full House',
+        ['c_'.. mod_prefix ..'_FL'] = 'Flush',
+        ['c_'.. mod_prefix ..'_ST'] = 'Straight',
+        ['c_'.. mod_prefix ..'_3K'] = 'Three of a Kind',
+        ['c_'.. mod_prefix ..'_2P'] = 'Two Pair',
+        ['c_'.. mod_prefix ..'_1P'] = 'One Pair',
+        ['c_'.. mod_prefix ..'_HC'] = 'High Card',
     }
 }
 
