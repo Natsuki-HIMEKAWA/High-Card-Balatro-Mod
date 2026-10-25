@@ -131,9 +131,9 @@ descriptions = {
             name = '愛與和平',
             text = {
                 '計分時{C:attention}牌堆{}中的每張{C:attention}#1#{}提供',
-                '{C:white,X:mult}X#2#{}倍數；迫使{C:attention}第一手牌{}',
-                '中的{C:attention}1{}張牌被選中，若該牌被',
-                '用於計分，則計分後摧毀它',
+                '{C:white,X:mult}X#2#{}倍數；打出{C:attention}第一手牌{}前，',
+                '總是迫使{C:attention}1{}張牌被選中，若該牌',
+                '被用於計分，則計分後將其摧毀',
                 '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
@@ -245,7 +245,7 @@ descriptions = {
             name = '千人千面',
             text = {
                 '所有打出的牌在',
-                '計分後變為{V:1}#2#{} {C:attention}#1#{}',
+                '計分後變為{V:1}#2#{}{C:attention}#1#{}',
                 '{s:0.8}每個回合牌都會變'
             }
         },
@@ -527,6 +527,18 @@ local misc = {
         k_summoned = '召喚！',
         k_activated = '激活！',
         k_deactivated = '失活！'
+    },
+    challenge_names = {
+        ['c_'.. mod_prefix ..'_RF'] = '同花大順',
+        ['c_'.. mod_prefix ..'_SF'] = '同花順',
+        ['c_'.. mod_prefix ..'_4K'] = '金剛',
+        ['c_'.. mod_prefix ..'_FH'] = '滿堂紅',
+        ['c_'.. mod_prefix ..'_FL'] = '同花',
+        ['c_'.. mod_prefix ..'_ST'] = '順子',
+        ['c_'.. mod_prefix ..'_3K'] = '三條',
+        ['c_'.. mod_prefix ..'_2P'] = '兩對',
+        ['c_'.. mod_prefix ..'_1P'] = '一對',
+        ['c_'.. mod_prefix ..'_HC'] = '高牌',
     }
 }
 
