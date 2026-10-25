@@ -117,7 +117,7 @@ local descriptions = {
                 '打出的第一手牌中，',
                 '所有计分牌额外触发',
                 '{C:attention}#1#{}次，且于计分后将',
-                '它们转化为{C:attention}#2#{}'
+                '其转化为{C:attention}#2#{}'
             }
         },
         ['j_'.. mod_prefix ..'_Ks'] = {
@@ -131,9 +131,9 @@ local descriptions = {
             name = '爱与和平',
             text = {
                 '计分时{C:attention}牌堆{}中的每张{C:attention}#1#{}提供',
-                '{C:white,X:mult}X#2#{}倍率；迫使{C:attention}第一手牌{}',
-                '中的{C:attention}1{}张牌被选中，若该牌被',
-                '用于计分，则计分后将其摧毁',
+                '{C:white,X:mult}X#2#{}倍率；打出{C:attention}第一手牌{}前，',
+                '总是迫使{C:attention}1{}张牌被选中，若该牌',
+                '被用于计分，则计分后将其摧毁',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
             }
         },
@@ -245,7 +245,7 @@ local descriptions = {
             name = '千人千面',
             text = {
                 '所有打出的牌在',
-                '计分后变为{V:1}#2#{} {C:attention}#1#{}',
+                '计分后变为{V:1}#2#{}{C:attention}#1#{}',
                 '{s:0.8}每回合卡牌都会变动'
             }
         },
@@ -528,6 +528,18 @@ local misc = {
         k_summoned = '召唤！',
         k_activated = '激活！',
         k_deactivated = '失活！'
+    },
+    challenge_names = {
+        ['c_'.. mod_prefix ..'_RF'] = '皇家同花顺',
+        ['c_'.. mod_prefix ..'_SF'] = '同花顺',
+        ['c_'.. mod_prefix ..'_4K'] = '四条',
+        ['c_'.. mod_prefix ..'_FH'] = '葫芦',
+        ['c_'.. mod_prefix ..'_FL'] = '同花',
+        ['c_'.. mod_prefix ..'_ST'] = '顺子',
+        ['c_'.. mod_prefix ..'_3K'] = '三条',
+        ['c_'.. mod_prefix ..'_2P'] = '两对',
+        ['c_'.. mod_prefix ..'_1P'] = '一对',
+        ['c_'.. mod_prefix ..'_HC'] = '高牌',
     }
 }
 
