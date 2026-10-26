@@ -3921,15 +3921,15 @@ challenges = function(poker_hands, jokers)
         jokers[h] = temp
     end
 
-    for _, h in ipairs(poker_hands) do
+    for i = #poker_hands, 1, -1 do
         SMODS.Challenge{
-            key = h,
+            key = poker_hands[i],
             deck = {type = 'Challenge Deck'},
             rules = {
                 custom = {{id = 'no_shop_jokers'}},
                 modifiers = {{id = 'joker_slots', value = 0}}
             },
-            jokers = jokers[h],
+            jokers = jokers[poker_hands[i]],
             consumeables = {},
             vouchers = {},
             restrictions = {
@@ -3972,9 +3972,9 @@ local jokers = {
     ['4K'] = {'6s','6h','6d','6c','Jc'},
     ['FH'] = {'3s','3d','3c','Qh','Qc'},
     ['FL'] = {'Kh','8h','7h','4h','2h'},
-    ['ST'] = {'5d','4s','3h','2c','Ah'},
-    ['3K'] = {'5s','5h','5c','Kd','Tc'},
-    ['2P'] = {'9h','9c','2s','2d','Kc'},
+    ['ST'] = {'5c','4s','3h','2d','Ah'},
+    ['3K'] = {'5s','5h','5d','Kc','Tc'},
+    ['2P'] = {'9h','9c','2s','2c','Kd'},
     ['1P'] = {'7s','7c','Jh','8c','4d'},
     ['HC'] = {'Qd','Th','9s','8s','4c'}
 }
