@@ -464,10 +464,20 @@ local XPC = {
             set = 'Joker',
             key = '7s'
         }),
-        config = {extra = {level = 2}},
+        config = {extra = {
+            numerator = 1,
+            denominator = 7,
+            basic_level = 1,
+            bonus_level = 2
+        }},
 
         loc_vars = function(self, info_queue, card)
-            return {vars = {card.ability.extra.level}}
+            return {vars = {
+                card.ability.extra.basic_level,
+                card.ability.extra.numerator,
+                card.ability.extra.denominator,
+                card.ability.extra.bonus_level
+            }}
         end,
 
         calculate = function(self, card, context)
@@ -475,11 +485,25 @@ local XPC = {
             and context.before
             and context.scoring_name 
             and G.GAME.current_round.hands_played == 0 then
-                return {
-                    card = card,
-                    level_up = card.ability.extra.level,
-                    message = localize('k_level_up_ex')
-                }
+
+                if SMODS.pseudorandom_probability(
+                    card, 'Interceptor',
+                    card.ability.extra.numerator,
+                    card.ability.extra.denominator
+                ) then
+                    return {
+                        card = card,
+                        level_up = card.ability.extra.bonus_level,
+                        message = localize('k_level_up_ex'),
+                        colour = G.C.RED
+                    }
+                else
+                    return {
+                        card = card,
+                        level_up = card.ability.extra.basic_level,
+                        message = localize('k_level_up_ex')
+                    }
+                end
             end
             
             if not context.blueprint and context.selling_self then
@@ -3921,15 +3945,15 @@ challenges = function(poker_hands, jokers)
         jokers[h] = temp
     end
 
-    for i = #poker_hands, 1, -1 do
+    for index = #poker_hands, 1, -1 do
         SMODS.Challenge{
-            key = poker_hands[i],
+            key = poker_hands[index],
             deck = {type = 'Challenge Deck'},
             rules = {
                 custom = {{id = 'no_shop_jokers'}},
                 modifiers = {{id = 'joker_slots', value = 0}}
             },
-            jokers = jokers[poker_hands[i]],
+            jokers = jokers[poker_hands[index]],
             consumeables = {},
             vouchers = {},
             restrictions = {
@@ -3975,8 +3999,8 @@ local jokers = {
     ['ST'] = {'5c','4s','3h','2d','Ah'},
     ['3K'] = {'5s','5h','5d','Kc','Tc'},
     ['2P'] = {'9h','9c','2s','2c','Qd'},
-    ['1P'] = {'7s','7c','Jh','8c','4d'},
-    ['HC'] = {'Kd','Th','9s','8s','4c'}
+    ['1P'] = {'7s','7c','Jh','8s','4d'},
+    ['HC'] = {'Kd','Th','9s','8c','4c'}
 }
 
 challenges(poker_hands, jokers)
