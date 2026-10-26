@@ -2897,7 +2897,7 @@ local XPC = {
             set = 'Joker',
             key = '6c'
         }),
-        config = {extra = {numerator = 1, denominator = 2}},
+        config = {extra = {numerator = 1, denominator = 4}},
 
         loc_vars = function(self,info_queue,card)
             info_queue[#info_queue + 1] = {
@@ -3104,7 +3104,7 @@ local XPC = {
             set = 'Joker',
             key = '9c'
         }),
-        config = {extra = {numerator = 1, denominator = 8}},
+        config = {extra = {numerator = 1, denominator = 12}},
 
         loc_vars = function(self,info_queue,card)
             info_queue[#info_queue + 1] = {
@@ -3178,7 +3178,7 @@ local XPC = {
             set = 'Joker',
             key = 'Tc'
         }),
-        config = {extra = {numerator = 1, denominator = 3}},
+        config = {extra = {numerator = 1, denominator = 8}},
 
         loc_vars = function(self,info_queue,card)
             info_queue[#info_queue + 1] = {
