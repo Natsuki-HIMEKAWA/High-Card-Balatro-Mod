@@ -1,7 +1,7 @@
 descriptions = {
     Other = {
         hidden_base = {
-            name = '實際牌面',
+            name = '隱匿牌面',
             text = {
                 '{V:1}#2#{} {C:attention}#1#{}'
             }
@@ -131,10 +131,12 @@ descriptions = {
         ['j_'.. mod_prefix ..'_As'] = {
             name = '愛與和平',
             text = {
-                '計分時{C:attention}牌堆{}中的每張{C:attention}#1#{}提供',
-                '{C:white,X:mult}X#2#{}倍數；打出{C:attention}第一手牌{}前，',
-                '總是迫使{C:attention}1{}張牌被選中，若該牌',
-                '被用於計分，則計分後將其摧毀',
+                '計分時{C:attention}牌堆{}中的每張{C:attention}#1#{}',
+                '提供{C:white,X:mult}X#2#{}倍數；本回合',
+                '打出{C:attention}第一手牌{}前，總是',
+                '迫使{C:attention}1{}張牌被選中，',
+                '若該牌被用於計分，',
+                '則計分後將其摧毀',
                 '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
