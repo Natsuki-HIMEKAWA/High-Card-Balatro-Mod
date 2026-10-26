@@ -71,9 +71,10 @@ descriptions = {
         ['j_'.. mod_prefix ..'_7s'] = {
             name = '阻擊者',
             text = {
-                '將每回合{C:attention}第一手{}',
-                '打出的{C:attention}牌型{}等級',
-                '提升{C:attention}#1#{}級'
+                '將每回合{C:attention}第一手{}打出',
+                '的{C:attention}牌型{}等級提升{C:attention}#1#{}級，',
+                '且有{C:green}#2#/#3#{}概率將其改為',
+                '提升{C:attention}#4#{}級'
             }
         },
         ['j_'.. mod_prefix ..'_8s'] = {
