@@ -312,8 +312,8 @@ descriptions = {
             name = '無慈悲',
             text = {
                 '將每回合{C:attention}第一張{}',
-                '計分牌的{C:attention}點數分值{}',
-                '賦予{C:legendary}無慈悲{}的{C:white,X:mult}X倍數{}，',
+                '計分牌的{C:attention}點數{}賦予',
+                '{C:legendary}無慈悲{}的{C:white,X:mult}X倍數{}，',
                 '且於計分後將其摧毀',
                 '回合結束後重置',
                 '{C:inactive}（當前為{C:white,X:mult}X#1#{C:inactive}倍數）{}'
