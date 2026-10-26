@@ -2929,7 +2929,7 @@ local XPC = {
                             card.ability.extra.denominator
                         ) then
                             scored_card:set_edition(
-                                {negative = true},
+                                {foil = true},
                                 true, false, true
                             )
                             message = true
