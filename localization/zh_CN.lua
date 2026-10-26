@@ -1,7 +1,7 @@
 local descriptions = {
     Other = {
         hidden_base = {
-            name = '实际牌面',
+            name = '隐藏牌面',
             text = {
                 '{V:1}#2#{} {C:attention}#1#{}'
             }
@@ -131,10 +131,12 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_As'] = {
             name = '爱与和平',
             text = {
-                '计分时{C:attention}牌堆{}中的每张{C:attention}#1#{}提供',
-                '{C:white,X:mult}X#2#{}倍率；打出{C:attention}第一手牌{}前，',
-                '总是迫使{C:attention}1{}张牌被选中，若该牌',
-                '被用于计分，则计分后将其摧毁',
+                '计分时{C:attention}牌堆{}中的每张{C:attention}#1#{}',
+                '提供{C:white,X:mult}X#2#{}倍率；本回合',
+                '打出{C:attention}第一手牌{}前，总是',
+                '迫使{C:attention}1{}张牌被选中，',
+                '若该牌被用于计分，',
+                '则计分后将其摧毁',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
             }
         },
