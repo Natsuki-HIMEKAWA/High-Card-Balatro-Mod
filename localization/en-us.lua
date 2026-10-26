@@ -82,7 +82,9 @@ local descriptions = {
             text = {
                 'Upgrade the {C:attention}first{}',
                 '{C:attention}poker hand{} played each',
-                'round by {C:attention}#1#{} levels'
+                'round by {C:attention}#1#{} level; with',
+                'a {C:green}#2# in #3#{} chance to',
+                'upgrade it by {C:attention}#4#{} levels'
             }
         },
         ['j_'.. mod_prefix ..'_8s'] = {
