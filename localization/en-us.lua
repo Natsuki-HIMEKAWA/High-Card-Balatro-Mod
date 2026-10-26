@@ -145,9 +145,10 @@ local descriptions = {
                 'Each {C:attention}#1#{} in your {C:attention}full deck{}',
                 'gives {C:white,X:mult}X#2#{} Mult; always',
                 'forces {C:attention}1{} card in hand to be',
-                'selected if no hands are',
-                'played, and destroys the',
-                '{C:attention}selected{} card if scored',
+                'selected if {C:attention}no hands{} have',
+                'been {C:attention}played{} yet this round,',
+                'and destroys the {C:attention}selected{}',
+                'card if it has been scored',
                 '{C:inactive}(Currently {X:mult,C:white}X#3#{}{C:inactive} Mult){}'
             }
         },
