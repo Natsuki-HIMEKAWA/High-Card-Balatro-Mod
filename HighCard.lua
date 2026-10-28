@@ -108,7 +108,7 @@ local adding_self = function(joker)
             local suit = key:sub(-1,-1):upper()
 
             local card = create_playing_card({
-                front = G.P_CARDS[suit .. '_' .. rank],
+                front = G.P_CARDS[suit ..'_'.. rank],
                 center = G.P_CENTERS.c_base
             }, area, nil, nil, {G.C.SECONDARY_SET.Enhanced})
 
@@ -2534,7 +2534,7 @@ local XPC = {
                 if joker
                     and joker.config
                     and joker.config.center
-                    and joker.config.center.key == 'j_' .. mod_prefix .. '_Qd'
+                    and joker.config.center.key == 'j_'.. mod_prefix ..'_Qd'
                     and not joker.debuff
                 then
                     return true
@@ -3583,7 +3583,7 @@ for key, card in pairs(XPC) do
     card.enhancment = nil
     card.seal = nil
     card.undiscovered = {
-        atlas = mod_prefix .. '_XPC_undiscovered',
+        atlas = mod_prefix ..'_XPC_undiscovered',
         pos = card.pos
     }
 end
@@ -3648,7 +3648,7 @@ local atlas_2 = SMODS.Atlas({
 XPC_deck_key = 'X-Playing_Deck'
 
 local function deck_matched(center)
-    prefix_key = 'b_' .. mod_prefix .. '_' .. XPC_deck_key
+    prefix_key = 'b_'.. mod_prefix ..'_'.. XPC_deck_key
     return center and (
         center.key == prefix_key
         or center.original_key == XPC_deck_key
@@ -3863,7 +3863,7 @@ SMODS.Back({
 
         suit = string.lower(string.sub(suit, 1, 1))
 
-        local key = 'j_' .. mod_prefix .. '_' .. rank .. suit
+        local key = 'j_'.. mod_prefix ..'_'.. rank .. suit
 
         local edition = nil
 
