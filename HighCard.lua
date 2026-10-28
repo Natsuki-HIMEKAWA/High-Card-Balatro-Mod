@@ -3582,13 +3582,6 @@ for key, card in pairs(XPC) do
     card.cost = 1
     card.enhancment = nil
     card.seal = nil
-    if key:sub(1,1) ~= 'J' then
-        local suffix = localize({
-            type = 'raw_descriptions',
-            set = 'Joker',
-            key = 'add'
-        })
-    end
     card.undiscovered = {
         atlas = mod_prefix .. '_XPC_undiscovered',
         pos = card.pos
