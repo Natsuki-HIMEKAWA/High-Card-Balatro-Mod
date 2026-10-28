@@ -187,9 +187,9 @@ descriptions = {
             text = {
                 '本回合第一次出牌中',
                 '的所有計分牌轉化為',
-                '{C:attention}#1#{}；{C:attention}完整牌組{}中',
-                '的每張{C:attention}#1#{}為{C:legendary}變色龍{}',
-                '提供{C:white,X:mult}X#2#{}倍數',
+                '{C:attention}#1#{}；{C:attention}完整牌組{}',
+                '中的每張{C:attention}#1#{}為',
+                '{C:legendary}變色龍{}提供{C:white,X:mult}X#2#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
