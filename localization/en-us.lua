@@ -172,7 +172,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_4h'] = {
             name = 'Agent S',
             text = {
-                'If the first hand of',
+                'If the {C:attention}first hand{} of',
                 'round has only {C:attention}1{} card,',
                 'create {C:attention}#1#{} {C:attention}clones{} to hand'
             }
