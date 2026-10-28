@@ -404,7 +404,7 @@ local XPC = {
             set = 'Joker',
             key = '6s'
         }),
-        config = {extra = {x_mult_add = 1, rank = 6, x_mult = 1}},
+        config = {extra = {rank = 6, x_mult_add = 0.5, x_mult = 1}},
 
         loc_vars = function(self,info_queue,card)
             return {vars = 
@@ -525,7 +525,7 @@ local XPC = {
             set = 'Joker',
             key = '8s'
         }),
-        config = {extra = {enhancement = 'm_mult', x_mult = 3, message = false}},
+        config = {extra = {enhancement = 'm_mult', x_mult = 2, message = false}},
 
         loc_vars = function(self,info_queue,card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
@@ -1107,14 +1107,14 @@ local XPC = {
             set = 'Joker',
             key = '3h'
         }),
-        config = {extra = {enhancement = 'm_stone', x_mult_add = 1.5}},
+        config = {extra = {enhancement = 'm_stone', x_mult = 1.5}},
 
         loc_vars = function(self,info_queue,card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
             return {vars = {
                     localize({type = 'name_text', set = 'Enhanced',
                         key = card.ability.extra.enhancement}),
-                    card.ability.extra.x_mult_add
+                    card.ability.extra.x_mult
                 }}
         end,
 
@@ -1124,7 +1124,7 @@ local XPC = {
                 if context.other_card.config.center.key
                 == card.ability.extra.enhancement then
                     return {
-                        x_mult = card.ability.extra.x_mult_add,
+                        x_mult = card.ability.extra.x_mult,
                         colour = G.C.RED,
                         card = card
                         }
@@ -1691,7 +1691,7 @@ local XPC = {
             set = 'Joker',
             key = 'Qh'
         }),
-        config = {extra = {x_mult_add = 1, x_mult = 1}},
+        config = {extra = {x_mult_add = 0.5, x_mult = 1}},
 
         loc_vars = function(self, info_queue, card)
             return {vars = {
@@ -2243,8 +2243,7 @@ local XPC = {
 
             if not context.blueprint then
                 if context.money_altered and context.amount < 0 then
-                    extra.x_mult = extra.x_mult
-                        + (-context.amount) * extra.x_mult_add
+                    extra.x_mult = extra.x_mult + (-context.amount) * extra.x_mult_add
 
                     return {
                         message = localize('k_upgrade_ex'),
@@ -2775,7 +2774,7 @@ local XPC = {
             set = 'Joker',
             key = '4c'
         }),
-        config = {extra = {enhancement = 'm_lucky', x_mult = 3, message = false}},
+        config = {extra = {message = false}},
 
         loc_vars = function(self, info_queue, card)
             return {vars = {
@@ -2830,7 +2829,7 @@ local XPC = {
             set = 'Joker',
             key = '5c'
         }),
-        config = {extra = {enhancement = 'm_stone', x_mult = 3, message = false}},
+        config = {extra = {enhancement = 'm_stone', x_mult = 2, message = false}},
 
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
@@ -2971,7 +2970,7 @@ local XPC = {
             set = 'Joker',
             key = '7c'
         }),
-        config = { extra = {rank = 7, x_mult = 3, message = false}},
+        config = { extra = {rank = 7, x_mult = 2, message = false}},
 
         loc_vars = function(self, info_queue, card)
             return {
@@ -3244,7 +3243,7 @@ local XPC = {
             G.FUNCS.draw_from_play_to_discard
 
         local card_target = nil
-        local show_massage = false
+        local massage = false
 
         G.FUNCS.draw_from_play_to_discard = function(e)
             local target = card_target
@@ -3278,14 +3277,13 @@ local XPC = {
 
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
-                blockable = false,
                 func = function()
                     if target and G.play and G.hand  and target.area == G.play
                         and not target.shattered and not target.destroyed then
 
                         draw_card(G.play, G.hand, nil, 'up', true, target)
 
-                        show_massage = true
+                        massage = true
                     end
 
                     return true
@@ -3308,7 +3306,7 @@ local XPC = {
                 set = 'Joker',
                 key = 'Jc'
             }),
-            config = {extra = {}},
+            config = {extra = {message = false}},
 
             calculate = function(self, card, context)
                 if not context.blueprint and context.selling_self then
@@ -3322,9 +3320,8 @@ local XPC = {
                         or nil
                 end
 
-                if show_massage then
-                    show_massage = false
-
+                if massage then
+                    massage = false
                     return {
                         message = localize('k_coming_home'),
                         colour = G.C.RARITY[4]
@@ -3347,7 +3344,7 @@ local XPC = {
             set = 'Joker',
             key = 'Qc'
         }),
-        config = { extra = {enhancement = 'm_bonus', x_mult_add = 3, message = false} },
+        config = { extra = {enhancement = 'm_bonus', x_mult = 2, message = false} },
 
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
@@ -3357,7 +3354,7 @@ local XPC = {
                         set = 'Enhanced',
                         key = card.ability.extra.enhancement
                     }),
-                    card.ability.extra.x_mult_add
+                    card.ability.extra.x_mult
                 }}
         end,
 
@@ -3367,7 +3364,7 @@ local XPC = {
                 and context.other_card.config.center == G.P_CENTERS.m_bonus
             then
                 return {
-                    x_mult = card.ability.extra.x_mult_add,
+                    x_mult = card.ability.extra.x_mult,
                     card = card
                 }
             end
@@ -3550,7 +3547,6 @@ local XPC = {
                                     nil, nil, nil, nil, nil,
                                     'Another Lives'
                                 ) 
-                                -- _type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append
                                 spectral:add_to_deck()
                                 G.consumeables:emplace(spectral)
 
