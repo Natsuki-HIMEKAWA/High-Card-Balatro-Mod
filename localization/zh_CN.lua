@@ -389,9 +389,8 @@ local descriptions = {
             name = '淡蓝波涛',
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
-                '每张没有版本的计分牌',
-                '都有{C:green}#1#/#2#{}的概率',
-                '被添加{C:dark_edition}闪箔{}'
+                '每张没有版本的{C:attention}计分牌{}',
+                '都有{C:green}#1#/#2#{}概率获得{C:dark_edition}闪箔{}'
             }
         },
         ['j_'.. mod_prefix ..'_7c'] = {
@@ -406,31 +405,31 @@ local descriptions = {
             name = '沉没暗影',
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
-                '每张没有版本的计分牌',
-                '都有{C:green}#1#/#2#{}的概率获得{C:dark_edition}负片{}'
+                '每张没有版本的{C:attention}计分牌{}',
+                '都有{C:green}#1#/#2#{}概率获得{C:dark_edition}负片{}'
             }
         },
         ['j_'.. mod_prefix ..'_9c'] = {
             name = '初升光明',
             text = {
                 '每回合的{C:attention}第一手牌中{}，',
-                '每张没有版本的计分牌',
-                '都有{C:green}#1#/#2#{}的概率获得{C:dark_edition}多彩{}'
+                '每张没有版本的{C:attention}计分牌{}',
+                '都有{C:green}#1#/#2#{}概率获得{C:dark_edition}多彩{}'
             }
         },
         ['j_'.. mod_prefix ..'_Tc'] = {
             name = '百万伏特',
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
-                '每张没有版本的计分牌',
-                '都有{C:green}#1#/#2#{}的概率获得{C:dark_edition}全息{}'
+                '每张没有版本的{C:attention}计分牌{}',
+                '都有{C:green}#1#/#2#{}概率获得{C:dark_edition}全息{}'
             }
         },
         ['j_'.. mod_prefix ..'_Jc'] = {
             name = '归来',
             text = {
                 '计分结束后，将{C:attention}第一张{}',
-                '{C:attention}{}计分牌抽回手牌中'
+                '计分牌抽回手牌中'
             }
         },
         ['j_'.. mod_prefix ..'_Qc'] = {
@@ -450,7 +449,7 @@ local descriptions = {
                 '获得这些牌相应增强与',
                 '版本提供的{C:chips}筹码{}，{C:mult}倍率{}，',
                 '{C:white,X:mult}X倍率{}，或返还相应{C:money}金钱{}',
-                '{C:inactive}（当前为{C:chips}+#1#{}{C:inactive}筹码，',
+                '{C:inactive}（当前为{C:chips}+#1#{}{C:inactive}筹码，{}',
                 '{C:mult}+#2#{}{C:inactive}倍率{}，{X:mult,C:white}X#3#{}{C:inactive}倍率）{}'
             }
         },
