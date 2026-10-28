@@ -115,7 +115,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Qs'] = {
             name = '美杜莎之鞭',
             text = {
-                '打出的第一手牌中，',
+                '打出的{C:attention}第一手牌{}中，',
                 '所有计分牌额外触发',
                 '{C:attention}#1#{}次，且于计分后将',
                 '其转化为{C:attention}#2#{}'
@@ -151,7 +151,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_3h'] = {
             name = '坚如磐石',
             text = {
-                '打出的牌中，第一张',
+                '打出的牌中，{C:attention}第一张{}',
                 '计分牌变为{C:attention}#1#{}；',
                 '计分时每张{C:attention}#1#{}',
                 '给予{C:white,X:mult}X#2#{}倍率'
@@ -264,7 +264,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_3d'] = {
             name = '弹如雨下',
             text = {
-                '本回合第一次出牌',
+                '本回合{C:attention}第一次{}出牌',
                 '中的所有计分牌',
                 '转化为{C:attention}#1#{}'
             }
@@ -272,7 +272,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_4d'] = {
             name = '时间默剧',
             text = {
-                '打出的第一手牌中',
+                '打出的{C:attention}第一手牌{}中',
                 '所有计分牌额外',
                 '触发{C:attention}#1#{}次，且于',
                 '计分后将其摧毁'
