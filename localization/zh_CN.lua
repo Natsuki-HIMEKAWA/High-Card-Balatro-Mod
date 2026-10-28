@@ -187,9 +187,9 @@ local descriptions = {
             text = {
                 '本回合第一次出牌中',
                 '的所有计分牌转化为',
-                '{C:attention}#1#{}；{C:attention}完整牌组{}中',
-                '的每张{C:attention}#1#{}为{C:legendary}变色龙{}',
-                '提供{C:white,X:mult}X#2#{}倍率',
+                '{C:attention}#1#{}；{C:attention}完整牌组{}',
+                '中的每张{C:attention}#1#{}为',
+                '{C:legendary}变色龙{}提供{C:white,X:mult}X#2#{}倍率',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
             }
         },
