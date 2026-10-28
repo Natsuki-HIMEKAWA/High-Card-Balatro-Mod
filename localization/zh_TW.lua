@@ -115,7 +115,7 @@ descriptions = {
         ['j_'.. mod_prefix ..'_Qs'] = {
             name = '梅杜莎之鞭',
             text = {
-                '打出的第一手牌中，',
+                '打出的{C:attention}第一手牌{}中，',
                 '所有計分牌額外觸發',
                 '{C:attention}#1#{}次，且於計分後將',
                 '其轉化為{C:attention}#2#{}'
@@ -264,7 +264,7 @@ descriptions = {
         ['j_'.. mod_prefix ..'_3d'] = {
             name = '彈如雨下',
             text = {
-                '本回合第一次出牌',
+                '本回合{C:attention}第一次{}出牌',
                 '中的所有計分牌',
                 '轉化為{C:attention}#1#{}'
             }
@@ -272,7 +272,7 @@ descriptions = {
         ['j_'.. mod_prefix ..'_4d'] = {
             name = '時間啞劇',
             text = {
-                '打出的第一手牌中',
+                '打出的{C:attention}第一手牌{}中',
                 '所有計分牌額外',
                 '觸發{C:attention}#1#{}次，且於',
                 '計分後將其摧毀'
