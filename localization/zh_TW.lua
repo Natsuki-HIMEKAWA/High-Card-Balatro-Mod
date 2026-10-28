@@ -113,7 +113,7 @@ descriptions = {
             }
         },
         ['j_'.. mod_prefix ..'_Qs'] = {
-            name = '美杜莎之鞭',
+            name = '梅杜莎之鞭',
             text = {
                 '打出的第一手牌中，',
                 '所有計分牌額外觸發',
@@ -390,7 +390,7 @@ descriptions = {
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每張沒有版本的{C:attention}計分牌{}',
-                '都有{C:green}#1#/#2#{}的概率獲得{C:dark_edition}銀箔{}'
+                '都有{C:green}#1#/#2#{}概率獲得{C:dark_edition}銀箔{}'
             }
         },
         ['j_'.. mod_prefix ..'_7c'] = {
@@ -406,7 +406,7 @@ descriptions = {
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每張沒有版本的{C:attention}計分牌{}',
-                '都有{C:green}#1#/#2#{}的概率獲得{C:dark_edition}負片{}'
+                '都有{C:green}#1#/#2#{}概率獲得{C:dark_edition}負片{}'
             }
         },
         ['j_'.. mod_prefix ..'_9c'] = {
@@ -414,7 +414,7 @@ descriptions = {
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每張沒有版本的{C:attention}計分牌{}',
-                '都有{C:green}#1#/#2#{}的概率獲得{C:dark_edition}多彩{}'
+                '都有{C:green}#1#/#2#{}概率獲得{C:dark_edition}多彩{}'
             }
         },
         ['j_'.. mod_prefix ..'_Tc'] = {
@@ -422,7 +422,7 @@ descriptions = {
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每張沒有版本的{C:attention}計分牌{}',
-                '都有{C:green}#1#/#2#{}的概率獲得{C:dark_edition}全像{}'
+                '都有{C:green}#1#/#2#{}概率獲得{C:dark_edition}全像{}'
             }
         },
         ['j_'.. mod_prefix ..'_Jc'] = {
@@ -449,7 +449,7 @@ descriptions = {
                 '獲得這些牌相應增強與',
                 '版本提供的{C:chips}籌碼{}，{C:mult}倍數{}，',
                 '{C:white,X:mult}X倍數{}，或返還相應{C:money}金錢{}',
-                '{C:inactive}（當前為{C:chips}+#1#{}{C:inactive}籌碼，',
+                '{C:inactive}（當前為{C:chips}+#1#{}{C:inactive}籌碼，{}',
                 '{C:mult}+#2#{}{C:inactive}倍數{}，{X:mult,C:white}X#3#{}{C:inactive}倍數）{}'
             }
         },
