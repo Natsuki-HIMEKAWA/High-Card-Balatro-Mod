@@ -55,9 +55,9 @@ HighCard/
 │   ├── 1x/
 │   └── 2x/
 ├── localization/
-│   ├── en-us.json
-│   ├── zh_CN.json
-│   └── zh_TW.json
+│   ├── en-us.lua
+│   ├── zh_CN.lua
+│   └── zh_TW.lua
 ├── HighCard.lua
 ├── lovely.toml
 └── main.json
