@@ -449,8 +449,9 @@ descriptions = {
                 '獲得這些牌相應增強與',
                 '版本提供的{C:chips}籌碼{}，{C:mult}倍數{}，',
                 '{C:white,X:mult}X倍數{}，或返還相應{C:money}金錢{}',
+                '擊敗{C:attention}Boss盲注{}後重置',
                 '{C:inactive}（當前為{C:chips}+#1#{}{C:inactive}籌碼，{}',
-                '{C:mult}+#2#{}{C:inactive}倍數{}，{X:mult,C:white}X#3#{}{C:inactive}倍數）{}'
+                '{C:mult}+#2#{}{C:inactive}倍數，{}{X:mult,C:white}X#3#{}{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Ac'] = {
