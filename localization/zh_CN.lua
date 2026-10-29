@@ -314,10 +314,10 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_9d'] = {
             name = '无慈悲',
             text = {
-                '将每回合{C:attention}第一张{}',
-                '计分牌的{C:attention}点数{}赋予',
+                '将每回合{C:attention}第一张{}计分牌',
+                '点数的{C:attention}四分之一{}赋予',
                 '{C:legendary}无慈悲{}的{C:white,X:mult}X倍率{}，',
-                '计分后将其摧毁',
+                '且于计分后将其摧毁',
                 '回合结束后重置',
                 '{C:inactive}（当前为{C:white,X:mult}X#1#{C:inactive}倍率）{}'
             }
