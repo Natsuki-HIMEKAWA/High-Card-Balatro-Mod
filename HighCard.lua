@@ -22,7 +22,8 @@ SMODS.Enhancement:take_ownership('stone', {
         return {vars = {self.config.bonus or 50}}
     end
 }, true)
----
+---The end of Stone Viewer--
+
 SMODS.Atlas({
     key = 'XPCB',
     path = 'XPC_Back.png',
@@ -46,6 +47,16 @@ SMODS.Atlas({
     path = 'st_clone.png',
     px = 71, py=95
 })
+
+SMODS.Sticker {
+    key = 'agent_s',
+    atlas = 'clone',
+
+    badge_colour = HEX('D70C18'),
+
+    default_compat = false,
+    rate = 0
+}
 
 local rank_to_string = function(rank)
     if rank <= 10 then return tostring(rank)
@@ -139,17 +150,6 @@ local adding_self = function(joker)
     }))
     return
 end
-
-SMODS.Sticker { -- Defined for 4h Agent S
-    key = 'agent_s',
-    atlas = 'clone',
-
-    badge_colour = HEX('D70C18'),
-
-    default_compat = false,
-    rate = 0
-}
-
 
 local XPC = {
     S2 = {
