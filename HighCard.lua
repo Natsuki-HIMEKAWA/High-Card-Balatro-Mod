@@ -2227,7 +2227,7 @@ local XPC = {
             set = 'Joker',
             key = '7d'
         }),
-        config = {extra = {x_mult_add = 0.02, x_mult = 1}},
+        config = {extra = {x_mult_add = 0.01, x_mult = 1}},
 
         loc_vars = function(self,info_queue,card)
             return {vars = {
@@ -2341,7 +2341,6 @@ local XPC = {
                 end
 
                 if context.end_of_round and context.main_eval then
-
                     card.ability.extra.x_mult = 1
                     return {message = localize('k_reset')}
                 end
