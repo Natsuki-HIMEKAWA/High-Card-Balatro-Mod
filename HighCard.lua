@@ -3454,7 +3454,7 @@ local XPC = {
                     local enhancement = scored_card.config.center.key
                     local edition = scored_card.edition or {}
 
-                    if enhancement then
+                    if enhancement ~= 'c_base' then
                         if enhancement == 'm_bonus' then
                             chips = chips + G.P_CENTERS.m_bonus.config.bonus
                         elseif enhancement == 'm_stone' then
@@ -3482,10 +3482,10 @@ local XPC = {
                             end
                         else
                             local config = G.P_CENTERS[enhancement].config
-                            chips = chips + config.bonus
-                            mult = mult + config.mult
-                            x_mult = x_mult + config.h_x_mult or config.Xmult
-                            money = money + config.h_dollars
+                            chips = chips + (config.bonus or 0)
+                            mult = mult + (config.mult or 0)
+                            x_mult = x_mult + (config.h_x_mult or config.Xmult or 0)
+                            money = money + (config.h_dollars or 0)
                         end
                     end
 
