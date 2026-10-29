@@ -314,8 +314,8 @@ descriptions = {
         ['j_'.. mod_prefix ..'_9d'] = {
             name = '無慈悲',
             text = {
-                '將每回合{C:attention}第一張{}',
-                '計分牌的{C:attention}點數{}賦予',
+                '將每回合{C:attention}第一張{}計分牌',
+                '點數的{C:atteention}四分之一{}賦予',
                 '{C:legendary}無慈悲{}的{C:white,X:mult}X倍數{}，',
                 '且於計分後將其摧毀',
                 '回合結束後重置',
