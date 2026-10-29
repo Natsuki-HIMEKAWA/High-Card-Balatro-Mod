@@ -282,7 +282,7 @@ descriptions = {
             name = '最強人類',
             text = {
                 '打出的所有{C:attention}#1#{}',
-                '和{C:attention}#2#{}在計分時',
+                '和{C:attention}#2#{}在計分後',
                 '增加{C:attention}1{}級點數'
             }
         },
