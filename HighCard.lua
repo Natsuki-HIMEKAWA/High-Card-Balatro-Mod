@@ -2255,7 +2255,6 @@ local XPC = {
                     }
                 end
 
-
                 if context.selling_self then
                     adding_self(card)
                 end
@@ -2332,7 +2331,7 @@ local XPC = {
                         point = 11
                     end
                     
-                    card.ability.extra.x_mult = point
+                    card.ability.extra.x_mult = 1 + point / 4
                 end
 
                 if context.destroy_card and context.cardarea == G.play
