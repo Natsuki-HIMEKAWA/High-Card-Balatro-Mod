@@ -3964,18 +3964,22 @@ challenges = function(poker_hands, jokers)
             consumables = {{id = 'c_neptune'}}
         elseif hand == 'RF' then
             consumables = {{id = 'c_fool'},{id = 'c_neptune'}}
-        elseif hand == '5K' then
-            consumables = {{id = 'c_planet_x'}}
-        elseif hand == 'HF' then
-            consumables = {{id = 'c_ceres'}}
-        elseif hand == '5F' then
-            consumables = {{id = 'c_eris'}}
-        else 
-            consumables = {}
         end
 
+        local challenge_jokers = jokers[hand] or {}
+        
         SMODS.Challenge{
             key = hand,
+            unlocked = function()
+                for _, joker in ipairs(challenge_jokers) do
+                    local center = G.P_CENTERS[joker.id]
+                    if not center or not center.discovered then
+                        return false
+                    end
+                end
+                return true
+            end,
+
             deck = {type = 'Challenge Deck'},
             rules = {
                 custom = {{id = 'no_shop_jokers'}},
