@@ -473,10 +473,17 @@ local XPC = {
         }},
 
         loc_vars = function(self, info_queue, card)
-            return {vars = {
-                card.ability.extra.basic_level,
+            local numerator, denominator = SMODS.get_probability_vars(
+                card,
                 card.ability.extra.numerator,
                 card.ability.extra.denominator,
+                'Interceptor'
+            )
+
+            return {vars = {
+                card.ability.extra.basic_level,
+                numerator,
+                denominator,
                 card.ability.extra.bonus_level
             }}
         end,
@@ -3634,6 +3641,8 @@ for _, k in ipairs(XPCO) do
         update = joker.update
     })
 end
+
+---
 
 local last_triggered_game = nil
 local last_triggered_hand = nil
