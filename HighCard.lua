@@ -1,4 +1,5 @@
 mod_prefix = SMODS.current_mod.prefix
+XPC_deck_key = 'X-Playing_Deck'
 
 --Stone Viewer: Reveal the hidden base of Stone Cards--
 SMODS.Enhancement:take_ownership('stone', {
@@ -3627,185 +3628,12 @@ for _, k in ipairs(XPCO) do
     })
 end
 
----
-
 local last_triggered_game = nil
 local last_triggered_hand = nil
 
-local atlas_1 = SMODS.Atlas({
-    key = "XPdeck_1",
-    path = 'face_Caro_LC.png',
-    px = 71,
-    py = 95,
-})
-
-local atlas_2 = SMODS.Atlas({
-    key = "XPdeck_2",
-    path = 'face_Caro_HC.png',
-    px = 71,
-    py = 95,
-})
-
-XPC_deck_key = 'X-Playing_Deck'
-
-local function deck_matched(center)
-    prefix_key = 'b_'.. mod_prefix ..'_'.. XPC_deck_key
-    return center and (
-        center.key == prefix_key
-        or center.original_key == XPC_deck_key
-    )
-end
-  
-local backup_get_front_spriteinfo = get_front_spriteinfo
-
-function get_front_spriteinfo(_front)
-    local atlas, pos, sprite_args =
-        backup_get_front_spriteinfo(_front)
-
-    local selected_back =
-        G.GAME and G.GAME.selected_back
-
-    local center =
-        selected_back
-        and selected_back.effect
-        and selected_back.effect.center
-
-    if deck_matched(center)
-        and _front
-        and _front.pos
-    then
-        local atlas_key =
-            (G.SETTINGS and G.SETTINGS.colourblind_option)
-            and atlas_2.key
-            or atlas_1.key
-
-        local HCatlas = SMODS.get_atlas(atlas_key)
-
-        if HCatlas then
-            return HCatlas, _front.pos, sprite_args
-        end
-    end
-
-    return atlas, pos, sprite_args
-end
-
-local function clone_color_map(source)
-    local result = {}
-
-    for suit, color in pairs(source or {}) do
-        result[suit] = {
-            color[1],
-            color[2],
-            color[3],
-            color[4] or 1
-        }
-    end
-
-    return result
-end
-
-local backup_SO_1 = clone_color_map(G.C.SO_1)
-local backup_SO_2 = clone_color_map(G.C.SO_2)
-
-local HC_SO_1 = {
-    Hearts   = HEX('AF2C32'),
-    Diamonds = HEX('00528C'),
-    Spades   = HEX('59099E'),
-    Clubs    = HEX('19823F'),
-}
-
-local HC_SO_2 = {
-    Hearts   = HEX('D70C18'),
-    Diamonds = HEX('0066FF'),
-    Spades   = HEX('59099E'),
-    Clubs    = HEX('1D9F3A'),
-}
-
-local function overwrite_color_map(target, source)
-    if not target or not source then
-        return
-    end
-
-    for suit, color in pairs(source) do
-        local dest = target[suit]
-
-        if dest then
-            dest[1] = color[1]
-            dest[2] = color[2]
-            dest[3] = color[3]
-            dest[4] = color[4] or 1
-        else
-            target[suit] = {
-                color[1],
-                color[2],
-                color[3],
-                color[4] or 1
-            }
-        end
-    end
-end
-
-local function apply_suit_text_colors(back)
-    local center =
-        back and back.effect
-        and back.effect.center
-
-    local use_custom = deck_matched(center)
-
-    overwrite_color_map(
-        G.C.SO_1,
-        use_custom and HC_SO_1 or backup_SO_1
-    )
-
-    overwrite_color_map(
-        G.C.SO_2,
-        use_custom and HC_SO_2 or backup_SO_2
-    )
-end
-
-local unpack_fn = unpack or table.unpack
-
-local backup_apply_to_run = Back.apply_to_run
-
-function Back:apply_to_run(...)
-    local result = {backup_apply_to_run(self, ...)}
-
-    apply_suit_text_colors(self)
-
-    return unpack_fn(result)
-end
-
-if Game and Game.start_run then
-    local backup_start_run = Game.start_run
-
-    function Game:start_run(...)
-        local result = {backup_start_run(self, ...)}
-
-        local back =
-            (G.GAME and G.GAME.selected_back)
-            or (self.GAME and self.GAME.selected_back)
-
-        apply_suit_text_colors(back)
-
-        return unpack_fn(result)
-    end
-end
-
-if Game and Game.main_menu then
-    local backup_main_menu = Game.main_menu
-
-    function Game:main_menu(...)
-        apply_suit_text_colors(nil)
-
-        return backup_main_menu(self, ...)
-    end
-end
-
-
-SMODS.Back({
+local XPC_Back = SMODS.Back({
     key = XPC_deck_key,
     atlas = 'XPCB',
-    pos = { x = 0, y = 0 },
 
     loc_txt = {
         name = localize({
@@ -3827,18 +3655,22 @@ SMODS.Back({
 
         if not G.GAME or not G.GAME.blind or not G.play
             or #G.play.cards ~= 1
-        then return
+        then
+            return
         end
 
         local hand_count = G.GAME.hands_played or 0
 
         if last_triggered_game == G.GAME
             and last_triggered_hand == hand_count
-        then return
+        then
+            return
         end
 
-        if not G.jokers or #G.jokers.cards >= G.jokers.config.card_limit
-        then return
+        if not G.jokers
+            or #G.jokers.cards >= G.jokers.config.card_limit
+        then
+            return
         end
 
         local chips = context.chips or 0
@@ -3857,8 +3689,10 @@ SMODS.Back({
         local rank = x.base.value
         local suit = x.base.suit
 
-        if rank == '10' then rank = 'T'
-        else rank = string.sub(rank, 1, 1)
+        if rank == '10' then
+            rank = 'T'
+        else
+            rank = string.sub(rank, 1, 1)
         end
 
         suit = string.lower(string.sub(suit, 1, 1))
@@ -3870,13 +3704,14 @@ SMODS.Back({
         if type(x.edition) == 'table' then
             edition = copy_table(x.edition)
         elseif x.edition == 'e_negative_playing_card' then
-            edition = {negative = true}
+            edition = { negative = true }
         end
 
         local enhancement = nil
 
         if x.config and x.config.center
-        and x.config.center.set == 'Enhanced' then
+            and x.config.center.set == 'Enhanced'
+        then
             enhancement = x.config.center.key
         end
 
@@ -3892,7 +3727,7 @@ SMODS.Back({
         })
 
         SMODS.destroy_cards({x})
-        
+
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0,
@@ -3913,6 +3748,7 @@ SMODS.Back({
                         enhancement = enhancement,
                         seal = seal
                     }
+
                     joker:start_materialize()
                 end
 
@@ -3922,14 +3758,166 @@ SMODS.Back({
     end
 })
 
+SMODS.Atlas({
+    key = 'XPdeck_1',
+    raw_key = true,
+    path = 'face_Caro_LC.png',
+    px = 71,
+    py = 95,
+})
+
+SMODS.Atlas({
+    key = 'XPdeck_2',
+    raw_key = true,
+    path = 'face_Caro_HC.png',
+    px = 71,
+    py = 95,
+})
+
+do
+    local function isXPdeck()
+        local selected_back = G.GAME
+            and G.GAME.selected_back
+
+        local center = selected_back
+            and selected_back.effect
+            and selected_back.effect.center
+
+        if not center then
+            return false
+        end
+
+        if XPC_Back and center.key == XPC_Back.key then
+            return true
+        end
+
+
+        return center.key == XPC_deck_key
+    end
+
+    local function isXP_HC(suit)
+        local settings = G.SETTINGS
+        local palettes = settings and settings.colour_palettes
+
+        if palettes and palettes[suit] ~= nil then
+            return palettes[suit] == 'hc'
+        end
+
+        return settings and settings.colourblind_option == true or false
+    end
+
+    local backup_get_front_spriteinfo = get_front_spriteinfo
+    local function isCollab(suit)
+        local settings = G.SETTINGS
+        local custom_deck = settings and settings.CUSTOM_DECK
+        local collabs = custom_deck and custom_deck.Collabs
+
+        local collab_key = collabs and collabs[suit]
+
+        if not collab_key then
+            return false
+        end
+
+        if collab_key == 'default'
+            or collab_key == ('default_' .. suit)
+        then
+            return false
+        end
+
+        return true
+    end
+
+    function get_front_spriteinfo(_front)
+        local atlas, pos, sprite_args =
+            backup_get_front_spriteinfo(_front)
+
+        if not isXPdeck() or not _front or not _front.suit
+        then
+            return atlas, pos, sprite_args
+        end
+
+        if isCollab(_front.suit) then
+            return atlas, pos
+        end
+
+        local atlas_key = isXP_HC(_front.suit)
+            and 'XPdeck_2' or 'XPdeck_1'
+
+        local custom_atlas = SMODS.get_atlas(atlas_key)
+
+        if not custom_atlas then
+            return atlas, pos, sprite_args
+        end
+
+        return custom_atlas, pos, sprite_args
+    end
+
+
+    local XPC_SUIT_TEXT_COLOURS = {
+        lc = {
+            Hearts = HEX('AF2C32'),
+            Diamonds = HEX('00528C'),
+            Spades = HEX('3A0B6C'),
+            Clubs = HEX('19823F'),
+        },
+        hc = {
+            Hearts = HEX('D70C18'),
+            Diamonds = HEX('0066FF'),
+            Spades = HEX('4F0C8E'),
+            Clubs = HEX('1D9F3A'),
+        },
+    }
+
+    local function apply_suit_text_colour(card)
+        if not isXPdeck() or not card or not card.base or not card.base.suit
+        then return end
+
+        local suit = card.base.suit
+
+        local palette = isXP_HC(suit)
+            and XPC_SUIT_TEXT_COLOURS.hc
+            or XPC_SUIT_TEXT_COLOURS.lc
+
+        local colour = palette[suit]
+
+        if colour then
+            card.base.colour = colour
+        end
+    end
+
+    local backup_set_base = Card.set_base
+
+    function Card:set_base(card, initial, manual_sprites)
+        local result = backup_set_base(
+            self,
+            card,
+            initial,
+            manual_sprites
+        )
+
+        apply_suit_text_colour(self)
+
+        return result
+    end
+
+    local backup_set_sprites = Card.set_sprites
+
+    function Card:set_sprites(_center, _front)
+        local result = backup_set_sprites(
+            self, _center, _front
+        )
+
+        apply_suit_text_colour(self)
+
+        return result
+    end
+end
+
 challenges = function(poker_hands, jokers)
     for h, j in pairs(jokers) do
         local temp = {}
         for _, key in ipairs(j) do
-            temp[#temp + 1] = {
-                id = 'j_'.. mod_prefix ..'_'.. key,
-                eternal = true
-            }
+            temp[#temp + 1] = {id = 'j_'.. mod_prefix ..'_'.. key}
         end
         jokers[h] = temp
     end
