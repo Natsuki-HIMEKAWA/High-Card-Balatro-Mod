@@ -287,7 +287,7 @@ local XPC = {
         config = {
             extra = {
                 x_mult = 1.0,                
-                x_mult_add = 0.2,
+                x_mult_add = 0.5,
                 poker_hand = 'Four of a Kind'
             }
         },
