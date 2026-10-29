@@ -482,13 +482,12 @@ local descriptions = {
             name = "Reaper's Hand",
             text = {
                 'Destroy all scored cards in the',
-                "{C:attention}first hand{}, and {C:legendary}Reaper's Hand{}",
-                'gains corresponding {C:chips}Chips{}, {C:mult}Mult{},',
-                '{C:white,X:mult}XMult{}, or returns {C:money}money{}',
-                'from their {C:enhanced}Enhancements{}',
-                'or {C:dark_edition}Editions{} after scoring',
-                '{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips,',
-                '{C:mult}+#2#{} {C:inactive}Mult{}, {X:mult,C:white}X#3#{}{C:inactive} Mult){}'
+                "{C:attention}first hand{}, and {C:legendary}Reaper's Hand{} gains",
+                'corresponding {C:chips}Chips{}, {C:mult}Mult{}, {C:white,X:mult}XMult{},',
+                'or returns {C:money}money{} from their',
+                '{C:enhanced}Enhancements{} or {C:dark_edition}Editions{} after scoring',
+                'Resets when {C:attention}Boss Blind{} is defeated',
+                '{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips, {C:mult}+#2#{} {C:inactive}Mult,{} {X:mult,C:white}X#3#{}{C:inactive} Mult){}'
             }
         },
         ['j_'.. mod_prefix ..'_Ac'] = {
