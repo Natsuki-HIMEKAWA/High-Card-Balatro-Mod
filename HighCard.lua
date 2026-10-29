@@ -2095,7 +2095,7 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            if context.initial_scoring_step then
+            if context.after then
                 local changed_cards = {}
 
                 for _, scored_card in ipairs(context.scoring_hand) do
@@ -3826,7 +3826,6 @@ SMODS.Back({
         end
 
         if not G.GAME or not G.GAME.blind or not G.play
-            or G.GAME.last_hand_played ~= 'High Card'
             or #G.play.cards ~= 1
         then return
         end
