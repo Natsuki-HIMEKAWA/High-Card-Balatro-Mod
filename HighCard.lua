@@ -3913,55 +3913,6 @@ do
     end
 end
 
-challenges = function(poker_hands, jokers)
-    for h, j in pairs(jokers) do
-        local temp = {}
-        for _, key in ipairs(j) do
-            temp[#temp + 1] = {id = 'j_'.. mod_prefix ..'_'.. key}
-        end
-        jokers[h] = temp
-    end
-
-    for index = #poker_hands, 1, -1 do
-        SMODS.Challenge{
-            key = poker_hands[index],
-            deck = {type = 'Challenge Deck'},
-            rules = {
-                custom = {{id = 'no_shop_jokers'}},
-                modifiers = {{id = 'joker_slots', value = 0}}
-            },
-            jokers = jokers[poker_hands[index]],
-            consumeables = {},
-            vouchers = {},
-            restrictions = {
-                banned_cards = {
-                    {id = 'c_judgement'},
-                    {id = 'c_wraith'},
-                    {id = 'c_soul'},
-                    {id = 'v_antimatter'},
-                    {id = 'p_buffoon_normal_1', ids = {
-                        'p_buffoon_normal_1','p_buffoon_normal_2','p_buffoon_jumbo_1','p_buffoon_mega_1',
-                    }}
-                },
-                banned_tags = {
-                    {id = 'tag_rare'},
-                    {id = 'tag_uncommon'},
-                    {id = 'tag_holo'},
-                    {id = 'tag_polychrome'},
-                    {id = 'tag_negative'},
-                    {id = 'tag_foil'},
-                    {id = 'tag_buffoon'},
-                    {id = 'tag_top_up'}
-                },
-                banned_other = {
-                    {id = 'bl_final_heart', type = 'blind'},
-                    {id = 'bl_final_leaf', type = 'blind'}
-                }
-            }
-        }
-    end
-end
-
 local poker_hands = {
     'RF','SF','4K',
     'FH','FL','ST','3K',
@@ -3979,5 +3930,85 @@ local jokers = {
     ['1P'] = {'7s','7c','Jh','8s','4d'},
     ['HC'] = {'Kd','Th','9s','8c','4c'}
 }
+
+challenges = function(poker_hands, jokers)
+    for h, j in pairs(jokers) do
+        local temp = {}
+        for _, key in ipairs(j) do
+            temp[#temp + 1] = {id = 'j_'.. mod_prefix ..'_'.. key}
+        end
+        jokers[h] = temp
+    end
+
+    for index = #poker_hands, 1, -1 do
+        local consumables = {}
+        local hand = poker_hands[index]
+
+        if hand == 'HC' then
+            consumables = {{id = 'c_pluto'}}
+        elseif hand == '1P' then
+            consumables = {{id = 'c_mercury'}}
+        elseif hand == '2P' then
+            consumables = {{id = 'c_uranus'}}
+        elseif hand == '3K' then
+            consumables = {{id = 'c_venus'}}
+        elseif hand == 'ST' then
+            consumables = {{id = 'c_saturn'}}
+        elseif hand == 'FL' then
+            consumables = {{id = 'c_jupiter'}}
+        elseif hand == 'FH' then
+            consumables = {{id = 'c_earth'}}
+        elseif hand == '4K' then
+            consumables = {{id = 'c_mars'}}
+        elseif hand == 'SF' then
+            consumables = {{id = 'c_neptune'}}
+        elseif hand == 'RF' then
+            consumables = {{id = 'c_fool'},{id = 'c_neptune'}}
+        elseif hand == '5K' then
+            consumables = {{id = 'c_planet_x'}}
+        elseif hand == 'HF' then
+            consumables = {{id = 'c_ceres'}}
+        elseif hand == '5F' then
+            consumables = {{id = 'c_eris'}}
+        else 
+            consumables = {}
+        end
+
+        SMODS.Challenge{
+            key = hand,
+            deck = {type = 'Challenge Deck'},
+            rules = {
+                custom = {{id = 'no_shop_jokers'}},
+                modifiers = {{id = 'joker_slots', value = 0}}
+            },
+            jokers = jokers[hand],
+            consumeables = consumables,
+            vouchers = {},
+            restrictions = {
+                banned_cards = {
+                    {id = 'c_judgement'},
+                    {id = 'c_wraith'},
+                    {id = 'c_soul'},
+                    {id = 'v_antimatter'},
+                    {id = 'p_buffoon_normal_1', ids = {
+                        'p_buffoon_normal_1','p_buffoon_normal_2',
+                        'p_buffoon_jumbo_1','p_buffoon_mega_1',
+                    }}
+                },
+                banned_tags = {
+                    {id = 'tag_rare'},
+                    {id = 'tag_uncommon'},
+                    {id = 'tag_holo'},
+                    {id = 'tag_polychrome'},
+                    {id = 'tag_negative'},
+                    {id = 'tag_foil'},
+                    {id = 'tag_buffoon'},
+                    {id = 'tag_top_up'}
+                },
+                banned_other = {}
+            }
+        }
+    end
+end
 
 challenges(poker_hands, jokers)
