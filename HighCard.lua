@@ -3566,8 +3566,7 @@ local XPC = {
                                 spectral:add_to_deck()
                                 G.consumeables:emplace(spectral)
 
-                                G.GAME.consumeable_buffer = math.max(0,
-                                    G.GAME.consumeable_buffer - 1)
+                                G.GAME.consumeable_buffer = math.max(0, G.GAME.consumeable_buffer - 1)
 
                                 return true
                             end}))
