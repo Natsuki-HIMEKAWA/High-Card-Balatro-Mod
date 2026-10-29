@@ -334,10 +334,11 @@ local descriptions = {
             name = 'No Mercy',
             text = {
                 'The {C:legendary}No Mercy{} gains {C:white,X:mult}XMult{}',
-                'equal to the {C:attention}rank{} of',
-                'the {C:attention}first scored card{} of',
-                'each round, then destroys it',
-                'Resets at the end of round',
+                'equal to {C:attention}quarter{} of the',
+                '{C:attention}rank{} of the {C:attention}first scored{}',
+                '{C:attention}card{} of each round,',
+                'then destroys it, resets',
+                'at the end of round',
                 '{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult){}'
             }
         },
