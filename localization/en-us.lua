@@ -301,7 +301,7 @@ local descriptions = {
             text = {
                 'All played {C:attention}#1#{} and',
                 '{C:attention}#2#{} increase ',
-                'ranks by {C:attention}#3#{} when scored'
+                'ranks by {C:attention}#3#{} after scored'
             }
         },
         ['j_'.. mod_prefix ..'_6d'] = {
