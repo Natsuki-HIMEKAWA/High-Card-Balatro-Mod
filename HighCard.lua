@@ -1489,10 +1489,12 @@ local XPC = {
 
                 for index = 2, #context.scoring_hand do
                     local scored_card = context.scoring_hand[index]
-                    local converts = SMODS.change_base(
-                        scored_card, suit, nil, true)
-                    if converts then
-                        table.insert(changed_cards, scored_card)
+                    if scored_card.config.center.key ~= 'm_stone' then
+                        local converts = SMODS.change_base(
+                            scored_card, suit, nil, true)
+                        if converts then
+                            table.insert(changed_cards, scored_card)
+                        end
                     end
                 end
 
