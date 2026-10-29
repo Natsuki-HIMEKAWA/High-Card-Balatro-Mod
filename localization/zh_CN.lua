@@ -449,8 +449,9 @@ local descriptions = {
                 '获得这些牌相应增强与',
                 '版本提供的{C:chips}筹码{}，{C:mult}倍率{}，',
                 '{C:white,X:mult}X倍率{}，或返还相应{C:money}金钱{}',
+                '击败{C:attention}Boss盲注{}后重置',
                 '{C:inactive}（当前为{C:chips}+#1#{}{C:inactive}筹码，{}',
-                '{C:mult}+#2#{}{C:inactive}倍率{}，{X:mult,C:white}X#3#{}{C:inactive}倍率）{}'
+                '{C:mult}+#2#{}{C:inactive}倍率，{}{X:mult,C:white}X#3#{}{C:inactive}倍率）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Ac'] = {
