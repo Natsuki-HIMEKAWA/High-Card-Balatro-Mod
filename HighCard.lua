@@ -3507,6 +3507,14 @@ local XPC = {
                     }
                 end
 
+                if context.end_of_round and G.GAME.blind.boss
+                and context.main_eval then
+                    card.ability.extra.chips = 0
+                    card.ability.extra.mult = 0
+                    card.ability.extra.x_mult = 1
+                    return {message = localize('k_reset')}
+                end
+
                 if context.selling_self then
                     adding_self(card)
                 end
