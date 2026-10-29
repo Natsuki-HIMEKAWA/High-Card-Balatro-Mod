@@ -282,7 +282,7 @@ local descriptions = {
             name = '最强人类',
             text = {
                 '打出的所有{C:attention}#1#{}',
-                '和{C:attention}#2#{}在计分时',
+                '和{C:attention}#2#{}在计分后',
                 '增加{C:attention}1{}级点数'
             }
         },
