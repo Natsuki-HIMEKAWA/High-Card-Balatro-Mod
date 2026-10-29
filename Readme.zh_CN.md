@@ -39,7 +39,7 @@
 
    - **Windows：** `%AppData%/Balatro/Mods/`
    - **macOS：** `~/Library/Application Support/Balatro/Mods/`
-   - **Linux / Steam Deck：**Mods文件夹的具体位置取决于安装方式。对于通过Proton运行的安装方式，请参阅[Steamodded Linux安装指南](https://github.com/Steamodded/smods/wiki/Installing-Steamodded-linux)。
+   - **Linux / Steam Deck：** Mods文件夹的具体位置取决于安装方式。对于通过Proton运行的安装方式，请参阅[Steamodded Linux安装指南](https://github.com/Steamodded/smods/wiki/Installing-Steamodded-linux)。
 
 5. 启动Balatro，并在Mods菜单中确认**High Card**成功显示。
 
