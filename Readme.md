@@ -96,7 +96,7 @@ Please note that submitting a Pull Request does not grant permission to redistri
 ## License
 
 This project is distributed under a custom non-commercial license.
-You may download, use, and redistribute the original, unmodified mod and related assets free of charge for personal, non-commercial purposes.
+You may download, use, and redistribute the original, unmodified mod free of charge for personal, non-commercial purposes.
 
 Redistribution of modified versions and commercial use require prior written permission from the copyright holder.
 
