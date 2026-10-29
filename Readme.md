@@ -89,7 +89,7 @@ Suggestions for Joker balancing and additional translations are also welcome.
 
 Bug reports, balancing suggestions, and additional language translations are welcome.
 
-You may submit a [Pull Request](../../pulls) to propose changes for review.
+You may [submit a Pull Request](../../pulls) to propose changes for review.
 Please note that submitting a Pull Request does not grant permission to redistribute modified versions of this mod.
 
 
