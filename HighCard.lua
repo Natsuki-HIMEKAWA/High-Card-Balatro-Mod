@@ -1299,6 +1299,13 @@ local XPC = {
                 if context.selling_self then
                     adding_self(card)
                 end
+
+                if context.after or context.discard then
+                    return {
+                        message = localize('k_burnt'),
+                        colour = G.C.RED
+                    }
+                end
             end
         end
     },
