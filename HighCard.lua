@@ -1272,8 +1272,8 @@ local XPC = {
         config = {extra = {x_mult_add = 1, x_mult = 1}},
 
         loc_vars = function(self, info_queue, card)
-            local remaining = G.GAME.current_round.hands_left or 0
-            + G.GAME.current_round.discards_left or 0
+            local remaining = 
+            (G.GAME.current_round.hands_left - 1 or 0) + (G.GAME.current_round.discards_left or 0)
             card.ability.extra.x_mult = 1 + remaining * card.ability.extra.x_mult_add
             return { vars = {
                     card.ability.extra.x_mult_add,
@@ -1283,8 +1283,8 @@ local XPC = {
 
         calculate = function(self,card,context)
             if context.joker_main then
-                local remaining = G.GAME.current_round.hands_left or 0
-                + G.GAME.current_round.discards_left or 0
+                local remaining =
+                (G.GAME.current_round.hands_left or 0) + (G.GAME.current_round.discards_left or 0)
                 card.ability.extra.x_mult = 1 + remaining * card.ability.extra.x_mult_add
 
                 if card.ability.extra.x_mult > 1 then
@@ -3642,7 +3642,225 @@ for _, k in ipairs(XPCO) do
 end
 
 ---
+--Test Deck
+do
+    backup_Back = Back.apply_to_run
 
+    function Back.apply_to_run(deck)
+        backup_Back(deck)
+        if deck.effect.config.test then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    for i = #G.playing_cards, 1, -1 do
+                        G.playing_cards[i]:start_dissolve(nil, true) --(dissolve_color,silent)
+                    end
+                    
+                    local test_cards_data = {
+                        {'A','S', nil,'Blue', nil, 1},
+                        {'A','S', 'm_bonus', nil, {foil = true}, 3},
+                        {'A','S', 'm_mult', nil, {holo = true} , 4},
+                        {'A','S', 'm_wild', nil, nil, 1},
+                        {'A','S', 'm_glass','Red', {polychrome = true}, 2},
+                        {'A','S', 'm_steel','Red', nil, 1},
+                        {'A','S', 'm_stone', 'Purple', nil, 1},
+                        {'A','S', 'm_gold', 'Red', nil, 1},
+                        {'A','S', 'm_lucky','Gold', {negative = true}, 5},
+                        {'4','H', 'm_lucky','Gold', {negative = true}, 1},
+                        {'4','H', 'm_glass','Gold', {negative = true}, 5},
+                        {'4','H', 'm_glass','Gold', {negative = true}, 5},
+                        {'4','H', 'm_glass','Gold', {negative = true}, 5},
+                        {'4','H', nil, 'Red', {negative = true}, 5},
+                        {'4','H', 'm_stone','Blue', {negative = true}, 1}
+                    }
+                    
+                    for _, data in ipairs(test_cards_data) do
+                        local rank = data[1]
+                        local suit = data[2]
+                        local enhancement = data[3]
+                        local seal = data[4]
+                        local edition = data[5]
+                        local count = data[6]
+                        
+                        for i = 1, count do
+                            local card = Card(G.play.T.x, G.play.T.y, G.CARD_W, G.CARD_H, 
+                                G.P_CARDS[suit .. '_' .. rank],
+                                G.P_CENTERS[enhancement or 'c_base']
+                            )
+
+                            if edition ~= nil then
+                                card:set_edition(edition,true,true) --edition, immediate, silent
+                            end
+
+                            if seal ~= nil then
+                                card:set_seal(seal, true, true) --seal, immediate, silent
+                            end
+
+                            card:add_to_deck()
+                            G.deck:emplace(card)
+                            table.insert(G.playing_cards, card)
+                        end
+                    end
+
+                    if XPCJ then
+                        local test = {'5h'}
+                        for _, testkey in ipairs(test) do
+                            for _, joker in ipairs(XPCJ) do
+                                if joker.key == 'j_'.. mod_prefix ..'_'.. testkey then
+                                    local J = SMODS.create_card({
+                                        set = 'Joker',
+                                        key = joker.key,
+                                        area = G.jokers,
+                                        edition = {negative = true}
+                                    })
+
+                                    J:add_to_deck()
+                                    G.jokers:emplace(J)
+                                end
+                            end
+                        end
+                    end
+
+                    -- Create given Jokers to test
+                    local jokerlist = {
+                        --'credit_card',
+                        'four_fingers',
+                        --'oops','oops','oops',
+                        --'blueprint',
+                        'mr_bones',
+                        'brainstorm'
+                    }
+                    for _, key in pairs(jokerlist) do
+                        local joker = SMODS.create_card({
+                            set = 'Joker',
+                            key = 'j_' .. key,
+                            area = G.jokers,
+                            edition = {negative = true}
+                        })
+                        joker:add_to_deck()
+                        G.jokers:emplace(joker)
+                    end
+                    --
+                    G.starting_deck_size = #G.playing_cards
+                return true
+                end
+            }))
+        end
+        return true
+    end
+
+    SMODS.Back({
+        key = 'test_deck',
+        atlas = 'XPCB',
+        pos = { x = 0, y = 0 },
+        loc_txt = {
+            name = 'Test Deck',
+            text = {'Description'}
+        },
+        config = { test = true, hands = 0, discards = 0, money = 0, hand_size = 0 },
+        unlocked = true,
+        discovered = true,
+        calculate = function(self, back, context)
+            if context.context ~= 'final_scoring_step' then
+                return
+            end
+
+            if not G.GAME or not G.GAME.blind or not G.play
+                or G.GAME.last_hand_played ~= 'High Card'
+                or #G.play.cards ~= 1
+            then return
+            end
+
+            local hand_count = G.GAME.hands_played or 0
+
+            if last_triggered_game == G.GAME
+                and last_triggered_hand == hand_count
+            then return
+            end
+
+            if not G.jokers or #G.jokers.cards >= G.jokers.config.card_limit
+            then return
+            end
+
+            local chips = context.chips or 0
+            local mult = context.mult or 0
+
+            if G.GAME.chips + chips * mult < G.GAME.blind.chips then
+                return
+            end
+
+            local x = G.play.cards[1]
+
+            if not x or x.destroyed or x.shattered then
+                return
+            end
+
+            local rank = x.base.value
+            local suit = x.base.suit
+
+            rank = string.sub(rank, 1, 1)
+
+            suit = string.lower(string.sub(suit, 1, 1))
+
+            local key = 'j_'.. mod_prefix ..'_'.. rank .. suit
+
+            local edition = nil
+
+            if type(x.edition) == 'table' then
+                edition = copy_table(x.edition)
+            elseif x.edition == 'e_negative_playing_card' then
+                edition = {negative = true}
+            end
+
+            local enhancement = nil
+
+            if x.config and x.config.center
+            and x.config.center.set == 'Enhanced' then
+                enhancement = x.config.center.key
+            end
+
+            local seal = x.seal
+
+            last_triggered_game = G.GAME
+            last_triggered_hand = hand_count
+
+            card_eval_status_text(x, 'extra', nil, nil, nil, {
+                message = localize('k_activated'),
+                colour = G.C.GREEN,
+                card = x
+            })
+
+            SMODS.destroy_cards({x})
+            
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0,
+                func = function()
+                    local joker = SMODS.add_card({
+                        set = 'Joker',
+                        area = G.jokers,
+                        key = key,
+                        edition = edition,
+                        no_edition = true,
+                        skip_materialize = true,
+                        silent = true,
+                        immediate = true
+                    })
+
+                    if joker then
+                        joker.ability.original = {
+                            enhancement = enhancement,
+                            seal = seal
+                        }
+                        joker:start_materialize()
+                    end
+
+                    return true
+                end
+            }))
+        end
+    })
+end
+--The end of Test Deck
 local last_triggered_game = nil
 local last_triggered_hand = nil
 
@@ -3935,7 +4153,7 @@ do
             if not effect_valid(viewed_back) then
                 if effect_valid(selected_back) then
                     game.viewed_back = nil
-                card_eval_status_text
+                else
                     game.viewed_back = {
                         effect = {
                             center = {}
