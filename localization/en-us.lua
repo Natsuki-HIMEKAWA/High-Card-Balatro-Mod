@@ -537,6 +537,7 @@ local misc = {
         k_armed = 'Armed!',
         k_slained = 'Slained!',
         k_merged = 'Merged!',
+        k_burnt = 'Burnt!',
         k_transform = 'Transform!',
         k_chameleon = 'Chameleon!',
         k_induce = 'Induce!',
