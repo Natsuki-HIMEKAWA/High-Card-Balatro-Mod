@@ -182,7 +182,7 @@ local descriptions = {
             text = {
                 'Gives {C:white,X:mult}X#1#{} Mult for each',
                 'remaining {C:blue}Hand{} and {C:red}Discard{}',
-                '{C:inactive}({C:white,X:mult}X#2#{}{C:inactive} Mult when{}',
+                '{C:inactive}(Gives {C:white,X:mult}X#2#{}{C:inactive} Mult when{}',
                 '{C:inactive}playing the next hand){}'
             }
         },
