@@ -1274,7 +1274,9 @@ local XPC = {
         loc_vars = function(self, info_queue, card)
             local remaining = 
             (G.GAME.current_round.hands_left or 0) + (G.GAME.current_round.discards_left or 0)
-            card.ability.extra.x_mult = 1 + (remaining - 1) * card.ability.extra.x_mult_add
+            if remaining > 1 then
+                card.ability.extra.x_mult = 1 + (remaining - 1) * card.ability.extra.x_mult_add
+            else card.ability.extra.x_mult = 1 end
             return { vars = {
                     card.ability.extra.x_mult_add,
                     card.ability.extra.x_mult
