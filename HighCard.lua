@@ -3915,12 +3915,48 @@ do
         return result
     end
 
+
     local backup_set_sprites = Card.set_sprites
 
+    local function effect_valid(back)
+        return type(back) == 'table'
+            and type(back.effect) == 'table'
+            and type(back.effect.center) == 'table'
+    end
+
     function Card:set_sprites(_center, _front)
-        local result = backup_set_sprites(
+        local game = G and G.GAME
+        local original_viewed_back = game and game.viewed_back
+
+        if game then
+            local viewed_back = game.viewed_back
+            local selected_back = game.selected_back
+
+            if not effect_valid(viewed_back) then
+                if effect_valid(selected_back) then
+                    game.viewed_back = nil
+                card_eval_status_text
+                    game.viewed_back = {
+                        effect = {
+                            center = {}
+                        }
+                    }
+                end
+            end
+        end
+
+        local ok, result = pcall(
+            backup_set_sprites,
             self, _center, _front
         )
+
+        if game then
+            game.viewed_back = original_viewed_back
+        end
+
+        if not ok then
+            error(result, 0)
+        end
 
         apply_suit_text_colour(self)
 
