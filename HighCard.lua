@@ -927,7 +927,7 @@ local XPC = {
             set = 'Joker',
             key = 'As'
         }),
-        config = {extra = {rank = 14, x_mult_add = 1.1}},
+        config = {extra = {rank = 14, x_mult_add = 0.5}},
 
         loc_vars = function(self,info_queue,card)
             local ace = 0
