@@ -432,8 +432,12 @@ local XPC = {
                         trigger = 'after',
                         func = function()
                             card_eval_status_text(card, 'extra', nil, nil, nil, {
-                                message = localize('k_upgrade_ex'),
-                                colour = G.C.MULT
+                                message = localize {
+                                    type = 'variable',
+                                    key = 'a_xmult',
+                                    vars = {card.ability.extra.x_mult}
+                                },
+                                colour = G.C.RED
                             })
 
                             return true
@@ -830,8 +834,7 @@ local XPC = {
                                                 nil, true)
 
                                             if petrify then
-                                                scored_card:set_sprites(nil,
-                                                    scored_card.config.card)
+                                                scored_card:set_sprites(nil, scored_card.config.card)
                                                 scored_card:juice_up()
                                             end
                                         end
@@ -1269,7 +1272,7 @@ local XPC = {
             set = 'Joker',
             key = '5h'
         }),
-        config = {extra = {x_mult_add = 1, x_mult = 1}},
+        config = {extra = {x_mult_add = 1, x_mult = 1, message = false}},
 
         loc_vars = function(self, info_queue, card)
             local remaining = 
@@ -1302,11 +1305,22 @@ local XPC = {
                     adding_self(card)
                 end
 
+                if context.hand_drawn then
+                    card.ability.extra.message = true
+                end
+
                 if context.after or context.discard then
-                    return {
-                        message = localize('k_burnt'),
-                        colour = G.C.RED
-                    }
+                    if card.ability.extra.message then
+                        card.ability.extra.message = false
+                        return {
+                            message = localize{
+                                type = 'variable',
+                                key = 'a_xmult_minus',
+                                vars = {card.ability.extra.x_mult_add}
+                            },
+                            colour = G.C.RED
+                        }
+                    end
                 end
             end
         end
@@ -1492,10 +1506,7 @@ local XPC = {
                                 trigger = 'immediate',
                                 func = function()
                                     for _, scored_card in ipairs(changed_cards) do
-                                        scored_card:set_sprites(
-                                            nil,
-                                            scored_card.config.card
-                                        )
+                                        scored_card:set_sprites(nil, scored_card.config.card)
                                         scored_card:juice_up()
                                     end
                                     return true
@@ -1867,9 +1878,7 @@ local XPC = {
                                 trigger = 'immediate',
                                 func = function()
                                     for _, scored_card in ipairs(changed_cards) do
-                                        scored_card:set_sprites(
-                                            nil, scored_card.config.card
-                                        )
+                                        scored_card:set_sprites(nil, scored_card.config.card)
                                         scored_card:juice_up()
                                     end
                                     return true
@@ -2105,10 +2114,7 @@ local XPC = {
                                 trigger = 'immediate',
                                 func = function()
                                     for _, scored_card in ipairs(changed_cards) do
-                                        scored_card:set_sprites(
-                                            nil,
-                                            scored_card.config.card
-                                        )
+                                        scored_card:set_sprites(nil, scored_card.config.card)
                                         scored_card:juice_up()
                                     end
                                     return true
