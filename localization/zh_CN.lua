@@ -177,9 +177,8 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_6h'] = {
             name = '动物园',
             text = {
-                '每张打出的{C:attention}#1#{}在计分时',
-                '给予{C:white,X:mult}X#2#{}倍率；',
-                '计分后将其转变为{C:attention}#1#{}'
+                '每张无增强的{C:attention}计分牌{}在',
+                '计分时随机获得一种{C:dark_edition}增强{}'
             }
         },
         ['j_'.. mod_prefix ..'_7h'] = {
