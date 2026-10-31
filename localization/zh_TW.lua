@@ -177,9 +177,8 @@ descriptions = {
         ['j_'.. mod_prefix ..'_6h'] = {
             name = '動物園',
             text = {
-                '每張打出的{C:attention}#1#{}在計分時',
-                '給予{C:white,X:mult}X#2#{}倍數；',
-                '計分後將其轉變為{C:attention}#1#{}'
+                '每張無增強的{C:attention}計分牌{}在',
+                '計分時隨機獲得一種{C:dark_edition}增強{}'
             }
         },
         ['j_'.. mod_prefix ..'_7h'] = {
