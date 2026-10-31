@@ -189,10 +189,9 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_6h'] = {
             name = 'The Zoo',
             text = {
-                'Each played {C:attention}#1#{} gives {C:white,X:mult}X#2#{}',
-                'Mult when scored, and',
-                'converts all scored cards',
-                'into {C:attention}#1#s{} after scoring'
+                'Gives each unenhanced',
+                '{C:attention}scored card{} a random',
+                '{C:dark_edition}Enhancment{}'
             }
         },
         ['j_'.. mod_prefix ..'_7h'] = {
