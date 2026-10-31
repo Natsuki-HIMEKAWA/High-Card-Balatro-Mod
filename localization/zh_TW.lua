@@ -7,7 +7,7 @@ descriptions = {
             }
         },
 
-        [mod_prefix ..'_agent_s'] = {
+        [mod_prefix ..'_clone'] = {
             name = '克隆',
             text = {'本回合結束時{C:red}自毀{}'}
         }
@@ -141,10 +141,10 @@ descriptions = {
             }
         },
         ['j_'.. mod_prefix ..'_2h'] = {
-            name = '果凍觸手',
+            name = '果凍爬蟲',
             text = {
-                '每持有{C:money}$#1#{}，手牌上限',
-                '{C:attention}+1{}，至多{C:attention}+#2#{}',
+                '每持有{C:money}$#1#{}，',
+                '手牌上限{C:attention}+1{}，至多{C:attention}+#2#{}',
                 '{C:inactive}（當前為{C:attention}+#3#{C:inactive}手牌上限）{}'
             }
         },
@@ -158,10 +158,10 @@ descriptions = {
             }
         },
         ['j_'.. mod_prefix ..'_4h'] = {
-            name = 'S探員',
+            name = '全能特工',
             text = {
                 '若本回合打出的{C:attention}第一手牌{}',
-                '只有一張牌，則往手牌中',
+                '只有{C:attention}1{}張牌，則往手牌中',
                 '添加其的{C:attention}4{}個{C:attention}克隆{}'
             }
         },
@@ -262,7 +262,7 @@ descriptions = {
             }
         },
         ['j_'.. mod_prefix ..'_3d'] = {
-            name = '彈如雨下',
+            name = '滾滾彈珠',
             text = {
                 '本回合{C:attention}第一次{}出牌',
                 '中的所有計分牌',
@@ -490,7 +490,7 @@ end
 
 local misc = {
     labels = {
-        HIGH_CARD_agent_s = '克隆',
+        [mod_prefix ..'_clone'] = '克隆',
     },
     dictionary = {
         k_loaded = '裝彈！',
@@ -510,7 +510,7 @@ local misc = {
         k_sonic_boom = '音爆！',
         k_fortified = '強化！',
         k_faceless = '變臉！',
-        k_marbles = '彈珠！',
+        k_vitrified = '玻化！',
         k_withered = '凋謝！',
         k_evolved = '進化！',
         k_swapped = '互換！',
