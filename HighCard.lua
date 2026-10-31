@@ -49,7 +49,7 @@ SMODS.Atlas({
 })
 
 SMODS.Sticker {
-    key = 'agent_s',
+    key = 'clone',
     atlas = 'clone',
 
     badge_colour = HEX('D70C18'),
@@ -1190,7 +1190,7 @@ local XPC = {
         config = {extra = {duplicates = 4}},
         loc_vars = function(self,info_queue,card)
             info_queue[#info_queue + 1] = {
-                key = mod_prefix ..'_agent_s',
+                key = mod_prefix ..'_clone',
                 set = 'Other',
             }
             return {vars = {card.ability.extra.duplicates}}
@@ -1205,7 +1205,7 @@ local XPC = {
                     local _card = copy_card(context.full_hand[1], nil, nil, G.playing_card)
                     _card.ability.AgentS = true
 
-                    _card:add_sticker(mod_prefix ..'_agent_s', true)
+                    _card:add_sticker(mod_prefix ..'_clone', true)
                     _card:add_to_deck()
 
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
