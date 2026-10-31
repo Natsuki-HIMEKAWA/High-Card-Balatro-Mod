@@ -1313,6 +1313,8 @@ local XPC = {
     },
 
     H6 = {
+        blueprint_compat = false,
+
         key = '6h',
         pos = {x=4,y=0},
         name = localize({
@@ -1335,66 +1337,32 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            if context.individual and context.cardarea == G.play then
-                if context.other_card:get_id() == card.ability.extra.rank then
-                    return {
-                        x_mult = card.ability.extra.x_mult,
-                        colour = G.C.RED,
-                        card = card
-                        }
+            if context.before then
+                for _, scored_card in ipairs(context.scoring_hand) do
+                    if scored_card.config.center.key == 'c_base' then
+                        local enhancement = pseudorandom_element(
+                            G.P_CENTER_POOLS['Enhanced'],
+                            pseudoseed('The Zoo')
+                        )
+                        scored_card:set_ability(
+                            enhancement,
+                            nil, true
+                        )
                     end
+
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            scored_card:juice_up()
+                            return true
+                        end
+                    }))
+                end
+
+                return {message = localize('k_transform'), colour = G.C.EXTRA}
             end
 
-            if not context.blueprint then
-                if context.after then
-                    local changed_cards = {}
-
-                    for _, scored_card in ipairs(context.scoring_hand) do
-                        if not SMODS.has_enhancement(scored_card, 'm_stone') then
-                            table.insert(changed_cards, scored_card)
-                        end
-                    end
-
-                    if next(changed_cards) then
-
-                        return {
-                            message = localize('k_transform'),
-                            colour = G.C.RARITY[4],
-
-                            func = function()
-                                G.E_MANAGER:add_event(Event({
-                                    trigger = 'immediate',
-
-                                    func = function()
-                                        for _, scored_card in ipairs(changed_cards) do
-                                            local diff =
-                                                card.ability.extra.rank
-                                                - scored_card:get_id()
-
-                                            if diff ~= 0 then
-                                                local increase =
-                                                    SMODS.modify_rank(scored_card,
-                                                        diff,true)
-
-                                                if increase then
-                                                    scored_card:set_sprites(nil,
-                                                        scored_card.config.card)
-                                                        scored_card:juice_up()
-                                                end
-                                            end
-                                        end
-
-                                        return true
-                                    end
-                                }))
-                            end
-                        }
-                    end
-                end
-
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.selling_self then
+                adding_self(card)
             end
         end
     },
@@ -1414,7 +1382,7 @@ local XPC = {
         }),
         config = { extra = {enhancement = 'm_wild', x_mult_add = 0.2} },
 
-        loc_vars = function (self, info_queue, card)
+        loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
             local count = 0
             for _, playing_card in ipairs(G.playing_cards or {}) do
