@@ -2021,7 +2021,7 @@ local XPC = {
                 end
 
                 return {
-                    message = localize('k_marbles'),
+                    message = localize('k_vitrified'),
                     colour = G.C.EXTRA
                 }
             end
