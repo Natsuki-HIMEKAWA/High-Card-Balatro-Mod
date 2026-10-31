@@ -8,7 +8,7 @@ local descriptions = {
         },
 
         
-        [mod_prefix ..'_agent_s'] = {
+        [mod_prefix ..'_clone'] = {
             name = 'Clone',
             text = {
                 '{C:red}Self-destructs{} at',
@@ -526,7 +526,7 @@ end
 
 local misc = {
     labels = {
-        HIGH_CARD_agent_s = 'Clone',
+        [mod_prefix ..'_clone'] = 'Clone',
     },
     dictionary = {
         k_loaded = 'Loaded!',
