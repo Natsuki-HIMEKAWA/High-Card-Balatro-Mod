@@ -29,7 +29,7 @@ local descriptions = {
             text = {
                 '当{C:legendary}新·新南部{}被获得',
                 '或抽完{C:attention}第一手牌{}时，',
-                '将出牌次数设为{C:blue}5{}；',
+                '将出牌次数设为{C:blue}#1#{}；',
                 '每张{C:attention}牌堆{}内剩余',
                 '的牌给予{C:white,X:mult}X#2#{}倍率',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
