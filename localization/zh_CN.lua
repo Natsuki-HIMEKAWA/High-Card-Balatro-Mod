@@ -32,7 +32,7 @@ local descriptions = {
                 '将出牌次数设为{C:blue}5{}；',
                 '每张{C:attention}牌堆{}内剩余',
                 '的牌给予{C:white,X:mult}X#2#{}倍率',
-                '{C:inactive}（当前为{C:white,X:mult}X#2#{C:inactive}倍率）{}'
+                '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
             }
         },
         ['j_'.. mod_prefix ..'_3s'] = {
