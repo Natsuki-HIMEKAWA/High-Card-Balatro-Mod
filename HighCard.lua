@@ -1203,7 +1203,7 @@ local XPC = {
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                     
                     local _card = copy_card(context.full_hand[1], nil, nil, G.playing_card)
-                    _card.ability.AgentS = true
+                    _card.ability.clone = true
 
                     _card:add_sticker(mod_prefix ..'_clone', true)
                     _card:add_to_deck()
@@ -1234,7 +1234,7 @@ local XPC = {
                     local destroy = {}
 
                     for _, playing_card in ipairs(G.playing_cards) do
-                        if playing_card.ability.AgentS then
+                        if playing_card.ability.clone then
                             table.insert(destroy, playing_card)
                         end
                     end
