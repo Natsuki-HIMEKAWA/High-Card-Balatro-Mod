@@ -29,10 +29,10 @@ descriptions = {
             text = {
                 '當{C:legendary}新·新南部{}被獲得',
                 '或抽完{C:attention}第一手牌{}時，',
-                '將出牌次數設為{C:blue}5{}；',
+                '將出牌次數設為{C:blue}#1#{}；',
                 '每張{C:attention}牌堆{}內剩餘',
                 '的牌給予{C:white,X:mult}X#2#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
+                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_3s'] = {
