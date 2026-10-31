@@ -500,7 +500,6 @@ local misc = {
         k_armed = '着甲！',
         k_slained = '斬殺！',
         k_merged = '合體！',
-        k_burnt = '燃燒！',
         k_transform = '變形！',
         k_chameleon = '變色！',
         k_induce = '誘導！',
