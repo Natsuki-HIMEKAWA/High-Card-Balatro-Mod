@@ -193,7 +193,7 @@ descriptions = {
             }
         },
         ['j_'.. mod_prefix ..'_8h'] = {
-            name = '信息素',
+            name = '費洛蒙',
             text = {
                 '將所有計分牌的花色',
                 '轉變為本次出牌中',
@@ -201,11 +201,11 @@ descriptions = {
             }
         },
         ['j_'.. mod_prefix ..'_9h'] = {
-            name = '卓越天才',
+            name = '超凡天才',
             text = {
                 '回合結束時',
                 '牌堆中的每張牌',
-                '給予{C:legendary}卓越天才{}',
+                '給予{C:legendary}超凡天才{}',
                 '{C:white,X:mult}X#1#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
@@ -401,7 +401,7 @@ descriptions = {
             }
         },
         ['j_'.. mod_prefix ..'_8c'] = {
-            name = '沈沒暗影',
+            name = '沈淪暗影',
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每張沒有版本的{C:attention}計分牌{}',
