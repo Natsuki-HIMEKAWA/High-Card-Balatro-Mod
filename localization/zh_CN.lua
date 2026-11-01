@@ -401,7 +401,7 @@ local descriptions = {
             }
         },
         ['j_'.. mod_prefix ..'_8c'] = {
-            name = '沉没暗影',
+            name = '沉沦暗影',
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每张没有版本的{C:attention}计分牌{}',
