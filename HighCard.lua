@@ -1351,7 +1351,7 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            if context.before then
+            if context.before and G.GAME.current_round.hands_played == 0 then
                 for _, scored_card in ipairs(context.scoring_hand) do
                     if scored_card.config.center.key == 'c_base' then
                         local enhancement = pseudorandom_element(
@@ -1362,14 +1362,13 @@ local XPC = {
                             enhancement,
                             nil, true
                         )
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                scored_card:juice_up()
+                                return true
+                            end
+                        }))
                     end
-
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            scored_card:juice_up()
-                            return true
-                        end
-                    }))
                 end
 
                 return {message = localize('k_transform'), colour = G.C.EXTRA}
