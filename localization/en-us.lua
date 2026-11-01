@@ -190,8 +190,9 @@ local descriptions = {
             name = 'The Zoo',
             text = {
                 'Gives each unenhanced',
-                '{C:attention}scored card{} a random',
-                '{C:dark_edition}Enhancment{}'
+                'card scored in the',
+                '{C:attention}first{} hand of round',
+                'a random {C:dark_edition}Enhancement{}'
             }
         },
         ['j_'.. mod_prefix ..'_7h'] = {
