@@ -177,6 +177,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_6h'] = {
             name = '动物园',
             text = {
+                '每回合打出的{C:attention}第一手牌中{}，',
                 '每张无增强的{C:attention}计分牌{}在',
                 '计分时随机获得一种{C:dark_edition}增强{}'
             }
@@ -184,7 +185,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_7h'] = {
             name = '变色龙',
             text = {
-                '本回合{C:attention}第一次{}出牌中',
+                '本回合{C:attention}第一次{}出牌中，',
                 '的所有计分牌转化为',
                 '{C:attention}#1#{}；{C:attention}完整牌组{}',
                 '中的每张{C:attention}#1#{}为',
