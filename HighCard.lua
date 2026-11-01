@@ -1549,7 +1549,7 @@ local XPC = {
             end
 
             if not context.blueprint then
-                if context.end_of_round  and context.cardarea == G.jokers then
+                if context.end_of_round and context.cardarea == G.jokers then
                     card.ability.extra.x_mult =
                     card.ability.extra.x_mult + card.ability.extra.x_mult_add * #G.deck.cards
                     return {
@@ -1708,7 +1708,6 @@ local XPC = {
                 if context.end_of_round and not G.GAME_OVER
                 and context.cardarea == G.jokers
                 and G.GAME.current_round.hands_played == 1 then
-
                     card.ability.extra.x_mult = 
                     card.ability.extra.x_mult + card.ability.extra.x_mult_add
 
@@ -2765,7 +2764,7 @@ local XPC = {
             set = 'Joker',
             key = '4c'
         }),
-        config = {extra = {message = false}},
+        config = {extra = {}},
 
         loc_vars = function(self, info_queue, card)
             return {vars = {
@@ -2780,29 +2779,46 @@ local XPC = {
 
         calculate = function(self,card,context)
             if context.after and context.cardarea == G.jokers
-            and context.main_eval and G.deck
-            and G.hand and #G.hand.cards > 0
+            and G.deck and G.hand and G.GAME and G.GAME.blind
             then
-                card_eval_status_text(
-                    card, 'extra', nil, nil, nil,
-                    {
-                        message = localize('k_blown'),
-                        colour = G.C.GREEN
-                })
-
-                for i = 1, #G.hand.cards do
-                    draw_card(G.hand,  G.deck, 50, 'up')
-                end
+                local blind = G.GAME.blind
 
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = function()
-                        if G.deck and #G.deck.cards > 1 then
-                            G.deck:shuffle()
+                        if G.GAME
+                        and G.GAME.blind == blind and G.GAME.chips < blind.chips
+                        and G.GAME.current_round.hands_left > 0
+                        and G.deck and G.hand and #G.hand.cards > 0
+                        then
+                            card_eval_status_text(
+                                card, 'extra', nil, nil, nil,
+                                {
+                                    message = localize('k_blown'),
+                                    colour = G.C.GREEN
+                                }
+                            )
+
+                            for i = 1, #G.hand.cards do
+                                draw_card(G.hand, G.deck, 50, 'up')
+                            end
+
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                func = function()
+                                    if G.deck and #G.deck.cards > 1 then
+                                        G.deck:shuffle()
+                                    end
+                                    return true
+                                end
+                            }))
                         end
                         return true
                     end
                 }))
+            end
+            if context.selling_self then
+                adding_self(card)
             end
         end
     },
@@ -3645,70 +3661,49 @@ local XPC_Back = SMODS.Back({
             key = XPC_deck_key
         })
     },
-
     calculate = function(self, back, context)
-        if context.context ~= 'final_scoring_step' then
-            return
-        end
+        if context.context ~= 'final_scoring_step'
+        then return end
 
-        if not G.GAME or not G.GAME.blind or not G.play
-            or #G.play.cards ~= 1
-        then
-            return
-        end
+        if not G.GAME or not G.GAME.blind or not G.play or #G.play.cards ~= 1
+        then return end
 
         local hand_count = G.GAME.hands_played or 0
 
-        if last_triggered_game == G.GAME
-            and last_triggered_hand == hand_count
-        then
-            return
-        end
-
-        if not G.jokers
-            or #G.jokers.cards >= G.jokers.config.card_limit
-        then
-            return
-        end
+        if last_triggered_game == G.GAME and last_triggered_hand == hand_count
+        then return end
 
         local chips = context.chips or 0
         local mult = context.mult or 0
 
-        if G.GAME.chips + chips * mult < G.GAME.blind.chips then
-            return
-        end
+        if G.GAME.chips + chips * mult < G.GAME.blind.chips
+        then return end
 
         local x = G.play.cards[1]
 
-        if not x or x.destroyed or x.shattered then
-            return
-        end
+        if not x or x.destroyed or x.shattered
+        then return end
+
+        if not G.jokers or
+        (#G.jokers.cards >= G.jokers.config.card_limit and not x.edition.negative)
+        then return end
 
         local rank = x.base.value
         local suit = x.base.suit
 
-        if rank == '10' then
-            rank = 'T'
-        else
-            rank = string.sub(rank, 1, 1)
+        if rank == '10' then rank = 'T'
+        else rank = string.sub(rank, 1, 1)
         end
 
         suit = string.lower(string.sub(suit, 1, 1))
 
         local key = 'j_'.. mod_prefix ..'_'.. rank .. suit
 
-        local edition = nil
-
-        if type(x.edition) == 'table' then
-            edition = copy_table(x.edition)
-        elseif x.edition == 'e_negative_playing_card' then
-            edition = { negative = true }
-        end
+        local edition = copy_table(x.edition)
 
         local enhancement = nil
 
-        if x.config and x.config.center
-            and x.config.center.set == 'Enhanced'
+        if x.config and x.config.center and x.config.center.set == 'Enhanced'
         then
             enhancement = x.config.center.key
         end
@@ -3728,7 +3723,6 @@ local XPC_Back = SMODS.Back({
 
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 0,
             func = function()
                 local joker = SMODS.add_card({
                     set = 'Joker',
