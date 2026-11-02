@@ -5,9 +5,7 @@ XPC_deck_key = 'X-Playing_Deck'
 SMODS.Enhancement:take_ownership('stone', {
     loc_vars = function(self, info_queue, card)
         if card and card.base
-            and card.base.value
-            and card.base.suit then
-
+        and card.base.value and card.base.suit then
             info_queue[#info_queue + 1] = {
                 key = 'hidden_base',
                 set = 'Other',
