@@ -3750,16 +3750,14 @@ local XPC_Back = SMODS.Back({
 })
 
 SMODS.Atlas({
-    key = 'XPdeck_1',
-    raw_key = true,
+    key = 'XPdeck1',
     path = 'face_Caro_LC.png',
     px = 71,
     py = 95,
 })
 
 SMODS.Atlas({
-    key = 'XPdeck_2',
-    raw_key = true,
+    key = 'XPdeck2',
     path = 'face_Caro_HC.png',
     px = 71,
     py = 95,
@@ -3810,7 +3808,7 @@ do
         end
 
         if collab_key == 'default'
-            or collab_key == ('default_' .. suit)
+            or collab_key == ('default_'.. suit)
         then
             return false
         end
@@ -3819,8 +3817,7 @@ do
     end
 
     function get_front_spriteinfo(_front)
-        local atlas, pos, sprite_args =
-            backup_get_front_spriteinfo(_front)
+        local atlas, pos, sprite_args = backup_get_front_spriteinfo(_front)
 
         if not isXPdeck() or not _front or not _front.suit
         then
@@ -3832,7 +3829,8 @@ do
         end
 
         local atlas_key = isXP_HC(_front.suit)
-            and 'XPdeck_2' or 'XPdeck_1'
+            and mod_prefix ..'_XPdeck2'
+            or mod_prefix ..'_XPdeck1'
 
         local custom_atlas = SMODS.get_atlas(atlas_key)
 
@@ -3880,9 +3878,7 @@ do
 
     function Card:set_base(card, initial, manual_sprites)
         local result = backup_set_base(
-            self,
-            card,
-            initial,
+            self, card, initial,
             manual_sprites
         )
 
@@ -3895,8 +3891,7 @@ do
     local backup_set_sprites = Card.set_sprites
 
     local function effect_valid(back)
-        return type(back) == 'table'
-            and type(back.effect) == 'table'
+        return type(back) == 'table' and type(back.effect) == 'table'
             and type(back.effect.center) == 'table'
     end
 
@@ -3912,11 +3907,7 @@ do
                 if effect_valid(selected_back) then
                     game.viewed_back = nil
                 else
-                    game.viewed_back = {
-                        effect = {
-                            center = {}
-                        }
-                    }
+                    game.viewed_back = {effect = {center = {}}}
                 end
             end
         end
