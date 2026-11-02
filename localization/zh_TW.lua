@@ -90,8 +90,9 @@ descriptions = {
                 '出牌次數耗盡時，',
                 '若{C:blue}籌碼{}分數达到所需',
                 '的{C:attention}#1#%{}，則免于{C:red}失敗{}；',
-                '所有{C:attention}奇數底注{}下的',
-                '{C:attention}Boss盲注{}限制條件消失'
+                '面對{C:attention}Boss盲注{}時，',
+                '有{C:green}#2#/#3#{}機率使其',
+                '限制條件消失'
             }
         },
         ['j_'.. mod_prefix ..'_Ts'] = {
