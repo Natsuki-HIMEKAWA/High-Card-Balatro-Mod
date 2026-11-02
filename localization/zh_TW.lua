@@ -358,7 +358,7 @@ descriptions = {
             text = {
                 '所有{C:attention}#1#{}和{C:attention}#2#{}',
                 '在手中同時具有',
-                '這两種增強的效果'
+                '這兩種增強的效果'
             }
         },
         ['j_'.. mod_prefix ..'_3c'] = {
