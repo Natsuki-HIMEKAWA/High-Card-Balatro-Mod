@@ -3670,7 +3670,7 @@ local XPC_Back = SMODS.Back({
         then return end
 
         if not G.jokers or
-        (#G.jokers.cards >= G.jokers.config.card_limit and not x.edition.negative)
+        (#G.jokers.cards >= G.jokers.config.card_limit and not (x.edition and x.edition.negative))
         then return end
 
         local rank = x.base.value
@@ -3684,7 +3684,7 @@ local XPC_Back = SMODS.Back({
 
         local key = 'j_'.. mod_prefix ..'_'.. rank .. suit
 
-        local edition = copy_table(x.edition)
+        local edition = x.edition and copy_table(x.edition) or {}
 
         local enhancement = nil
 
