@@ -3,7 +3,7 @@ local descriptions = {
         hidden_base = {
             name = 'Hidden Base',
             text = {
-                '{C:attention}#1#{} of {V:1}#2#{}'
+                '#1# of {V:1}#2#{}'
             }
         },
 
