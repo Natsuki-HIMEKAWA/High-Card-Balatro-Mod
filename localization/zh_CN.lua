@@ -3,7 +3,7 @@ local descriptions = {
         hidden_base = {
             name = '隐藏牌面',
             text = {
-                '{V:1}#2#{}{C:attention}#1#{}'
+                '{V:1}#2#{} #1#'
             }
         },
 
