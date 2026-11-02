@@ -27,9 +27,8 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_2s'] = {
             name = '新·新南部',
             text = {
-                '当{C:legendary}新·新南部{}被获得',
-                '或抽完{C:attention}第一手牌{}时，',
-                '将出牌次数设为{C:blue}#1#{}；',
+                '抽取{C:attention}第一手牌{}后，',
+                '将{C:attention}出牌{}设为{C:blue}#1#{}次；',
                 '每张{C:attention}牌堆{}内剩余',
                 '的牌给予{C:white,X:mult}X#2#{}倍率',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
@@ -131,11 +130,11 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_As'] = {
             name = '爱与和平',
             text = {
-                '计分时{C:attention}牌堆{}中的每张{C:attention}#1#{}',
-                '提供{C:white,X:mult}X#2#{}倍率；本回合',
-                '打出{C:attention}第一手牌{}前，总是',
-                '迫使{C:attention}1{}张牌被选中，',
-                '若该牌被用于计分，',
+                '{C:attention}完整牌组{}中的每张{C:attention}#1#{}在',
+                '计分时提供{C:white,X:mult}X#2#{}倍率；',
+                '本回合的{C:attention}第一手牌{}',
+                '打出前，迫使{C:attention}1{}张牌',
+                '被选中，若该牌被计分，',
                 '则计分后将其摧毁',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
             }
@@ -494,7 +493,7 @@ local misc = {
     },
     dictionary = {
         k_loaded = '上膛！',
-        k_smashed = '砸碎！',
+        k_smashed = '击碎！',
         k_exploded = '爆炸！',
         k_mohism_saved = '兼爱，非攻',
         k_petrified = '石化！',
