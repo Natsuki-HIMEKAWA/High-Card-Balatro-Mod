@@ -372,7 +372,7 @@ descriptions = {
         ['j_'.. mod_prefix ..'_4c'] = {
             name = '振翼疾風',
             text = {
-                '每手牌記分後，',
+                '每手牌計分後，',
                 '將手中剩餘的牌',
                 '全部{C:attention}洗入{}牌堆'
             }
