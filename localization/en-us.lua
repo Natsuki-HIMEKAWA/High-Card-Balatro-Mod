@@ -99,8 +99,9 @@ local descriptions = {
                 'Prevent {C:red}Death{} if scored',
                 '{C:chips}Chips{} are at least {C:attention}#1#%{} of',
                 'the required amount, and',
+                'have {C:green}#2# in #3#{} chance to',
                 'disable the effects of',
-                '{C:attention}Boss Blinds{} at {C:attention}odd{} antes'
+                '{C:attention}Boss Blinds{} when facing it'
             }
         },
         ['j_'.. mod_prefix ..'_Ts'] = {
