@@ -48,9 +48,7 @@ SMODS.Atlas({
 SMODS.Sticker {
     key = 'clone',
     atlas = 'clone',
-
-    badge_colour = HEX('D70C18'),
-
+    badge_colour = HEX('AF2C32'),
     default_compat = false,
     rate = 0
 }
@@ -163,7 +161,7 @@ local XPC = {
             set = 'Joker',
             key = '2s'
         }),
-        config = {extra = { hands = 5, x_mult_add = 0.1 }},
+        config = {extra = {hands = 5, x_mult_add = 0.1}},
 
         loc_vars = function(self, info_queue, card)
             local remaining = G.deck and G.deck.cards and #G.deck.cards or 0
@@ -175,44 +173,29 @@ local XPC = {
                 }}
         end,
 
-        add_to_deck = function(self, card, from_debuff)
-            return end,
-
         calculate = function(self,card,context)
-            local function reset()
-                if not G.GAME or not G.GAME.current_round then
-                    return
-                end
-
-                local target = card.ability.extra.hands
-                local current = G.GAME.current_round.hands_left
-
-                if current == nil then return end
-
-                local diff = target - current
-
-                if diff ~= 0 then
-                    ease_hands_played(diff)
-                    card_eval_status_text(card, 'extra', nil, nil, nil, 
-                        {message = localize('k_loaded')}
-                    )
-                end
-            end
-            
             if not context.blueprint then
-                if context.card_added and context.card == card then
-                    if G.GAME and G.GAME.current_round
-                    and G.GAME.current_round.hands_left then
-                        reset()
-                    end
-                end
-
-                if context.first_hand_drawn then
-                    reset()
-                end
-
                 if context.selling_self then
                     adding_self(card)
+                end
+
+                if context.setting_blind then
+                    G.GAME.current_round.Neo_New_Nambu = nil
+                end
+
+                if context.first_hand_drawn 
+                and G.GAME and G.GAME.current_round and G.GAME.current_round.hands_left
+                and G.GAME.current_round.Neo_New_Nambu == nil
+                then
+                    G.GAME.current_round.Neo_New_Nambu = 'Loaded'
+                    local diff =  card.ability.extra.hands - (G.GAME.current_round.hands_left or 0)
+                    if diff ~= 0 then
+                        ease_hands_played(diff)
+                        card_eval_status_text(
+                            card, 'extra', nil, nil, nil, 
+                            {message = localize('k_loaded')}
+                        )
+                    end
                 end
             end
             
@@ -253,6 +236,12 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+            end
+
             if context.individual and context.cardarea == G.play then
                 if context.other_card:get_id() == card.ability.extra.rank then
                     return {
@@ -261,10 +250,6 @@ local XPC = {
                         card = card
                     }
                 end
-            end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -299,9 +284,13 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            if not context.blueprint and context.cardarea == G.jokers
-            and context.before then
-                if next(context.poker_hands[card.ability.extra.poker_hand]) then
+            if not context.blueprint then
+                if context.selling_self then
+                   adding_self(card)
+                end
+
+                if context.cardarea == G.jokers and context.before 
+                and next(context.poker_hands[card.ability.extra.poker_hand]) then
                     card.ability.extra.x_mult =
                     card.ability.extra.x_mult + card.ability.extra.x_mult_add
                     return {
@@ -318,10 +307,6 @@ local XPC = {
                         card = card
                     }
                 end
-            end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -355,11 +340,11 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            if context.joker_main then
-                return {x_mult = card.ability.extra.x_mult}
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.destroying_card and context.cardarea == G.play
                 and context.destroy_card
                 and context.destroy_card:get_id() == card.ability.extra.rank
@@ -382,10 +367,10 @@ local XPC = {
                 if context.before then
                     card.ability.extra.message = true
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.joker_main then
+                return {x_mult = card.ability.extra.x_mult}
             end
         end
     },
@@ -411,45 +396,47 @@ local XPC = {
                 card.ability.extra.x_mult_add,
                 localize(rank_to_string(card.ability.extra.rank),'ranks'),
                 card.ability.extra.x_mult
-            }}
+            }
+        }
         end,
 
         calculate = function(self,card,context)
-            local extra = card.ability.extra
-            if not context.blueprint and context.remove_playing_cards then
-                local count = 0
-                for _, removed_card in ipairs(context.removed or {}) do
-                    if removed_card:get_id() == extra.rank then
-                        count = count + 1
-                    end
+            if not context.blueprint then
+                if context.selling_self then
+                  adding_self(card)
                 end
-                
-                if count > 0 then
-                    extra.x_mult = extra.x_mult + extra.x_mult_add * count
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        func = function()
-                            card_eval_status_text(card, 'extra', nil, nil, nil, {
-                                message = localize {
-                                    type = 'variable',
-                                    key = 'a_xmult',
-                                    vars = {card.ability.extra.x_mult}
-                                },
-                                colour = G.C.RED
-                            })
 
-                            return true
+                if context.remove_playing_cards then
+                    local count = 0
+                    for _, removed_card in ipairs(context.removed or {}) do
+                        if removed_card:get_id() == card.ability.extra.rank then
+                            count = count + 1
                         end
-                    }))
+                    end
+                    
+                    if count > 0 then
+                        card.ability.extra.x_mult =
+                        card.ability.extra.x_mult + card.ability.extra.x_mult_add * count
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            func = function()
+                                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                                    message = localize {
+                                        type = 'variable',
+                                        key = 'a_xmult',
+                                        vars = {card.ability.extra.x_mult}
+                                    },
+                                    colour = G.C.RED
+                                })
+                                return true
+                            end
+                        }))
+                    end
                 end
             end
 
             if context.joker_main then
-                return {x_mult = extra.x_mult}
-            end
-            
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
+                return {x_mult = card.ability.extra.x_mult}
             end
         end
     },
@@ -491,6 +478,12 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+            end
+
             if context.cardarea == G.jokers
             and context.before
             and context.scoring_name 
@@ -514,10 +507,6 @@ local XPC = {
                         message = localize('k_level_up_ex')
                     }
                 end
-            end
-            
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -551,21 +540,14 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
-            if context.individual and context.cardarea == G.play then
-                if context.other_card.config.center.key == 
-                card.ability.extra.enhancement then
-                    return {
-                        x_mult = card.ability.extra.x_mult,
-                        colour = G.C.RED,
-                        card = card
-                        }
-                end
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.destroy_card and context.cardarea == G.play
-                and context.destroy_card.config.center.key 
-                == card.ability.extra.enhancement then
+                and context.destroy_card.config.center.key == card.ability.extra.enhancement
+                then
                     if card.ability.extra.message then
                         card.ability.extra.message = false
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
@@ -573,17 +555,22 @@ local XPC = {
                             colour = G.C.RED
                         })
                     end
-
                     return {remove = true}
                 end
 
                 if context.setting_blind then
                     card.ability.extra.message = true
                 end
-
-                if context.selling_self then
-                    adding_self(card)
-                end
+            end
+            
+            if context.individual and context.cardarea == G.play
+            and context.other_card.config.center.key == card.ability.extra.enhancement
+            then
+                return {
+                    x_mult = card.ability.extra.x_mult,
+                    colour = G.C.RED,
+                    card = card
+                }
             end
         end
     },
@@ -694,17 +681,7 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            if context.cardarea == G.jokers 
-            and context.before and not context.blueprint then
-                if next(context.poker_hands[card.ability.extra.poker_hand]) then
-                    card.ability.extra.x_mult = 
-                    card.ability.extra.x_mult + card.ability.extra.x_mult_add
-                    return {
-                        message = localize('k_upgrade_ex'),
-                        colour = G.C.ORANGE
-                    }
-                end
-            end
+
 
             if context.cardarea == G.jokers and context.joker_main then
                 if card.ability.extra.x_mult > 1 then
@@ -715,8 +692,21 @@ local XPC = {
                 end
             end
 
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
+                if context.cardarea == G.jokers and context.before
+                and next(context.poker_hands[card.ability.extra.poker_hand])
+                then
+                    card.ability.extra.x_mult = 
+                    card.ability.extra.x_mult + card.ability.extra.x_mult_add
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.ORANGE
+                    }
+                end
             end
         end
     },
@@ -754,19 +744,23 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                   adding_self(card)
+                end
+            end
+
             if context.individual and context.cardarea == G.play then
-                if contains(context.other_card.config.center.key,
-                            card.ability.extra.enhancements) then
+                if contains(
+                    context.other_card.config.center.key,
+                    card.ability.extra.enhancements
+                ) then
                     return {
                         x_mult = card.ability.extra.x_mult,
                         colour = G.C.RED,
                         card = card
-                        }
+                    }
                 end
-            end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -798,18 +792,11 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
-            if context.repetition and context.cardarea == G.play
-            and context.scoring_hand
-            and G.GAME.current_round.hands_played == 0
-            then
-                return {
-                    message = localize('k_again_ex'),
-                    repetitions = card.ability.extra.retrigger,
-                    card = card
-                }
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.after and G.GAME.current_round.hands_played == 0 then
                     local changed_cards = {}
 
@@ -843,11 +830,19 @@ local XPC = {
                         }
                     end
                 end
-            
-                if context.selling_self then
-                    adding_self(card)
-                end
             end
+            
+            if context.repetition and context.cardarea == G.play
+            and context.scoring_hand
+            and G.GAME.current_round.hands_played == 0
+            then
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retrigger,
+                    card = card
+                }
+            end
+
         end
     },
 
@@ -881,6 +876,10 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.before then
                 local enhancing_cards = {}
 
@@ -904,10 +903,6 @@ local XPC = {
                 if enhancing_cards and next(enhancing_cards) then
                     return {message = localize('k_armed'), colour = G.C.EXTRA}
                 end
-            end
-
-            if context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -943,18 +938,11 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
-            if context.joker_main then
-                local ace = 0
-                for _, playing_card in ipairs(G.playing_cards or {}) do
-                    if playing_card:get_id() == 14 then
-                        ace = ace + 1
-                    end
-                end
-                x_mult = 1 + ace * card.ability.extra.x_mult_add
-                return {x_mult = x_mult}
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.hand_drawn then
                     for _, playing_card in ipairs(G.playing_cards or {}) do
                         playing_card.ability.slain = nil
@@ -1002,11 +990,20 @@ local XPC = {
                         colour = G.C.RED
                     }
                 end
-
-                if context.selling_self then
-                    adding_self(card)
-                end
             end
+
+
+            if context.joker_main then
+                local ace = 0
+                for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if playing_card:get_id() == 14 then
+                        ace = ace + 1
+                    end
+                end
+                x_mult = 1 + ace * card.ability.extra.x_mult_add
+                return {x_mult = x_mult}
+            end
+
         end
     },
 
@@ -1128,18 +1125,11 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
-            if context.individual and context.cardarea == G.play then
-                if context.other_card.config.center.key
-                == card.ability.extra.enhancement then
-                    return {
-                        x_mult = card.ability.extra.x_mult,
-                        colour = G.C.RED,
-                        card = card
-                        }
-                end
-            end
-            
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.initial_scoring_step then
                     context.scoring_hand[1]:set_ability(
                     G.P_CENTERS[card.ability.extra.enhancement],
@@ -1166,10 +1156,16 @@ local XPC = {
                         end
                     }
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.individual and context.cardarea == G.play
+            and context.other_card.config.center.key == card.ability.extra.enhancement
+            then
+                return {
+                    x_mult = card.ability.extra.x_mult,
+                    colour = G.C.RED,
+                    card = card
+                    }
             end
         end
     },
@@ -1197,6 +1193,31 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+                
+                if context.end_of_round and context.main_eval then
+                    local destroy = {}
+
+                    for _, playing_card in ipairs(G.playing_cards) do
+                        if playing_card.ability.clone then
+                            table.insert(destroy, playing_card)
+                        end
+                    end
+
+                    if next(destroy) then
+                        SMODS.destroy_cards(destroy)
+                        return {
+                            message = localize('k_merged'),
+                            colour = G.C.RARITY[4],
+                            card = card
+                        }
+                    end
+                end
+            end
+
             if context.before and G.GAME.current_round.hands_played == 0
             and #context.full_hand == 1 then
                 for count = 1, card.ability.extra.duplicates do
@@ -1228,31 +1249,6 @@ local XPC = {
                     playing_cards_created = {true}
                 }
             end
-
-            if not context.blueprint then
-                if context.end_of_round and context.main_eval then
-                    local destroy = {}
-
-                    for _, playing_card in ipairs(G.playing_cards) do
-                        if playing_card.ability.clone then
-                            table.insert(destroy, playing_card)
-                        end
-                    end
-
-                    if next(destroy) then
-                        SMODS.destroy_cards(destroy)
-                        return {
-                            message = localize('k_merged'),
-                            colour = G.C.RARITY[4],
-                            card = card
-                        }
-                    end
-                end
-
-                if context.selling_self then
-                    adding_self(card)
-                end
-            end
         end
     },
 
@@ -1277,13 +1273,19 @@ local XPC = {
             if remaining > 1 then
                 card.ability.extra.x_mult = 1 + (remaining - 1) * card.ability.extra.x_mult_add
             else card.ability.extra.x_mult = 1 end
-            return { vars = {
+            return {vars = {
                     card.ability.extra.x_mult_add,
                     card.ability.extra.x_mult
                 }}
         end,
 
         calculate = function(self,card,context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+            end
+
             if context.joker_main then
                 local remaining =
                 (G.GAME.current_round.hands_left or 0) + (G.GAME.current_round.discards_left or 0)
@@ -1294,30 +1296,6 @@ local XPC = {
                         x_mult = card.ability.extra.x_mult,
                         colour = G.C.MULT
                     }
-                end
-            end
-
-            if not context.blueprint then
-                if context.selling_self then
-                    adding_self(card)
-                end
-
-                if context.hand_drawn then
-                    card.ability.extra.message = true
-                end
-
-                if context.after or context.discard then
-                    if card.ability.extra.message then
-                        card.ability.extra.message = false
-                        return {
-                            message = localize{
-                                type = 'variable',
-                                key = 'a_xmult_minus',
-                                vars = {card.ability.extra.x_mult_add}
-                            },
-                            colour = G.C.RED
-                        }
-                    end
                 end
             end
         end
@@ -1348,6 +1326,10 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.before and G.GAME.current_round.hands_played == 0 then
                 for _, scored_card in ipairs(context.scoring_hand) do
                     if scored_card.config.center.key == 'c_base' then
@@ -1369,10 +1351,6 @@ local XPC = {
                 end
 
                 return {message = localize('k_transform'), colour = G.C.EXTRA}
-            end
-
-            if context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -1415,6 +1393,10 @@ local XPC = {
 
         calculate = function(self, card, context)
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.before and G.GAME.current_round.hands_played == 0 then
                     for _, scored_card in ipairs(context.scoring_hand) do
                         scored_card:set_ability(
@@ -1432,15 +1414,10 @@ local XPC = {
 
                     return {message = localize('k_chameleon'), colour = G.C.EXTRA}
                 end
-
-                if context.selling_self then
-                    adding_self(card)
-                end
             end
 
             if context.joker_main then
                 local count = 0
-
                 for _, playing_card in ipairs(G.playing_cards or {}) do
                     if playing_card.config.center.key
                         == card.ability.extra.enhancement then
@@ -1473,6 +1450,10 @@ local XPC = {
         config = {},
 
         calculate = function(self, card, context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.initial_scoring_step then
                 if context.scoring_hand[1].config.center.key == 'm_stone' then
                     return end
@@ -1511,10 +1492,6 @@ local XPC = {
                     }
                 end
             end
-
-            if context.selling_self then
-                adding_self(card)
-            end
         end
     },
 
@@ -1540,11 +1517,11 @@ local XPC = {
         end,
 
         calculate =  function(self, card, context)
-            if context.joker_main then
-                return {x_mult = card.ability.extra.x_mult}
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.end_of_round and context.cardarea == G.jokers then
                     card.ability.extra.x_mult =
                     card.ability.extra.x_mult + card.ability.extra.x_mult_add * #G.deck.cards
@@ -1553,10 +1530,10 @@ local XPC = {
                         colour = G.C.RARITY[4]
                     }
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.joker_main then
+                return {x_mult = card.ability.extra.x_mult}
             end
         end
     },
@@ -1592,6 +1569,10 @@ local XPC = {
 
         calculate = function(self, card, context)
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.cardarea == G.jokers and context.before then
                     if next(context.poker_hands[card.ability.extra.poker_hand]) then
                         card.ability.extra.x_mult =
@@ -1602,19 +1583,14 @@ local XPC = {
                         }
                     end
                 end
-
-                if context.selling_self then
-                    adding_self(card)
-                end
             end
 
-            if context.cardarea == G.jokers and context.joker_main then
-                if card.ability.extra.x_mult > 1 then
-                    return {
-                        x_mult = card.ability.extra.x_mult,
-                        card = card
-                    }
-                end
+            if context.cardarea == G.jokers and context.joker_main
+            and card.ability.extra.x_mult > 1 then
+                return {
+                    x_mult = card.ability.extra.x_mult,
+                    card = card
+                }
             end
         end
     },
@@ -1639,8 +1615,14 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+            end
+
             local blueprint_or_self = context.blueprint_card or card
-            
+
             if context.consumeable and context.consumeable.ability.set == 'Planet' then
                 local hand_type = context.consumeable.ability.hand_type
                 if hand_type then
@@ -1664,10 +1646,6 @@ local XPC = {
                     level_up_hand(blueprint_or_self, hand_type, 
                                 nil, card.ability.extra.level)
                 end
-            end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -1695,12 +1673,11 @@ local XPC = {
         end,
         
         calculate = function(self, card, context)
-
-            if context.joker_main then
-                return { x_mult = card.ability.extra.x_mult }
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.end_of_round and not G.GAME_OVER
                 and context.cardarea == G.jokers
                 and G.GAME.current_round.hands_played == 1 then
@@ -1713,10 +1690,10 @@ local XPC = {
                         card = card
                     }
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.joker_main then
+                return { x_mult = card.ability.extra.x_mult }
             end
         end
     },
@@ -1753,6 +1730,10 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.initial_scoring_step and context.cardarea == G.jokers then
                 for _, scored_card in ipairs(context.scoring_hand) do
                     if scored_card:is_face() then
@@ -1769,10 +1750,6 @@ local XPC = {
                     card.ability.extra.message = false
                     return {message = localize('k_fortified'), colour = G.C.RED}
                 end
-            end
-
-            if context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -1827,6 +1804,10 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.end_of_round and context.cardarea == G.jokers then
                 local full_deck = {}
 
@@ -1883,10 +1864,6 @@ local XPC = {
                     }
                 end
             end
-
-            if context.selling_self then
-                adding_self(card)
-            end
         end
     },
 
@@ -1913,11 +1890,11 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            if context.joker_main then
-                return {x_mult = card.ability.extra.x_mult}
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.before then
                     local seals = {}
 
@@ -1940,10 +1917,10 @@ local XPC = {
                         }
                     end
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.joker_main then
+                return {x_mult = card.ability.extra.x_mult}
             end
         end
     },
@@ -1976,8 +1953,11 @@ local XPC = {
 
 
         calculate = function(self, card, context)
-            if context.before and G.GAME.current_round.hands_played == 0 then
+            if context.selling_self then
+                adding_self(card)
+            end
 
+            if context.before and G.GAME.current_round.hands_played == 0 then
                 for _, scored_card in ipairs(context.scoring_hand) do
                     scored_card:set_ability(
                         G.P_CENTERS[card.ability.extra.enhancement],
@@ -1996,10 +1976,6 @@ local XPC = {
                     message = localize('k_vitrified'),
                     colour = G.C.EXTRA
                 }
-            end
-
-            if context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -2024,16 +2000,11 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
-            if context.repetition and context.cardarea == G.play
-            and context.scoring_hand and G.GAME.current_round.hands_played == 0 then
-                return {
-                    message = localize('k_again_ex'),
-                    repetitions = card.ability.extra.retrigger,
-                    card = card
-                }
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.setting_blind then
                     card.ability.extra.message = true
                 end
@@ -2050,10 +2021,15 @@ local XPC = {
                     else return {remove = true}
                     end
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.repetition and context.cardarea == G.play
+            and context.scoring_hand and G.GAME.current_round.hands_played == 0 then
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retrigger,
+                    card = card
+                }
             end
         end
     },
@@ -2084,9 +2060,12 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.after then
                 local changed_cards = {}
-
                 for _, scored_card in ipairs(context.scoring_hand) do
                     if not SMODS.has_enhancement(scored_card, 'm_stone') 
                     and scored_card:get_id() < 14 then
@@ -2119,10 +2098,6 @@ local XPC = {
                     }
                 end
             end
-
-            if context.selling_self then
-                adding_self(card)
-            end
         end
     },
 
@@ -2147,55 +2122,51 @@ local XPC = {
         }},
 
         loc_vars = function(self, info_queue, card)
-            local extra = card.ability.extra
             return {
                 vars = {
-                    extra.x_mult_add,
-                    13 - extra.count % 13,
-                    extra.x_mult
+                    card.ability.extra.x_mult_add,
+                    13 - card.ability.extra.count % 13,
+                    card.ability.extra.x_mult
                 }
             }
         end,
 
         calculate = function(self, card, context)
-            local extra = card.ability.extra
-            if context.joker_main then
-                return {
-                    x_mult = extra.x_mult
-                }
-            end
-            
             if not context.blueprint then
                 if context.before and context.full_hand then
-                    extra.destroy_card = nil
-
+                    card.ability.extra.destroy_card = nil
                     for _, playing_card in ipairs(context.full_hand) do
-                        extra.count = extra.count + 1
+                        card.ability.extra.count = card.ability.extra.count + 1
 
-                        if extra.count % 13 == 0 then
+                        if card.ability.extra.count % 13 == 0 then
                             card_eval_status_text(card, 'extra', nil, nil, nil, {
                                 message = localize('k_upgrade_ex')
                             })
 
-                            extra.x_mult = extra.x_mult + extra.x_mult_add
-                            extra.destroy_card = playing_card
+                            card.ability.extra.x_mult =
+                            card.ability.extra.x_mult + card.ability.extra.x_mult_add
+                            card.ability.extra.destroy_card = playing_card
                         end
                     end
                 end
 
                 if context.destroy_card and context.cardarea == G.play
-                    and  context.destroy_card == extra.destroy_card then
+                    and  context.destroy_card == card.ability.extra.destroy_card then
 
                     card_eval_status_text(card, 'extra', 
                     nil, nil, nil, {message = localize('k_slained')})
 
-                    extra.destroy_card = nil
+                    card.ability.extra.destroy_card = nil
                     return { remove = true }
                 end
 
                 if context.selling_self then
                     adding_self(card)
                 end
+            end
+
+            if context.joker_main then
+                return {x_mult = card.ability.extra.x_mult}
             end
         end
     },
@@ -2223,15 +2194,14 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            local extra = card.ability.extra
-
-            if context.joker_main then
-                return { x_mult = extra.x_mult }
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.money_altered and context.amount < 0 then
-                    extra.x_mult = extra.x_mult + (-context.amount) * extra.x_mult_add
+                    card.ability.extra.x_mult =
+                    card.ability.extra.x_mult - context.amount * card.ability.extra.x_mult_add
 
                     return {
                         message = localize('k_upgrade_ex'),
@@ -2239,10 +2209,10 @@ local XPC = {
                         card = card
                     }
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.joker_main then
+                return {x_mult = card.ability.extra.x_mult}
             end
         end
     },
@@ -2265,16 +2235,16 @@ local XPC = {
         config = {},
 
         calculate = function(self, card, context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.initial_scoring_step then
                 return{
                     swap = true,
                     message = localize('k_swapped'),
                     colour = G.C.RARITY[4]
                 }
-            end
-
-            if context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -2298,12 +2268,11 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-
-            if context.joker_main then
-                return {x_mult = card.ability.extra.x_mult}
-            end
-            
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.initial_scoring_step
                 and G.GAME.current_round.hands_played == 0 then
                     local rank = context.scoring_hand[1]:get_id()
@@ -2329,11 +2298,10 @@ local XPC = {
                     card.ability.extra.x_mult = 1
                     return {message = localize('k_reset')}
                 end
+            end
 
-
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.joker_main then
+                return {x_mult = card.ability.extra.x_mult}
             end
         end
     },
@@ -2366,6 +2334,10 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.fix_probability
             and context.trigger_obj
             and context.trigger_obj.config
@@ -2373,10 +2345,6 @@ local XPC = {
             and context.trigger_obj.config.center.key == 'm_lucky'
             then
                 return {numerator = 1, denominator = 1}
-            end
-
-            if context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -2616,12 +2584,11 @@ local XPC = {
         config = {},
 
         calculate = function(self, card, context)
-            if context.final_scoring_step then
-                return{balance = true, colour = G.C.PURPLE}
-            end
-
             if context.selling_self then
                 adding_self(card)
+            end
+            if context.final_scoring_step then
+                return{balance = true, colour = G.C.RARITY[4]}
             end
         end
     },
@@ -2683,6 +2650,10 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.individual and context.cardarea == G.hand then
                 local other_card = context.other_card
                 if context.end_of_round then
@@ -2700,10 +2671,6 @@ local XPC = {
                         }
                     end
                 end
-            end
-
-            if context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -2728,6 +2695,12 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+            end
+
             if context.individual and context.cardarea == G.play then
                 context.other_card.ability.perma_x_mult =
                 (context.other_card.ability.perma_x_mult or 0)
@@ -2737,10 +2710,6 @@ local XPC = {
                     colour = G.C.MULT,
                     card = card
                 }
-            end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -2774,11 +2743,14 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
+            if context.selling_self then
+                adding_self(card)
+            end
+
             if context.after and context.cardarea == G.jokers
             and G.deck and G.hand and G.GAME and G.GAME.blind
             then
                 local blind = G.GAME.blind
-
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = function()
@@ -2813,9 +2785,6 @@ local XPC = {
                     end
                 }))
             end
-            if context.selling_self then
-                adding_self(card)
-            end
         end
     },
 
@@ -2847,19 +2816,11 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
-            if context.individual and context.cardarea == G.play then
-                if context.other_card.config.center.key == 
-                card.ability.extra.enhancement then
-                    return {
-                        x_mult = card.ability.extra.x_mult,
-                        colour = G.C.RED,
-                        card = card
-                        }
-                end
-            end
-
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.setting_blind then
                     card.ability.extra.message = true
                 end
@@ -2877,12 +2838,18 @@ local XPC = {
                     else return {remove = true}
                     end
                 end
-
-                if context.selling_self then
-                    adding_self(card)
-                end
             end
 
+            if context.individual and context.cardarea == G.play then
+                if context.other_card.config.center.key == 
+                card.ability.extra.enhancement then
+                    return {
+                        x_mult = card.ability.extra.x_mult,
+                        colour = G.C.RED,
+                        card = card
+                        }
+                end
+            end
         end
     },
 
@@ -2917,6 +2884,12 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                   adding_self(card)
+                end
+            end
+
             if context.before and context.scoring_hand
                 and #context.scoring_hand > 0
                 and G.GAME.current_round.hands_played == 0 then
@@ -2953,10 +2926,6 @@ local XPC = {
                     }
                 end
             end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
-            end
         end
     },
 
@@ -2984,17 +2953,11 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            if context.individual and context.cardarea == G.play then
-                if context.other_card:get_id() == card.ability.extra.rank then
-                    return {
-                        x_mult = card.ability.extra.x_mult,
-                        colour = G.C.RED,
-                        card = card,
-                        }
-                end
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.setting_blind then
                     card.ability.extra.message = true
                 end
@@ -3011,9 +2974,15 @@ local XPC = {
                     else return {remove = true}
                     end
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
+            if context.individual and context.cardarea == G.play then
+                if context.other_card:get_id() == card.ability.extra.rank then
+                    return {
+                        x_mult = card.ability.extra.x_mult,
+                        colour = G.C.RED,
+                        card = card,
+                        }
                 end
             end
         end
@@ -3050,6 +3019,12 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+            end
+
             if context.before and context.scoring_hand
                 and #context.scoring_hand > 0
                 and G.GAME.current_round.hands_played == 0 then
@@ -3086,10 +3061,6 @@ local XPC = {
                     }
                 end
             end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
-            end
         end
     },
 
@@ -3124,6 +3095,12 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+            end
+
             if context.before and context.scoring_hand
                 and #context.scoring_hand > 0
                 and G.GAME.current_round.hands_played == 0 then
@@ -3160,10 +3137,6 @@ local XPC = {
                     }
                 end
             end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
-            end
         end
     },
 
@@ -3198,6 +3171,12 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+            end
+
             if context.before and context.scoring_hand
                 and #context.scoring_hand > 0
                 and G.GAME.current_round.hands_played == 0 then
@@ -3233,10 +3212,6 @@ local XPC = {
                         card = scored_card
                     }
                 end
-            end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
             end
         end
     },
@@ -3312,8 +3287,10 @@ local XPC = {
             config = {extra = {message = false}},
 
             calculate = function(self, card, context)
-                if not context.blueprint and context.selling_self then
-                    adding_self(card)
+                if not context.blueprint then
+                    if context.selling_self then
+                        adding_self(card)
+                    end
                 end
 
                 if context.after and context.cardarea == G.jokers then
@@ -3362,17 +3339,11 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-            if context.individual and context.cardarea == G.play
-                and context.other_card
-                and context.other_card.config.center == G.P_CENTERS.m_bonus
-            then
-                return {
-                    x_mult = card.ability.extra.x_mult,
-                    card = card
-                }
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.setting_blind then
                     card.ability.extra.message = true
                 end
@@ -3390,10 +3361,16 @@ local XPC = {
                     else return {remove = true}
                     end
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.individual and context.cardarea == G.play
+                and context.other_card
+                and context.other_card.config.center == G.P_CENTERS.m_bonus
+            then
+                return {
+                    x_mult = card.ability.extra.x_mult,
+                    card = card
+                }
             end
         end
     },
@@ -3422,25 +3399,11 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
-            if context.joker_main then
-                return {
-                    chips = card.ability.extra.chips,
-                    mult = card.ability.extra.mult,
-                    x_mult = card.ability.extra.x_mult,
-                }
-            end
-
-            if context.remove_playing_cards and context.cardarea == G.jokers then
-                if card.ability.extra.message then
-                    card.ability.extra.message = false
-                    return {
-                        message = localize('k_reaped'),
-                        colour = G.C.RED
-                    }
-                end     
-            end
-
             if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
                 if context.cardarea == G.play and
                 context.destroy_card and G.GAME.current_round.hands_played == 0
                 then
@@ -3516,10 +3479,24 @@ local XPC = {
                     card.ability.extra.x_mult = 1
                     return {message = localize('k_reset')}
                 end
+            end
 
-                if context.selling_self then
-                    adding_self(card)
-                end
+            if context.joker_main then
+                return {
+                    chips = card.ability.extra.chips,
+                    mult = card.ability.extra.mult,
+                    x_mult = card.ability.extra.x_mult,
+                }
+            end
+
+            if context.remove_playing_cards and context.cardarea == G.jokers then
+                if card.ability.extra.message then
+                    card.ability.extra.message = false
+                    return {
+                        message = localize('k_reaped'),
+                        colour = G.C.RED
+                    }
+                end     
             end
         end
     },
@@ -3540,8 +3517,15 @@ local XPC = {
         config = {},
 
         calculate = function(self, card, context)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+            end
+
             if context.setting_blind
-            and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+            and #G.consumeables.cards + G.GAME.consumeable_buffer
+                < G.consumeables.config.card_limit
             then
                 local blueprint_or_self = context.blueprint_card or card
 
@@ -3575,10 +3559,6 @@ local XPC = {
                     end
                     )
                 }))
-            end
-
-            if not context.blueprint and context.selling_self then
-                adding_self(card)
             end
         end
     },
