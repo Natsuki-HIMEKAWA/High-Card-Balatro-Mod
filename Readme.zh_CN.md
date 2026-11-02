@@ -57,8 +57,8 @@ HighCard/
 │   ├── zh_CN.lua
 │   └── zh_TW.lua
 ├── lovely.toml
-├── main.lua
-└── main.json
+├── main.json
+└── main.lua
 ```
 
 ## 语言支持
