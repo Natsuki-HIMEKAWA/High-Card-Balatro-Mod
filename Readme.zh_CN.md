@@ -34,7 +34,7 @@
 
 1. 安装Balatro、Steamodded和Lovely。
 2. 下载release中的ZIP压缩包并解压。
-3. 找到包含`HighCard.lua`、`main.json`和`lovely.toml`的Mod文件夹。
+3. 找到包含`main.lua`、`main.json`和`lovely.toml`的Mod文件夹。
 4. 将Mod文件夹直接放入Balatro的`Mods`目录中，若名称不同则将文件夹重命名为`HighCard`，并确保Mod文件没有被额外的文件夹层级包裹。
 
    - **Windows：** `%AppData%/Balatro/Mods/`
