@@ -214,7 +214,7 @@ local descriptions = {
             name = '敏锐五感',
             text = {
                 '若打出的牌包含',
-                '{C:attention}#2#{}，则{C:legendary}敏锐感官{}',
+                '{C:attention}#2#{}，则{C:legendary}敏锐五感{}',
                 '获得{C:white,X:mult}X#1#{}倍率',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
             }
@@ -231,7 +231,7 @@ local descriptions = {
             name = '音速行者',
             text = {
                 '若只出{C:attention}1{}手牌即击败',
-                '{C:attention}盲注{}，则{C:legendary}音速移动{}',
+                '{C:attention}盲注{}，则{C:legendary}音速行者{}',
                 '获得{C:white,X:mult}X#1#{}倍率',
                 '{C:inactive}（当前为{C:white,X:mult}X#2#{C:inactive}倍率）{}'
             }
@@ -256,7 +256,7 @@ local descriptions = {
             text = {
                 '每手计分牌中每种',
                 '不同的蜡封给予',
-                '{C:legendary}心有灵犀{C:white,X:mult}X#2#{}倍率',
+                '{C:legendary}心有灵犀{C:white,X:mult}X#1#{}倍率',
                 '{C:inactive}（当前为{C:white,X:mult}X#2#{C:inactive}倍率）{}'
             }
         },
