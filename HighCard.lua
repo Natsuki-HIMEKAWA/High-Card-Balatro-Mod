@@ -86,7 +86,8 @@ local function has_dynamic_kinesis() -- Defined for Ad Dynamic Kinesis
         local key = center and center.key
 
         if not joker.debuff and key == 'j_'.. mod_prefix ..'_Ad'
-        then return true
+        then
+            return true
         end
     end
 
@@ -3739,7 +3740,6 @@ local XPC_Back = SMODS.Back({
                         enhancement = enhancement,
                         seal = seal
                     }
-
                     joker:start_materialize()
                 end
 
@@ -3765,12 +3765,11 @@ SMODS.Atlas({
 
 do
     local function isXPdeck()
-        local selected_back = G.GAME
-            and G.GAME.selected_back
+        local selected_back = G.GAME and G.GAME.selected_back
 
-        local center = selected_back
-            and selected_back.effect
-            and selected_back.effect.center
+        local center = 
+        selected_back and selected_back.effect
+        and selected_back.effect.center
 
         if not center then
             return false
@@ -3779,7 +3778,6 @@ do
         if XPC_Back and center.key == XPC_Back.key then
             return true
         end
-
 
         return center.key == XPC_deck_key
     end
@@ -3807,9 +3805,7 @@ do
             return false
         end
 
-        if collab_key == 'default'
-            or collab_key == ('default_'.. suit)
-        then
+        if collab_key == 'default' or collab_key == ('default_'.. suit) then
             return false
         end
 
@@ -3842,7 +3838,7 @@ do
     end
 
 
-    local XPC_SUIT_TEXT_COLOURS = {
+    local suit_colours = {
         lc = {
             Hearts = HEX('AF2C32'),
             Diamonds = HEX('00528C'),
@@ -3857,15 +3853,12 @@ do
         },
     }
 
-    local function apply_suit_text_colour(card)
+    local function apply_suit_colour(card)
         if not isXPdeck() or not card or not card.base or not card.base.suit
         then return end
 
         local suit = card.base.suit
-
-        local palette = isXP_HC(suit)
-            and XPC_SUIT_TEXT_COLOURS.hc
-            or XPC_SUIT_TEXT_COLOURS.lc
+        local palette = isXP_HC(suit) and suit_colours.hc or suit_colours.lc
 
         local colour = palette[suit]
 
@@ -3882,7 +3875,7 @@ do
             manual_sprites
         )
 
-        apply_suit_text_colour(self)
+        apply_suit_colour(self)
 
         return result
     end
@@ -3892,7 +3885,7 @@ do
 
     local function effect_valid(back)
         return type(back) == 'table' and type(back.effect) == 'table'
-            and type(back.effect.center) == 'table'
+        and type(back.effect.center) == 'table'
     end
 
     function Card:set_sprites(_center, _front)
@@ -3912,20 +3905,17 @@ do
             end
         end
 
-        local ok, result = pcall(
-            backup_set_sprites,
-            self, _center, _front
-        )
+        local done, result = pcall(backup_set_sprites, self, _center, _front)
 
         if game then
             game.viewed_back = original_viewed_back
         end
 
-        if not ok then
+        if not done then
             error(result, 0)
         end
 
-        apply_suit_text_colour(self)
+        apply_suit_colour(self)
 
         return result
     end
