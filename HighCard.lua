@@ -262,7 +262,7 @@ local XPC = {
                         x_mult = card.ability.extra.x_mult,
                         colour = G.C.RED,
                         card = card
-                        }
+                    }
                 end
             end
 
@@ -1131,7 +1131,6 @@ local XPC = {
         end,
 
         calculate = function(self,card,context)
-            
             if context.individual and context.cardarea == G.play then
                 if context.other_card.config.center.key
                 == card.ability.extra.enhancement then
