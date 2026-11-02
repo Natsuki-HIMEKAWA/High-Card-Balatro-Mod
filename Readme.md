@@ -58,8 +58,8 @@ HighCard/
 │   ├── en-us.lua
 │   ├── zh_CN.lua
 │   └── zh_TW.lua
-├── HighCard.lua
 ├── lovely.toml
+├── main.lua
 └── main.json
 ```
 
