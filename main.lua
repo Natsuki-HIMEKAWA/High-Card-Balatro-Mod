@@ -610,12 +610,12 @@ local XPC = {
             end
 
             if G.GAME.blind and G.GAME.blind.boss
-            and not G.GAME.blind.disabled context.setting_blind then
+            and not G.GAME.blind.disabled and context.setting_blind then
                 if SMODS.pseudorandom_probability(
-                            card, 'Mohism',
-                            card.ability.extra.numerator,
-                            card.ability.extra.denominator
-                        )
+                    card, 'Mohism',
+                    card.ability.extra.numerator,
+                    card.ability.extra.denominator
+                ) then
                     G.GAME.blind:disable()
 
                     return {
