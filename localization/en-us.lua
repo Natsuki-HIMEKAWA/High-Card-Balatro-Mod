@@ -33,9 +33,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_2s'] = {
             name = 'Neo New Nambu',
             text = {
-                '{C:attention}Always{} sets Hands to {C:blue}#1#{}',
-                'when {C:legendary}Neo New Nambu{}',
-                'enters Joker slot or the',
+                'Sets {C:attention}Hands{} to {C:blue}#1#{} when the',
                 '{C:attention}first hand{} is drawn, and',
                 'gives {C:white,X:mult}X#2#{} Mult for each',
                 'card remaining in {C:attention}deck{}',
