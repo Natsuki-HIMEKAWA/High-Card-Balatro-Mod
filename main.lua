@@ -161,7 +161,7 @@ local XPC = {
             set = 'Joker',
             key = '2s'
         }),
-        config = {extra = {hands = 5, x_mult_add = 0.1}},
+        config = {extra = {hands = 5, x_mult_add = 0.05}},
 
         loc_vars = function(self, info_queue, card)
             local remaining = G.deck and G.deck.cards and #G.deck.cards or 0
@@ -590,12 +590,17 @@ local XPC = {
             set = 'Joker',
             key = '9s'
         }),
-        config = {extra = {ratio = 0.50}},
+        config = {extra = {ratio = 0.75, numerator = 1, denominator = 3}},
         loc_vars = function(self, info_queue, card)
             local ratio = card.ability.extra.ratio
+            local numerator, denominator = SMODS.get_probability_vars(
+                card, card.ability.extra.numerator,
+                card.ability.extra.denominator, 'Mohism'
+            )
             return {vars = {
                 string.format('%.2f',100 * card.ability.extra.ratio
-                ):gsub('0+$', ''):gsub('%.$', '')
+                ):gsub('0+$', ''):gsub('%.$', ''),
+                numerator, denominator
             }}
         end,
 
@@ -604,14 +609,20 @@ local XPC = {
                 adding_self(card)
             end
 
-            if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled
-            and G.GAME.round_resets.ante % 2 == 1 and context.setting_blind then
-                G.GAME.blind:disable()
+            if G.GAME.blind and G.GAME.blind.boss
+            and not G.GAME.blind.disabled context.setting_blind then
+                if SMODS.pseudorandom_probability(
+                            card, 'Mohism',
+                            card.ability.extra.numerator,
+                            card.ability.extra.denominator
+                        )
+                    G.GAME.blind:disable()
 
-                return {
-                    message = localize('ph_boss_disabled'),
-                    colour = G.C.RED
-                }
+                    return {
+                        message = localize('ph_boss_disabled'),
+                        colour = G.C.RED
+                    }
+                end
             end
 
             if not context.game_over then
@@ -1265,7 +1276,7 @@ local XPC = {
             set = 'Joker',
             key = '5h'
         }),
-        config = {extra = {x_mult_add = 1, x_mult = 1, message = false}},
+        config = {extra = {x_mult_add = 0.5, x_mult = 1, message = false}},
 
         loc_vars = function(self, info_queue, card)
             local remaining = 
@@ -2688,7 +2699,7 @@ local XPC = {
             set = 'Joker',
             key = '3c'
         }),
-        config = {extra = {x_mult_add = 0.1}},
+        config = {extra = {x_mult_add = 0.05}},
 
         loc_vars = function(self,info_queue,card)
             return {vars = {card.ability.extra.x_mult_add}}
