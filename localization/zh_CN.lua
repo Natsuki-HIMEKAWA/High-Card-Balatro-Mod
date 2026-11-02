@@ -90,8 +90,9 @@ local descriptions = {
                 '出牌次数耗尽时，',
                 '若{C:blue}筹码{}分数达到所需',
                 '的{C:attention}#1#%{}，则免于{C:red}失败{}；',
-                '所有{C:attention}奇数底注{}下的',
-                '{C:attention}Boss盲注{}限制条件消失'
+                '面对{C:attention}Boss盲注{}时，',
+                '有{C:green}#2#/#3#{}概率使其',
+                '限制条件消失'
             }
         },
         ['j_'.. mod_prefix ..'_Ts'] = {
