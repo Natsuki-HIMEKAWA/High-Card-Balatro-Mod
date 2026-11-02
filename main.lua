@@ -3587,7 +3587,7 @@ local XPC = {
     JB = {key = '1x',name = 'Black Joker',unlocked = false}
 }
 
-for key, card in pairs(XPC) do
+for _, card in pairs(XPC) do
     card.rarity = 4
     card.cost = 1
     card.enhancment = nil
@@ -3598,7 +3598,7 @@ for key, card in pairs(XPC) do
     }
 end
 
-local XPCO = {
+local keys = {
     'S2','S3','S4','S5','S6','S7','S8','S9','ST','SJ','SQ','SK','SA',
     'H2','H3','H4','H5','H6','H7','H8','H9','HT','HJ','HQ','HK','HA',
     'D2','D3','D4','D5','D6','D7','D8','D9','DT','DJ','DQ','DK','DA',
@@ -3606,11 +3606,9 @@ local XPCO = {
     --'JR','JB'
 }
 
-local XPCJ = {}
-
-for _, k in ipairs(XPCO) do
-    local joker = XPC[k]
-    XPCJ[#XPCJ + 1] = SMODS.Joker({
+for _, key in ipairs(keys) do
+    local joker = XPC[key]
+    SMODS.Joker({
         key = joker.key,
         atlas = 'XPC',
         pos = joker.pos,
