@@ -72,7 +72,7 @@ descriptions = {
             text = {
                 '將每回合{C:attention}第一手{}打出',
                 '的{C:attention}牌型{}等級提升{C:attention}#1#{}級，',
-                '且有{C:green}#2#/#3#{}概率將其改為',
+                '且有{C:green}#2#/#3#{}機率將其改為',
                 '提升{C:attention}#4#{}級'
             }
         },
@@ -231,7 +231,7 @@ descriptions = {
             name = '音速行者',
             text = {
                 '若只出{C:attention}1{}手牌即擊敗',
-                '{C:attention}盲注{}，則{C:legendary}音速移動{}',
+                '{C:attention}盲注{}，則{C:legendary}音速行者{}',
                 '獲得{C:white,X:mult}X#1#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
@@ -256,7 +256,7 @@ descriptions = {
             text = {
                 '每手計分牌中每種',
                 '不同的封蠟章給予',
-                '{C:legendary}心有靈犀{C:white,X:mult}X#2#{}倍數',
+                '{C:legendary}心有靈犀{C:white,X:mult}X#1#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
@@ -314,7 +314,7 @@ descriptions = {
             name = '無慈悲',
             text = {
                 '將每回合{C:attention}第一張{}計分牌',
-                '點數的{C:atteention}四分之一{}賦予',
+                '點數的{C:attention}四分之一{}賦予',
                 '{C:legendary}無慈悲{}的{C:white,X:mult}X倍數{}，',
                 '且於計分後將其摧毀',
                 '回合結束後重置',
@@ -389,7 +389,7 @@ descriptions = {
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每張沒有版本的{C:attention}計分牌{}',
-                '都有{C:green}#1#/#2#{}概率獲得{C:dark_edition}銀箔{}'
+                '都有{C:green}#1#/#2#{}機率獲得{C:dark_edition}銀箔{}'
             }
         },
         ['j_'.. mod_prefix ..'_7c'] = {
@@ -405,7 +405,7 @@ descriptions = {
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每張沒有版本的{C:attention}計分牌{}',
-                '都有{C:green}#1#/#2#{}概率獲得{C:dark_edition}負片{}'
+                '都有{C:green}#1#/#2#{}機率獲得{C:dark_edition}負片{}'
             }
         },
         ['j_'.. mod_prefix ..'_9c'] = {
@@ -413,7 +413,7 @@ descriptions = {
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每張沒有版本的{C:attention}計分牌{}',
-                '都有{C:green}#1#/#2#{}概率獲得{C:dark_edition}多彩{}'
+                '都有{C:green}#1#/#2#{}機率獲得{C:dark_edition}多彩{}'
             }
         },
         ['j_'.. mod_prefix ..'_Tc'] = {
@@ -421,7 +421,7 @@ descriptions = {
             text = {
                 '每回合的{C:attention}第一手牌{}中，',
                 '每張沒有版本的{C:attention}計分牌{}',
-                '都有{C:green}#1#/#2#{}概率獲得{C:dark_edition}全像{}'
+                '都有{C:green}#1#/#2#{}機率獲得{C:dark_edition}全像{}'
             }
         },
         ['j_'.. mod_prefix ..'_Jc'] = {
