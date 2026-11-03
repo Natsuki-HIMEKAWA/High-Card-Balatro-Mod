@@ -505,7 +505,6 @@ local misc = {
         k_transform = '变形！',
         k_chameleon = '变色！',
         k_induce = '诱导！',
-        k_brilliant = '明智！',
         k_dance = '起舞！',
         k_sonic_boom = '音爆！',
         k_fortified = '强化！',
