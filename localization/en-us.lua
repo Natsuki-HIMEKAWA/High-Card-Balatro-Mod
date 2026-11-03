@@ -263,7 +263,7 @@ local descriptions = {
             text = {
                 'All played cards',
                 'become {C:attention}#1#{} of',
-                '{V:1}#2#{} after scored',
+                '{V:1}#2#{} after scoring',
                 '{s:0.8}Card changes every round{}'
             }
         },
@@ -271,7 +271,7 @@ local descriptions = {
             name = 'Love Connection',
             text = {
                 'The {C:legendary}Love Connection{}',
-                'gains {C:white,X:mult}#1#{} Mult for',
+                'gains {C:white,X:mult}X#1#{} Mult for',
                 'each different {C:attention}Seal{}',
                 'in a scoring hand',
                 '{C:inactive}(Currently {C:white,X:mult}X#2#{}{C:inactive} Mult){}'
@@ -300,7 +300,7 @@ local descriptions = {
             text = {
                 'All played {C:attention}#1#{} and',
                 '{C:attention}#2#{} increase ',
-                'ranks by {C:attention}#3#{} after scored'
+                'ranks by {C:attention}#3#{} after scoring'
             }
         },
         ['j_'.. mod_prefix ..'_6d'] = {
@@ -374,8 +374,9 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Ad'] = {
             name = 'Dynamic Kinesis',
             text = {
-                'Selling {C:B4883C}X-Playing Cards{} in',
-                'round will add it to hand,',
+                'Selling {C:B4883C}X-Playing Cards{}',
+                'during a round will',
+                'add them to {C:attention}hand{},',
                 'instead of the deck'
             }
         },
@@ -484,7 +485,7 @@ local descriptions = {
                 "{C:attention}first hand{}, and {C:legendary}Reaper's Hand{} gains",
                 'corresponding {C:chips}Chips{}, {C:mult}Mult{}, {C:white,X:mult}XMult{},',
                 'or returns {C:money}money{} from their',
-                '{C:enhanced}Enhancements{} or {C:dark_edition}Editions{} after scoring',
+                '{C:enhanced}Enhancements{} and {C:dark_edition}Editions{} after scoring',
                 'Resets when {C:attention}Boss Blind{} is defeated',
                 '{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips, {C:mult}+#2#{} {C:inactive}Mult,{} {X:mult,C:white}X#3#{}{C:inactive} Mult){}'
             }
@@ -513,8 +514,8 @@ local descriptions = {
 for key, Joker in pairs(descriptions.Joker) do
     if key:sub(-1,-1) ~= 'x' then
         local add = {
-            '{C:legendary,s:0.8}Sell to deactivate this card{}',
-            '{C:legendary,s:0.8}and add it to deck with its{}',
+            '{C:legendary,s:0.8}Sell to deactivate this card and{}',
+            '{C:legendary,s:0.8}add it to deck with its edition,{}',
             '{C:legendary,s:0.8}original enhancement and seal{}'
         }
         for _, string in ipairs(add) do
@@ -534,7 +535,7 @@ local misc = {
         k_mohism_saved = 'Universal Love, Non-aggression',
         k_petrified = 'Petrified!',
         k_armed = 'Armed!',
-        k_slained = 'Slained!',
+        k_slain = 'Slain!',
         k_merged = 'Merged!',
         k_transform = 'Transform!',
         k_chameleon = 'Chameleon!',
