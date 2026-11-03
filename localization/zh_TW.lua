@@ -88,8 +88,8 @@ descriptions = {
             name = '墨家',
             text = {
                 '出牌次數耗盡時，',
-                '若{C:blue}籌碼{}分數达到所需',
-                '的{C:attention}#1#%{}，則免于{C:red}失敗{}；',
+                '若{C:blue}籌碼{}分數達到所需',
+                '的{C:attention}#1#%{}，則免於{C:red}失敗{}；',
                 '面對{C:attention}Boss盲注{}時，',
                 '有{C:green}#2#/#3#{}機率使其',
                 '限制條件消失'
@@ -162,7 +162,7 @@ descriptions = {
             text = {
                 '若本回合打出的{C:attention}第一手牌{}',
                 '只有{C:attention}1{}張牌，則往手牌中',
-                '添加其的{C:attention}4{}個{C:attention}克隆{}'
+                '添加其的{C:attention}#1#{}個{C:attention}克隆{}'
             }
         },
         ['j_'.. mod_prefix ..'_5h'] = {
@@ -283,7 +283,7 @@ descriptions = {
             text = {
                 '打出的所有{C:attention}#1#{}',
                 '和{C:attention}#2#{}在計分後',
-                '增加{C:attention}1{}級點數'
+                '增加{C:attention}#3#{}級點數'
             }
         },
         ['j_'.. mod_prefix ..'_6d'] = {
@@ -351,7 +351,8 @@ descriptions = {
             name = '動態念力',
             text = {
                 '回合內出售{C:B4883C}X-撲克牌{}',
-                '會將其抽入手牌中'
+                '會將其立即加入',
+                '{C:attention}手牌{}中，而非牌堆'
             }
         },
         ['j_'.. mod_prefix ..'_2c'] = {
@@ -478,9 +479,9 @@ descriptions = {
 for key, Joker in pairs(descriptions.Joker) do
     if key:sub(-1,-1) ~= 'x' then
         local add = {
-            '{C:legendary,s:0.8}出售此牌以向牌組中加入{}',
-            '{C:legendary,s:0.8}一張同版本、帶有原有{}',
-            '{C:legendary,s:0.8}增強及封蠟章的相應撲克牌{}'
+            '{C:legendary,s:0.8}出售此牌以將其停用，隨後向{}',
+            '{C:legendary,s:0.8}牌組中加入一張同版本、帶有{}',
+            '{C:legendary,s:0.8}原增強及封蠟章的相應撲克牌{}'
         }
         for _, string in ipairs(add) do
             Joker.text[#Joker.text + 1] = string
@@ -498,8 +499,8 @@ local misc = {
         k_exploded = '爆炸！',
         k_mohism_saved = '兼愛，非攻',
         k_petrified = '石化！',
-        k_armed = '着甲！',
-        k_slained = '斬殺！',
+        k_armed = '著甲！',
+        k_slain = '斬殺！',
         k_merged = '合體！',
         k_transform = '變形！',
         k_chameleon = '變色！',
@@ -529,8 +530,8 @@ local misc = {
         k_defeated = '擊敗！',
         k_reaped = '收割！',
         k_summoned = '召喚！',
-        k_activated = '激活！',
-        k_deactivated = '失活！'
+        k_activated = '啟動！',
+        k_deactivated = '停用！'
     },
     challenge_names = {
         ['c_'.. mod_prefix ..'_RF'] = '同花大順',
