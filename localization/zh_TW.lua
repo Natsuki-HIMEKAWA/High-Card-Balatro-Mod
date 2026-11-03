@@ -1,4 +1,4 @@
-descriptions = {
+local descriptions = {
     Other = {
         hidden_base = {
             name = '隱匿牌面',
@@ -9,7 +9,7 @@ descriptions = {
 
         [mod_prefix ..'_clone'] = {
             name = '克隆',
-            text = {'本回合結束時{C:red}自毀{}'}
+            text = {'回合結束時{C:red}自毀{}'}
         }
     },
 
