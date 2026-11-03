@@ -307,7 +307,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_8d'] = {
             name = '紅色迷宮',
             text = {
-                '在打出的牌計分前',
+                '每手牌計分前',
                 '互換{C:blue}籌碼{}和{C:mult}倍數{}'
             }
         },
@@ -521,7 +521,7 @@ local misc = {
         k_blown = '吹散！',
         k_crumbled = '粉碎！',
         k_submerged = '淹沒！',
-        k_ignited = '焚毀！',
+        k_ignited = '點燃！',
         k_sunk = '沈沒！',
         k_shone = '閃耀！',
         k_charged = '充能！',
