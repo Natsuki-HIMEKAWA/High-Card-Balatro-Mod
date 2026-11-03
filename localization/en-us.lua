@@ -540,7 +540,6 @@ local misc = {
         k_transform = 'Transform!',
         k_chameleon = 'Chameleon!',
         k_induce = 'Induce!',
-        k_brilliant = 'Brilliant!',
         k_dance = 'Dance!',
         k_sonic_boom = 'Sonic Boom!',
         k_fortified = 'Fortified!',
