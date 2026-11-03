@@ -162,7 +162,7 @@ local descriptions = {
             text = {
                 '若本回合打出的{C:attention}第一手牌{}',
                 '只有{C:attention}1{}张牌，则往手牌中',
-                '添加其的{C:attention}4{}个{C:attention}克隆{}'
+                '添加其的{C:attention}#1#{}个{C:attention}克隆{}'
             }
         },
         ['j_'.. mod_prefix ..'_5h'] = {
@@ -283,7 +283,7 @@ local descriptions = {
             text = {
                 '打出的所有{C:attention}#1#{}',
                 '和{C:attention}#2#{}在计分后',
-                '增加{C:attention}1{}级点数'
+                '增加{C:attention}#3#{}级点数'
             }
         },
         ['j_'.. mod_prefix ..'_6d'] = {
@@ -351,7 +351,8 @@ local descriptions = {
             name = '动态念力',
             text = {
                 '回合内出售{C:B4883C}X-扑克牌{}',
-                '会将其抽入手牌中'
+                '会将立即其加入',
+                '{C:attention}手牌{}中，而非牌堆'
             }
         },
         ['j_'.. mod_prefix ..'_2c'] = {
@@ -478,9 +479,9 @@ local descriptions = {
 for key, Joker in pairs(descriptions.Joker) do
     if key:sub(-1,-1) ~= 'x' then
         local add = {
-            '{C:legendary,s:0.8}出售此牌以向牌组中加入{}',
-            '{C:legendary,s:0.8}一张同版本、带有原有{}',
-            '{C:legendary,s:0.8}增强及蜡封的相应扑克牌{}'
+            '{C:legendary,s:0.8}出售此牌以将其停用，随后向{}',
+            '{C:legendary,s:0.8}牌组中加入一张同版本、带有{}',
+            '{C:legendary,s:0.8}原有增强及蜡封的相应扑克牌{}'
         }
         for _, string in ipairs(add) do
             Joker.text[#Joker.text + 1] = string
@@ -499,7 +500,7 @@ local misc = {
         k_mohism_saved = '兼爱，非攻',
         k_petrified = '石化！',
         k_armed = '着甲！',
-        k_slained = '斩杀！',
+        k_slain = '斩杀！',
         k_merged = '合体！',
         k_transform = '变形！',
         k_chameleon = '变色！',
@@ -530,7 +531,7 @@ local misc = {
         k_reaped = '收割！',
         k_summoned = '召唤！',
         k_activated = '激活！',
-        k_deactivated = '失活！'
+        k_deactivated = '停用！'
     },
     challenge_names = {
         ['c_'.. mod_prefix ..'_RF'] = '皇家同花顺',
