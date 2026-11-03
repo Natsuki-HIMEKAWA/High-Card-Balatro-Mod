@@ -2212,10 +2212,13 @@ local XPC = {
 
                 if context.money_altered and context.amount < 0 then
                     card.ability.extra.x_mult =
-                    card.ability.extra.x_mult - context.amount * card.ability.extra.x_mult_add
-
+                    card.ability.extra.x_mult + (-context.amount) * card.ability.extra.x_mult_add
                     return {
-                        message = localize('k_upgrade_ex'),
+                        message = localize {
+                            type = 'variable',
+                            key = 'a_xmult',
+                            vars = {card.ability.extra.x_mult}
+                        },
                         colour = G.C.RED,
                         card = card
                     }
