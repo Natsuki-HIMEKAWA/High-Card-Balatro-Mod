@@ -133,9 +133,9 @@ local descriptions = {
             text = {
                 '{C:attention}完整牌组{}中的每张{C:attention}#1#{}在',
                 '计分时提供{C:white,X:mult}X#2#{}倍率；',
-                '本回合的{C:attention}第一手牌{}',
-                '打出前，迫使{C:attention}1{}张牌',
-                '被选中，若该牌被计分，',
+                '打出本回合{C:attention}第一手牌{}',
+                '之前，迫使{C:attention}1{}张牌被',
+                '选中，若该牌被计分，',
                 '则计分后将其摧毁',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
             }
