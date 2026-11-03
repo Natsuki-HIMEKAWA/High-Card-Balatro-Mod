@@ -30,7 +30,7 @@ local descriptions = {
                 '抽取{C:attention}第一手牌{}後，將{C:attention}出牌{}',
                 '設為{C:blue}#1#{}次；每張{C:attention}牌堆{}內',
                 '剩餘的牌給予{C:white,X:mult}X#2#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_3s'] = {
@@ -45,7 +45,7 @@ local descriptions = {
             text = {
                 '若出牌包含{C:attention}#2#{}，則',
                 '{C:legendary}清冷長槍{}獲得{C:white,X:mult}X#1#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_5s'] = {
@@ -54,7 +54,7 @@ local descriptions = {
                 '計分後摧毀所有被',
                 '計分的{C:attention}#1#{}，每張給予',
                 '{C:legendary}緻密重錘{C:white,X:mult}X#2#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_6s'] = {
@@ -62,7 +62,7 @@ local descriptions = {
             text = {
                 '每摧毀一張{C:attention}#2#{}，',
                 '{C:legendary}雜耍火銃{}獲得{C:white,X:mult}X#1#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_7s'] = {
@@ -95,7 +95,7 @@ local descriptions = {
             text = {
                 '若出牌包含{C:attention}#2#{}，則',
                 '{C:legendary}誠意之弓{}獲得{C:white,X:mult}X#1#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Js'] = {
@@ -131,7 +131,7 @@ local descriptions = {
                 '前，強制選定{C:attention}1{}張牌，',
                 '若該牌被計分，',
                 '則計分後將其摧毀',
-                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_2h'] = {
@@ -139,7 +139,7 @@ local descriptions = {
             text = {
                 '每持有{C:money}$#1#{}，',
                 '手牌上限{C:attention}+1{}，至多{C:attention}+#2#{}',
-                '{C:inactive}（當前為{C:attention}+#3#{C:inactive}手牌上限）{}'
+                '{C:inactive}（目前為{C:attention}+#3#{C:inactive}手牌上限）{}'
             }
         },
         ['j_'.. mod_prefix ..'_3h'] = {
@@ -182,7 +182,7 @@ local descriptions = {
                 '{C:attention}#1#{}；{C:attention}完整牌組{}',
                 '中的每張{C:attention}#1#{}為',
                 '{C:legendary}變色龍{}提供{C:white,X:mult}X#2#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_8h'] = {
@@ -199,7 +199,7 @@ local descriptions = {
                 '回合結束時，{C:attention}牌堆{}',
                 '中剩餘的每張牌給予',
                 '{C:legendary}超凡天才{}{C:white,X:mult}X#1#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Th'] = {
@@ -207,7 +207,7 @@ local descriptions = {
             text = {
                 '若出牌包含{C:attention}#2#{}，則',
                 '{C:legendary}敏銳五感{}獲得{C:white,X:mult}X#1#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Jh'] = {
@@ -222,7 +222,7 @@ local descriptions = {
             text = {
                 '若只出{C:attention}1{}手牌即擊敗{C:attention}盲注{}，',
                 '則{C:legendary}音速行者{}獲得{C:white,X:mult}X#1#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Kh'] = {
@@ -246,7 +246,7 @@ local descriptions = {
                 '每手計分牌中每種',
                 '不同的封蠟章給予',
                 '{C:legendary}心有靈犀{C:white,X:mult}X#1#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_3d'] = {
@@ -278,7 +278,7 @@ local descriptions = {
                 '每打出{C:attention}13{}{C:inactive}(#2#){}張牌，',
                 '{C:legendary}13級階梯{}獲得{C:white,X:mult}X#1#{}倍數，',
                 '且摧毀每第{C:attention}13{}張打出的牌',
-                '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_7d'] = {
@@ -286,7 +286,7 @@ local descriptions = {
             text = {
                 '每花費或失去{C:money}$1{}，',
                 '{C:legendary}等價交換{}獲得{C:white,X:mult}X#1#{}倍數',
-                '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_8d'] = {
@@ -304,7 +304,7 @@ local descriptions = {
                 '{C:legendary}無慈悲{}的{C:white,X:mult}X倍數{}，',
                 '且於計分後將其摧毀',
                 '回合結束後重置',
-                '{C:inactive}（當前為{C:white,X:mult}X#1#{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:white,X:mult}X#1#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Td'] = {
@@ -435,7 +435,7 @@ local descriptions = {
                 '版本提供的{C:chips}籌碼{}，{C:mult}倍數{}，',
                 '{C:white,X:mult}X倍數{}，或返還相應{C:money}金錢{}',
                 '擊敗{C:attention}Boss盲注{}後重置',
-                '{C:inactive}（當前為{C:chips}+#1#{}{C:inactive}籌碼，{}',
+                '{C:inactive}（目前為{C:chips}+#1#{}{C:inactive}籌碼，{}',
                 '{C:mult}+#2#{}{C:inactive}倍數，{}{X:mult,C:white}X#3#{}{C:inactive}倍數）{}'
             }
         },
