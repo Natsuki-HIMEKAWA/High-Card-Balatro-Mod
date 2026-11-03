@@ -997,7 +997,7 @@ local XPC = {
                 and context.destroy_card.ability.slain then
                     return {
                         remove = true,
-                        message = localize('k_slained'),
+                        message = localize('k_slain'),
                         colour = G.C.RED
                     }
                 end
@@ -2165,7 +2165,7 @@ local XPC = {
                     and  context.destroy_card == card.ability.extra.destroy_card then
 
                     card_eval_status_text(card, 'extra', 
-                    nil, nil, nil, {message = localize('k_slained')})
+                    nil, nil, nil, {message = localize('k_slain')})
 
                     card.ability.extra.destroy_card = nil
                     return { remove = true }
