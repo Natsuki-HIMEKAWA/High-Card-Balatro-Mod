@@ -134,8 +134,8 @@ local descriptions = {
                 '{C:attention}完整牌組{}中的每張{C:attention}#1#{}在',
                 '計分時提供{C:white,X:mult}X#2#{}倍數；',
                 '打出本回合{C:attention}第一手牌{}',
-                '前，強制{C:attention}1{}張牌被',
-                '選定，若該牌被計分，',
+                '前，強制選定{C:attention}1{}張牌，',
+                '若該牌被計分，',
                 '則計分後將其摧毀',
                 '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
