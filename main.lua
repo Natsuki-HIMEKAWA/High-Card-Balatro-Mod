@@ -1537,8 +1537,12 @@ local XPC = {
                     card.ability.extra.x_mult =
                     card.ability.extra.x_mult + card.ability.extra.x_mult_add * #G.deck.cards
                     return {
-                        message = localize('k_brilliant'),
-                        colour = G.C.RARITY[4]
+                        message = localize {
+                            type = 'variable',
+                            key = 'a_xmult',
+                            vars = {card.ability.extra.x_mult}
+                        },
+                        colour = G.C.RED
                     }
                 end
             end
