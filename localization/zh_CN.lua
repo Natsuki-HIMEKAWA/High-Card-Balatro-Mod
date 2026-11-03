@@ -307,7 +307,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_8d'] = {
             name = '红色迷宫',
             text = {
-                '在打出的牌计分前',
+                '每手牌计分前',
                 '互换{C:blue}筹码{}和{C:mult}倍率{}'
             }
         },
