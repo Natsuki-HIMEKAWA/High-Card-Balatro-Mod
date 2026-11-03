@@ -134,8 +134,8 @@ local descriptions = {
                 '{C:attention}完整牌組{}中的每張{C:attention}#1#{}在',
                 '計分時提供{C:white,X:mult}X#2#{}倍數；',
                 '本回合的{C:attention}第一手牌{}',
-                '打出前，迫使{C:attention}1{}張牌',
-                '被選中，若該牌被計分，',
+                '打出前，強制{C:attention}1{}張牌',
+                '被選定，若該牌被計分，',
                 '則計分後將其摧毀',
                 '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
@@ -505,7 +505,6 @@ local misc = {
         k_transform = '變形！',
         k_chameleon = '變色！',
         k_induce = '誘導！',
-        k_brilliant = '聰慧！',
         k_dance = '起舞！',
         k_sonic_boom = '音爆！',
         k_fortified = '強化！',
