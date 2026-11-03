@@ -161,7 +161,7 @@ local XPC = {
             set = 'Joker',
             key = '2s'
         }),
-        config = {extra = {hands = 5, x_mult_add = 0.05}},
+        config = {extra = {hands = 5, x_mult_add = 0.02}},
 
         loc_vars = function(self, info_queue, card)
             local remaining = G.deck and G.deck.cards and #G.deck.cards or 0
@@ -789,7 +789,7 @@ local XPC = {
             set = 'Joker',
             key = 'Qs'
         }),
-        config = {extra = {retrigger = 3, enhancement = 'm_stone'}},
+        config = {extra = {retrigger = 2, enhancement = 'm_stone'}},
 
         loc_vars = function(self,info_queue,card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
@@ -1379,7 +1379,7 @@ local XPC = {
             set = 'Joker',
             key = '7h'
         }),
-        config = { extra = {enhancement = 'm_wild', x_mult_add = 0.2} },
+        config = { extra = {enhancement = 'm_wild', x_mult_add = 0.1} },
 
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
@@ -1519,7 +1519,7 @@ local XPC = {
             set = 'Joker',
             key = '9h'
         }),
-        config = {extra = {x_mult_add = 0.02, x_mult = 1}},
+        config = {extra = {x_mult_add = 0.01, x_mult = 1}},
         loc_vars = function(self, info_queue, card)
             return {vars = {
                 card.ability.extra.x_mult_add,
@@ -1565,7 +1565,7 @@ local XPC = {
         config = {
             extra = {
                 x_mult = 1.0,                
-                x_mult_add = 0.1,
+                x_mult_add = 0.2,
                 poker_hand = 'Flush'
             }
         },
@@ -2004,7 +2004,7 @@ local XPC = {
             set = 'Joker',
             key = '4d'
         }),
-        config = { extra = {retrigger = 4, message = false} },
+        config = { extra = {retrigger = 3, message = false} },
         
         loc_vars = function(self,info_queue,card)
             return {vars = {card.ability.extra.retrigger}}
@@ -2126,7 +2126,7 @@ local XPC = {
             key = '6d'
         }),
         config = {extra = {
-            x_mult_add = 1,
+            x_mult_add = 0.5,
             count = 0,
             x_mult = 1,
             destroy_card = nil
