@@ -9,7 +9,7 @@ local descriptions = {
 
         [mod_prefix ..'_clone'] = {
             name = '克隆',
-            text = {'本回合结束时{C:red}自毁{}'}
+            text = {'回合结束时{C:red}自毁{}'}
         }
     },
 
