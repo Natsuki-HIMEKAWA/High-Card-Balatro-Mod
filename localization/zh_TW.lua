@@ -27,10 +27,9 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_2s'] = {
             name = '新·新南部',
             text = {
-                '抽取{C:attention}第一手牌{}後，',
-                '將{C:attention}出牌{}設為{C:blue}#1#{}次；',
-                '每張{C:attention}牌堆{}內剩餘',
-                '的牌給予{C:white,X:mult}X#2#{}倍數',
+                '抽取{C:attention}第一手牌{}後，將{C:attention}出牌{}',
+                '設為{C:blue}#1#{}次；每張{C:attention}牌堆{}內',
+                '剩餘的牌給予{C:white,X:mult}X#2#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
@@ -44,9 +43,8 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_4s'] = {
             name = '清冷長槍',
             text = {
-                '若打出的牌包含',
-                '{C:attention}#2#{}，則{C:legendary}清冷長槍{}',
-                '獲得{C:white,X:mult}X#1#{}倍數',
+                '若出牌包含{C:attention}#2#{}，則',
+                '{C:legendary}清冷長槍{}獲得{C:white,X:mult}X#1#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
@@ -70,37 +68,33 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_7s'] = {
             name = '阻擊者',
             text = {
-                '將每回合{C:attention}第一手{}打出',
-                '的{C:attention}牌型{}等級提升{C:attention}#1#{}級，',
-                '且有{C:green}#2#/#3#{}機率將其改為',
-                '提升{C:attention}#4#{}級'
+                '將每回合{C:attention}第一手{}打出的',
+                '{C:attention}牌型{}等級提升{C:attention}#1#{}級，',
+                '且有{C:green}#2#/#3#{}機率為提升{C:attention}#4#{}級'
             }
         },
         ['j_'.. mod_prefix ..'_8s'] = {
             name = '爆轟',
             text = {
-                '每張打出的{C:attention}#1#{}',
-                '給予{C:white,X:mult}X#2#{}倍數，且於',
-                '計分後將其摧毀'
+                '每張打出的{C:attention}#1#{}在',
+                '計分時給予{C:white,X:mult}X#2#{}倍數，',
+                '且於計分後將其摧毀'
             }
         },
         ['j_'.. mod_prefix ..'_9s'] = {
             name = '墨家',
             text = {
-                '出牌次數耗盡時，',
-                '若{C:blue}籌碼{}分數達到所需',
+                '若最終{C:blue}籌碼{}分數達到所需',
                 '的{C:attention}#1#%{}，則免於{C:red}失敗{}；',
-                '面對{C:attention}Boss盲注{}時，',
-                '有{C:green}#2#/#3#{}機率使其',
-                '限制條件消失'
+                '面對{C:attention}Boss盲注{}時，有{C:green}#2#/#3#{}',
+                '機率使其限制條件消失'
             }
         },
         ['j_'.. mod_prefix ..'_Ts'] = {
             name = '誠意之弓',
             text = {
-                '若打出的牌包含',
-                '{C:attention}#2#{}，則{C:legendary}誠意之弓{}',
-                '獲得{C:white,X:mult}X#1#{}倍數',
+                '若出牌包含{C:attention}#2#{}，則',
+                '{C:legendary}誠意之弓{}獲得{C:white,X:mult}X#1#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
@@ -151,18 +145,17 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_3h'] = {
             name = '堅如磐石',
             text = {
-                '打出的牌中，第一張',
-                '計分牌變為{C:attention}#1#{}；',
-                '計分時每張{C:attention}#1#{}',
-                '給予{C:white,X:mult}X#2#{}倍數'
+                '每次出牌中{C:attention}第一張{}計分牌',
+                '變為{C:attention}#1#{}；計分時每張',
+                '{C:attention}#1#{}給予{C:white,X:mult}X#2#{}倍數'
             }
         },
         ['j_'.. mod_prefix ..'_4h'] = {
             name = '全能特工',
             text = {
-                '若本回合打出的{C:attention}第一手牌{}',
-                '只有{C:attention}1{}張牌，則往手牌中',
-                '添加其的{C:attention}#1#{}個{C:attention}克隆{}'
+                '若本回合的{C:attention}第一次出牌{}',
+                '只有{C:attention}1{}張牌，則向手牌',
+                '中加入{C:attention}#1#{}個{C:attention}克隆{}'
             }
         },
         ['j_'.. mod_prefix ..'_5h'] = {
@@ -170,8 +163,7 @@ local descriptions = {
             text = {
                 '剩餘的每次{C:blue}出牌{}',
                 '和{C:red}棄牌{}提供{C:white,X:mult}X#1#{}倍數',
-                '{C:inactive}（打出下一手牌',
-                '{C:inactive}時為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
+                '{C:inactive}（下次出牌時{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_6h'] = {
@@ -204,41 +196,37 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_9h'] = {
             name = '超凡天才',
             text = {
-                '回合結束時',
-                '牌堆中的每張牌',
-                '給予{C:legendary}超凡天才{}',
-                '{C:white,X:mult}X#1#{}倍數',
+                '回合結束時，{C:attention}牌堆{}',
+                '中剩餘的每張牌給予',
+                '{C:legendary}超凡天才{}{C:white,X:mult}X#1#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Th'] = {
             name = '敏銳五感',
             text = {
-                '若打出的牌包含',
-                '{C:attention}#2#{}，則{C:legendary}敏銳五感{}',
-                '獲得{C:white,X:mult}X#1#{}倍數',
+                '若出牌包含{C:attention}#2#{}，則',
+                '{C:legendary}敏銳五感{}獲得{C:white,X:mult}X#1#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Jh'] = {
             name = '蒼穹舞者',
             text = {
-                '每使用一張{C:planet}行星牌{}',
-                '額外提升{C:attention}#1#{}級',
-                '相應牌型的等級'
+                '每使用一張{C:planet}行星牌{}，額外',
+                '提升{C:attention}#1#{}級相應牌型的等級'
             }
         },
         ['j_'.. mod_prefix ..'_Qh'] = {
             name = '音速行者',
             text = {
-                '若只出{C:attention}1{}手牌即擊敗',
-                '{C:attention}盲注{}，則{C:legendary}音速行者{}',
-                '獲得{C:white,X:mult}X#1#{}倍數',
+                '若只出{C:attention}1{}手牌即擊敗{C:attention}盲注{}，',
+                '則{C:legendary}音速行者{}獲得{C:white,X:mult}X#1#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Kh'] = {
-            name = '剛健體魄',
+            name = '完美雄性',
             text = {
                 '所有打出的{C:attention}#2#{}在',
                 '計分時獲得{C:attention}#1#{}'
@@ -264,18 +252,16 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_3d'] = {
             name = '滾滾彈珠',
             text = {
-                '本回合{C:attention}第一次{}出牌',
-                '中的所有計分牌',
-                '轉化為{C:attention}#1#{}'
+                '本回合{C:attention}第一次{}出牌中的',
+                '所有計分牌轉化為{C:attention}#1#{}'
             }
         },
         ['j_'.. mod_prefix ..'_4d'] = {
             name = '時間啞劇',
             text = {
-                '打出的{C:attention}第一手牌{}中',
-                '所有計分牌額外',
-                '觸發{C:attention}#1#{}次，且於',
-                '計分後將其摧毀'
+                '打出的{C:attention}第一手牌{}中所有',
+                '計分牌額外觸發{C:attention}#1#{}次，',
+                '且於計分後將其摧毀'
             }
         },
         ['j_'.. mod_prefix ..'_5d'] = {
@@ -283,7 +269,7 @@ local descriptions = {
             text = {
                 '打出的所有{C:attention}#1#{}',
                 '和{C:attention}#2#{}在計分後',
-                '增加{C:attention}#3#{}級點數'
+                '提高{C:attention}#3#{}級點數'
             }
         },
         ['j_'.. mod_prefix ..'_6d'] = {
@@ -298,9 +284,8 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_7d'] = {
             name = '等價交換',
             text = {
-                '每花費或失去',
-                '{C:money}$1{}，{C:legendary}等價交換{}',
-                '獲得{C:white,X:mult}X#1#{}倍數',
+                '每花費或失去{C:money}$1{}，',
+                '{C:legendary}等價交換{}獲得{C:white,X:mult}X#1#{}倍數',
                 '{C:inactive}（當前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
@@ -373,16 +358,15 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_4c'] = {
             name = '振翼疾風',
             text = {
-                '每手牌計分後，',
-                '將手中剩餘的牌',
-                '全部{C:attention}洗入{}牌堆'
+                '每手牌計分後，將',
+                '剩餘手牌{C:attention}洗入{}牌堆'
             }
         },
         ['j_'.. mod_prefix ..'_5c'] = {
             name = '飛揚塵土',
             text = {
-                '每張打出的{C:attention}#1#{}',
-                '在計分時給予{C:white,X:mult}X#2#{}倍數，',
+                '每張打出的{C:attention}#1#{}在',
+                '計分時給予{C:white,X:mult}X#2#{}倍數，',
                 '且於計分後將其摧毀'
             }
         },
@@ -436,8 +420,8 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Qc'] = {
             name = '角鬥士',
             text = {
-                '每張打出的{C:attention}#1#{}',
-                '在計分時給予{C:white,X:mult}X#2#{}倍數，',
+                '每張打出的{C:attention}#1#{}在',
+                '計分時給予{C:white,X:mult}X#2#{}倍數，',
                 '且於計分後將其摧毀'
             }
         },
@@ -458,7 +442,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Ac'] = {
             name = '行屍走肉',
             text = {
-                '選擇{C:attention}盲注{}後，',
+                '在選擇{C:attention}盲注{}時',
                 '生成一張{C:spectral}幻靈牌{}',
                 '{C:inactive}（必須有空位）{}'
             }
@@ -529,7 +513,7 @@ local misc = {
         k_defeated = '擊敗！',
         k_reaped = '收割！',
         k_summoned = '召喚！',
-        k_activated = '啟動！',
+        k_activated = '啟用！',
         k_deactivated = '停用！'
     },
     challenge_names = {
