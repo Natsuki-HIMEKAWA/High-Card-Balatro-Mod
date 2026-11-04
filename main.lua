@@ -1336,7 +1336,7 @@ local XPC = {
             set = 'Joker',
             key = '6h'
         }),
-        config = {extra = {rank = 6, x_mult = 1.2}},
+        config = {extra = {}},
 
         loc_vars = function(self,info_queue,card)
             return {vars = {
