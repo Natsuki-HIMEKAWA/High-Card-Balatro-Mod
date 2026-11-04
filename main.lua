@@ -24,14 +24,14 @@ SMODS.Enhancement:take_ownership('stone', {
 SMODS.Atlas({
     key = 'XPCB',
     path = 'XPC_Back.png',
-    px = 71, py=95
+    px = 71, py = 95
 })
 
-SMODS.Atlas {
+SMODS.Atlas({
     key = 'XPC_undiscovered',
     path = 'undiscovered.png',
     px = 71, py = 95
-}
+})
 
 SMODS.Atlas({
     key = 'XPC',
@@ -42,16 +42,16 @@ SMODS.Atlas({
 SMODS.Atlas({
     key = 'clone',
     path = 'st_clone.png',
-    px = 71, py=95
+    px = 71, py = 95
 })
 
-SMODS.Sticker {
+SMODS.Sticker({
     key = 'clone',
     atlas = 'clone',
     badge_colour = HEX('AF2C32'),
     default_compat = false,
     rate = 0
-}
+})
 
 local rank_to_string = function(rank)
     if rank <= 10 then return tostring(rank)
@@ -242,14 +242,14 @@ local XPC = {
                 end
             end
 
-            if context.individual and context.cardarea == G.play then
-                if context.other_card:get_id() == card.ability.extra.rank then
-                    return {
-                        x_mult = card.ability.extra.x_mult,
-                        colour = G.C.RED,
-                        card = card
-                    }
-                end
+            if context.individual and context.cardarea == G.play
+            and context.other_card:get_id() == card.ability.extra.rank
+            then
+                return {
+                    x_mult = card.ability.extra.x_mult,
+                    colour = G.C.RED,
+                    card = card
+                }
             end
         end
     },
@@ -348,6 +348,7 @@ local XPC = {
                 if context.destroying_card and context.cardarea == G.play
                 and context.destroy_card
                 and context.destroy_card:get_id() == card.ability.extra.rank
+                and not context.destroy_card.debuff
                 then
                     card.ability.extra.x_mult =
                     card.ability.extra.x_mult + card.ability.extra.x_mult_add
@@ -409,7 +410,9 @@ local XPC = {
                 if context.remove_playing_cards then
                     local count = 0
                     for _, removed_card in ipairs(context.removed or {}) do
-                        if removed_card:get_id() == card.ability.extra.rank then
+                        if removed_card:get_id() == card.ability.extra.rank
+                        and not removed_card.debuff
+                        then
                             count = count + 1
                         end
                     end
@@ -426,7 +429,7 @@ local XPC = {
                                         key = 'a_xmult',
                                         vars = {card.ability.extra.x_mult}
                                     },
-                                    colour = G.C.RED
+                                    colour = G.C.EXTRA
                                 })
                                 return true
                             end
@@ -547,6 +550,7 @@ local XPC = {
 
                 if context.destroy_card and context.cardarea == G.play
                 and context.destroy_card.config.center.key == card.ability.extra.enhancement
+                and not context.destroy_card.debuff
                 then
                     if card.ability.extra.message then
                         card.ability.extra.message = false
@@ -715,7 +719,7 @@ local XPC = {
                     card.ability.extra.x_mult + card.ability.extra.x_mult_add
                     return {
                         message = localize('k_upgrade_ex'),
-                        colour = G.C.ORANGE
+                        colour = G.C.EXTRA
                     }
                 end
             end
@@ -825,13 +829,15 @@ local XPC = {
                                     trigger = 'immediate',
                                     func = function()
                                         for _, scored_card in ipairs(changed_cards) do
-                                            local petrify = scored_card:set_ability(
-                                                G.P_CENTERS[card.ability.extra.enhancement],
-                                                nil, true)
+                                            if not scored_card.debuff then
+                                                local petrify = scored_card:set_ability(
+                                                    G.P_CENTERS[card.ability.extra.enhancement],
+                                                    nil, true)
 
-                                            if petrify then
-                                                scored_card:set_sprites(nil, scored_card.config.card)
-                                                scored_card:juice_up()
+                                                if petrify then
+                                                    scored_card:set_sprites(nil, scored_card.config.card)
+                                                    scored_card:juice_up()
+                                                end
                                             end
                                         end
                                         return true
@@ -895,7 +901,9 @@ local XPC = {
                 local enhancing_cards = {}
 
                 for _, scored_card in ipairs(context.scoring_hand) do
-                    if scored_card:get_id() == card.ability.extra.rank then
+                    if scored_card:get_id() == card.ability.extra.rank
+                    and not scored_card.debuff
+                    then
                         scored_card:set_ability(
                             G.P_CENTERS[card.ability.extra.enhancement],
                             nil, true
@@ -911,7 +919,7 @@ local XPC = {
                     end
                 end
 
-                if enhancing_cards and next(enhancing_cards) then
+                if next(enhancing_cards) then
                     return {message = localize('k_armed'), colour = G.C.EXTRA}
                 end
             end
@@ -1142,15 +1150,16 @@ local XPC = {
                 end
 
                 if context.initial_scoring_step then
-                    context.scoring_hand[1]:set_ability(
-                    G.P_CENTERS[card.ability.extra.enhancement],
-                    nil, true)
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            context.scoring_hand[1]:juice_up()
-                            return true
-                        end}))
-
+                    if not context.scoring_hand[1].debuff then
+                        context.scoring_hand[1]:set_ability(
+                        G.P_CENTERS[card.ability.extra.enhancement],
+                        nil, true)
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                context.scoring_hand[1]:juice_up()
+                                return true
+                            end}))
+                    end
                     return {
                         message = localize('k_petrified'),
                         colour = G.C.RARITY[4],
@@ -1174,9 +1183,9 @@ local XPC = {
             then
                 return {
                     x_mult = card.ability.extra.x_mult,
-                    colour = G.C.RED,
+                    colour = G.C.MULT,
                     card = card
-                    }
+                }
             end
         end
     },
@@ -1255,7 +1264,7 @@ local XPC = {
                 end
                 return {
                     message = localize('k_copied_ex'),
-                    colour = G.C.CHIPS,
+                    colour = G.C.RARITY[4],
                     card = card,
                     playing_cards_created = {true}
                 }
@@ -1343,7 +1352,8 @@ local XPC = {
 
             if context.before and G.GAME.current_round.hands_played == 0 then
                 for _, scored_card in ipairs(context.scoring_hand) do
-                    if scored_card.config.center.key == 'c_base' then
+                    if scored_card.config.center.key == 'c_base'
+                    and not scored_card.debuff then
                         local enhancement = pseudorandom_element(
                             G.P_CENTER_POOLS['Enhanced'],
                             pseudoseed('The Zoo')
@@ -1385,8 +1395,7 @@ local XPC = {
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
             local count = 0
             for _, playing_card in ipairs(G.playing_cards or {}) do
-                if playing_card.config.center.key
-                    == card.ability.extra.enhancement then
+                if playing_card.config.center.key == card.ability.extra.enhancement then
                     count = count + 1
                 end
             end
@@ -1410,20 +1419,22 @@ local XPC = {
 
                 if context.before and G.GAME.current_round.hands_played == 0 then
                     for _, scored_card in ipairs(context.scoring_hand) do
-                        scored_card:set_ability(
-                            G.P_CENTERS[card.ability.extra.enhancement],
-                            nil, true
-                        )
+                        if not scored_card.debuff then
+                            scored_card:set_ability(
+                                G.P_CENTERS[card.ability.extra.enhancement],
+                                nil, true
+                            )
 
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                scored_card:juice_up()
-                                return true
-                            end
-                        }))
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    scored_card:juice_up()
+                                    return true
+                                end
+                            }))
+                        end
                     end
 
-                    return {message = localize('k_chameleon'), colour = G.C.EXTRA}
+                    return {message = localize('k_chameleon'), colour = G.C.RARITY[4]}
                 end
             end
 
@@ -1542,7 +1553,7 @@ local XPC = {
                             key = 'a_xmult',
                             vars = {card.ability.extra.x_mult}
                         },
-                        colour = G.C.RED
+                        colour = G.C.EXTRA
                     }
                 end
             end
@@ -1751,7 +1762,7 @@ local XPC = {
 
             if context.initial_scoring_step and context.cardarea == G.jokers then
                 for _, scored_card in ipairs(context.scoring_hand) do
-                    if scored_card:is_face() then
+                    if scored_card:is_face() and not scored_card.debuff then
                         scored_card:set_seal('Red', true, true)
                         G.E_MANAGER:add_event(Event({
                             func = function()
@@ -1913,11 +1924,12 @@ local XPC = {
                 if context.before then
                     local seals = {}
 
-                    for _, playing_card in ipairs(context.scoring_hand or {}) do
-                        local seal = playing_card.seal
-
-                        if seal ~= nil and not contains(seal,seals) then
-                            table.insert(seals,seal)
+                    for _, scored_card in ipairs(context.scoring_hand or {}) do
+                        if not scored_card.debuff then
+                            local seal = scored_card.seal
+                            if seal ~= nil and not contains(seal,seals) then
+                                table.insert(seals,seal)
+                            end
                         end
                     end
 
@@ -1974,19 +1986,20 @@ local XPC = {
 
             if context.before and G.GAME.current_round.hands_played == 0 then
                 for _, scored_card in ipairs(context.scoring_hand) do
-                    scored_card:set_ability(
-                        G.P_CENTERS[card.ability.extra.enhancement],
-                        nil, true
-                    )
+                    if not scored_card.debuff then
+                        scored_card:set_ability(
+                            G.P_CENTERS[card.ability.extra.enhancement],
+                            nil, true
+                        )
 
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            scored_card:juice_up()
-                            return true
-                        end
-                    }))
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                scored_card:juice_up()
+                                return true
+                            end
+                        }))
+                    end
                 end
-
                 return {
                     message = localize('k_vitrified'),
                     colour = G.C.EXTRA
@@ -2339,7 +2352,7 @@ local XPC = {
             set = 'Joker',
             key = 'Td'
         }),
-        config = {extra = {enhancement = 'm_lucky'}},
+        config = {extra = {enhancement = 'm_lucky', message = false}},
 
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
@@ -2363,6 +2376,25 @@ local XPC = {
             and context.trigger_obj.config.center.key == 'm_lucky'
             then
                 return {numerator = 1, denominator = 1}
+            end
+
+            if context.setting_blind then
+                card.ability.extra.message = true
+            end
+
+            if context.cardarea == G.play and context.destroy_card
+            and context.destroy_card.config.center.key == card.ability.extra.enhancement
+            and not context.destroy_card.debuff
+            then                
+                if card.ability.extra.message then
+                    card.ability.extra.message = false
+                    return {
+                        remove = true,
+                        message = localize('k_busted'),
+                        colour = G.C.RED
+                    }
+                else return {remove = true}
+                end
             end
         end
     },
@@ -2398,15 +2430,13 @@ local XPC = {
                 adding_self(card)
             end
 
-            if not context.evaluate_poker_hand then
-                return
-            end
+            if not context.evaluate_poker_hand
+            then return end
 
             if context.scoring_name ~= 'Four of a Kind'
                 or not context.full_hand
-                or #context.full_hand ~= 5 then
-                return 
-            end
+                or #context.full_hand ~= 5
+            then return end
 
             local poker_hands = context.poker_hands or {}
 
@@ -2721,8 +2751,7 @@ local XPC = {
 
             if context.individual and context.cardarea == G.play then
                 context.other_card.ability.perma_x_mult =
-                (context.other_card.ability.perma_x_mult or 0)
-                + card.ability.extra.x_mult_add
+                (context.other_card.ability.perma_x_mult or 0) + card.ability.extra.x_mult_add
                 return {
                     extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
                     colour = G.C.MULT,
@@ -2843,18 +2872,18 @@ local XPC = {
                     card.ability.extra.message = true
                 end
 
-                if context.cardarea == G.play and context.destroy_card and
-                context.destroy_card.config.center.key == card.ability.extra.enhancement
-                then                
+                if context.destroy_card and context.cardarea == G.play
+                and context.destroy_card.config.center.key == card.ability.extra.enhancement
+                and not context.destroy_card.debuff
+                then
                     if card.ability.extra.message then
                         card.ability.extra.message = false
-                        return {
-                            remove = true,
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
                             message = localize('k_crumbled'),
                             colour = G.C.RED
-                        }
-                    else return {remove = true}
+                        })
                     end
+                    return {remove = true}
                 end
             end
 
@@ -2981,7 +3010,9 @@ local XPC = {
                 end
 
                 if context.cardarea == G.play and context.destroy_card
-                and context.destroy_card:get_id() == card.ability.extra.rank then                
+                and context.destroy_card:get_id() == card.ability.extra.rank
+                and not context.destroy_card.debuff
+                then                
                     if card.ability.extra.message then
                         card.ability.extra.message = false
                         return {
@@ -3000,7 +3031,7 @@ local XPC = {
                         x_mult = card.ability.extra.x_mult,
                         colour = G.C.RED,
                         card = card,
-                        }
+                    }
                 end
             end
         end
@@ -3366,18 +3397,18 @@ local XPC = {
                     card.ability.extra.message = true
                 end
 
-                if context.cardarea == G.play and context.destroy_card and
-                context.destroy_card.config.center.key == card.ability.extra.enhancement
-                then                
+                if context.destroy_card and context.cardarea == G.play
+                and context.destroy_card.config.center.key == card.ability.extra.enhancement
+                and not context.destroy_card.debuff
+                then
                     if card.ability.extra.message then
                         card.ability.extra.message = false
-                        return {
-                            remove = true,
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
                             message = localize('k_defeated'),
                             colour = G.C.RED
-                        }
-                    else return {remove = true}
+                        })
                     end
+                    return {remove = true}
                 end
             end
 
@@ -3741,21 +3772,21 @@ local XPC_Back = SMODS.Back({
     end
 })
 
-SMODS.Atlas({
-    key = 'XPdeck1',
-    path = 'face_Caro_LC.png',
-    px = 71,
-    py = 95,
-})
-
-SMODS.Atlas({
-    key = 'XPdeck2',
-    path = 'face_Caro_HC.png',
-    px = 71,
-    py = 95,
-})
-
 do
+    SMODS.Atlas({
+        key = 'XPdeck1',
+        path = 'face_Caro_LC.png',
+        px = 71,
+        py = 95,
+    })
+
+    SMODS.Atlas({
+        key = 'XPdeck2',
+        path = 'face_Caro_HC.png',
+        px = 71,
+        py = 95,
+    })
+
     local function isXPdeck()
         local selected_back = G.GAME and G.GAME.selected_back
 
@@ -3786,37 +3817,15 @@ do
     end
 
     local backup_get_front_spriteinfo = get_front_spriteinfo
-    local function isCollab(suit)
-        local settings = G.SETTINGS
-        local custom_deck = settings and settings.CUSTOM_DECK
-        local collabs = custom_deck and custom_deck.Collabs
 
-        local collab_key = collabs and collabs[suit]
+    function get_front_spriteinfo(front)
+        local atlas, pos, sprite_args = backup_get_front_spriteinfo(front)
 
-        if not collab_key then
-            return false
-        end
-
-        if collab_key == 'default' or collab_key == ('default_'.. suit) then
-            return false
-        end
-
-        return true
-    end
-
-    function get_front_spriteinfo(_front)
-        local atlas, pos, sprite_args = backup_get_front_spriteinfo(_front)
-
-        if not isXPdeck() or not _front or not _front.suit
-        then
+        if not isXPdeck() or not front or not front.suit then
             return atlas, pos, sprite_args
         end
 
-        if isCollab(_front.suit) then
-            return atlas, pos
-        end
-
-        local atlas_key = isXP_HC(_front.suit)
+        local atlas_key = isXP_HC(front.suit)
             and mod_prefix ..'_XPdeck2'
             or mod_prefix ..'_XPdeck1'
 
@@ -3826,7 +3835,7 @@ do
             return atlas, pos, sprite_args
         end
 
-        return custom_atlas, pos, sprite_args
+        return custom_atlas, front.pos, sprite_args
     end
 
 
@@ -3880,7 +3889,7 @@ do
         and type(back.effect.center) == 'table'
     end
 
-    function Card:set_sprites(_center, _front)
+    function Card:set_sprites(center, front)
         local game = G and G.GAME
         local original_viewed_back = game and game.viewed_back
 
@@ -3897,7 +3906,7 @@ do
             end
         end
 
-        local done, result = pcall(backup_set_sprites, self, _center, _front)
+        local done, result = pcall(backup_set_sprites, self, center, front)
 
         if game then
             game.viewed_back = original_viewed_back
