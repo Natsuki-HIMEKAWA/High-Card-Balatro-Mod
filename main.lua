@@ -3208,12 +3208,10 @@ local XPC = {
                 set = 'Edition',
                 config = {extra = 10}
             }
-
             local numerator, denominator = SMODS.get_probability_vars(
                 card, card.ability.extra.numerator,
                 card.ability.extra.denominator, 'Million Volt'
             )
-
             return {vars = { numerator, denominator }}
         end,
 
@@ -3264,8 +3262,7 @@ local XPC = {
     },
 
     CJ = (function()
-        local backup_draw_from_play_to_discard =
-            G.FUNCS.draw_from_play_to_discard
+        local backup_draw_from_play_to_discard = G.FUNCS.draw_from_play_to_discard
 
         local card_target = nil
         local massage = false
@@ -3307,10 +3304,8 @@ local XPC = {
                         and not target.shattered and not target.destroyed then
 
                         draw_card(G.play, G.hand, nil, 'up', true, target)
-
                         massage = true
                     end
-
                     return true
                 end
             }))
@@ -3571,8 +3566,7 @@ local XPC = {
             end
 
             if context.setting_blind
-            and #G.consumeables.cards + G.GAME.consumeable_buffer
-                < G.consumeables.config.card_limit
+            and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
             then
                 local blueprint_or_self = context.blueprint_card or card
 
@@ -3706,7 +3700,7 @@ local XPC_Back = SMODS.Back({
         then return end
 
         if not G.jokers or
-        (#G.jokers.cards >= G.jokers.config.card_limit and not (x.edition and x.edition.negative))
+        #G.jokers.cards >= G.jokers.config.card_limit and not (x.edition and x.edition.negative)
         then return end
 
         local rank = x.base.value
@@ -3720,7 +3714,7 @@ local XPC_Back = SMODS.Back({
 
         local key = 'j_'.. mod_prefix ..'_'.. rank .. suit
 
-        local edition = x.edition and copy_table(x.edition) or {}
+        local edition = x.edition and copy_table(x.edition)
 
         local enhancement = nil
 
