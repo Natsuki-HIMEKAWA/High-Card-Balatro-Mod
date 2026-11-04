@@ -1433,7 +1433,6 @@ local XPC = {
                             }))
                         end
                     end
-
                     return {message = localize('k_chameleon'), colour = G.C.RARITY[4]}
                 end
             end
@@ -1977,7 +1976,6 @@ local XPC = {
                 })
             }}
         end,
-
 
         calculate = function(self, card, context)
             if context.selling_self then
