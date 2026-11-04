@@ -345,7 +345,8 @@ local descriptions = {
             name = 'Unlucky Poky',
             text = {
                 '{C:attention}#1#s{} always trigger',
-                'their effects when scored'
+                'their effects when scored,',
+                'then destroy them'
             }
         },
         ['j_'.. mod_prefix ..'_Jd'] = {
@@ -359,16 +360,15 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Qd'] = {
                 name = 'Balor',
                 text = {
-                    '{C:dark_edition}Foresee{} the order',
-                    'in which the deck',
-                    'will be drawn'
+                    '{C:dark_edition}Foresee{} the order in which',
+                    'the deck will be drawn'
                 }
         },
         ['j_'.. mod_prefix ..'_Kd'] = {
             name = 'Round and Round',
             text = {
                 'Balance {C:chips}Chips{} and {C:mult}Mult{}',
-                'for every {C:attention}hand{} played'
+                'for every hand played'
             }
         },
         ['j_'.. mod_prefix ..'_Ad'] = {
@@ -392,7 +392,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_3c'] = {
             name = 'Green Green',
             text = {
-                'Every played card',
+                'Every played {C:attention}card{}',
                 'permanently gains',
                 '{C:white,X:red}X#1#{} Mult when scored'
             }
@@ -400,10 +400,9 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_4c'] = {
             name = 'Wing Wind',
             text = {
-                'After each hand is',
-                'scored, {C:attention}shuffle{} all',
-                'remaining cards in',
-                'hand into your deck'
+                'After each hand is scored,',
+                '{C:attention}shuffle{} all remaining cards',
+                'in hand into the deck'
             }
         },
         ['j_'.. mod_prefix ..'_5c'] = {
@@ -417,11 +416,10 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_6c'] = {
             name = 'Shallow Blue',
             text = {
-                '{C:green}#1# in #2#{} chance to',
-                'add {C:dark_edition}Foil{} to every',
-                'scored card during',
-                'the {C:attention}first{} hand if',
-                'it has no edition'
+                '{C:green}#1# in #2#{} chance to add {C:dark_edition}Foil{}',
+                'to every scored card',
+                'during the {C:attention}first{} hand',
+                'if it has no edition'
             }
         },
         ['j_'.. mod_prefix ..'_7c'] = {
@@ -436,30 +434,27 @@ local descriptions = {
             name = 'Sinking Shadow',
             text = {
                 '{C:green}#1# in #2#{} chance to add',
-                '{C:dark_edition}Negative{} to every',
-                'scored card during',
-                'the {C:attention}first{} hand if',
-                'it has no edition'
+                '{C:dark_edition}Negative{} to every scored',
+                'card during the {C:attention}first{}',
+                'hand if it has no edition'
             }
         },
         ['j_'.. mod_prefix ..'_9c'] = {
             name = 'Rising Light',
             text = {
                 '{C:green}#1# in #2#{} chance to add',
-                '{C:dark_edition}Polychrome{} to every',
-                'scored card during',
-                'the {C:attention}first{} hand if',
-                'it has no edition'
+                '{C:dark_edition}Polychrome{} to every scored',
+                'card during the {C:attention}first{}',
+                'hand if it has no edition'
             }
         },
         ['j_'.. mod_prefix ..'_Tc'] = {
             name = 'Million Volt',
             text = {
                 '{C:green}#1# in #2#{} chance to add',
-                '{C:dark_edition}Holographic{} to every ',
-                'scored card during',
-                'the {C:attention}first{} hand if',
-                'it has no edition'
+                '{C:dark_edition}Holographic{} to every scored',
+                'card during the {C:attention}first{}',
+                'hand if it has no edition'
             }
         },
         ['j_'.. mod_prefix ..'_Jc'] = {
@@ -549,6 +544,7 @@ local misc = {
         k_evolved = 'Evolved!',
         k_swapped = 'Swapped!',
         k_sacrificed = 'Sacrificed!',
+        k_busted = 'Busted!',
         k_balor = 'Balor',
         k_not_ready = 'The deck is not ready yet!',
         k_ready = 'Cards will be drawn from left to right!',
