@@ -226,7 +226,7 @@ local XPC = {
             set = 'Joker',
             key = '3s'
         }),
-        config = { extra = { rank = 3, x_mult = 1.5 } },
+        config = {extra = {rank = 3, x_mult = 1.5}},
 
         loc_vars = function(self, info_queue, card)
             return {vars = {
@@ -595,6 +595,7 @@ local XPC = {
             key = '9s'
         }),
         config = {extra = {ratio = 0.75, numerator = 1, denominator = 3}},
+
         loc_vars = function(self, info_queue, card)
             local ratio = card.ability.extra.ratio
             local numerator, denominator = SMODS.get_probability_vars(
@@ -684,7 +685,11 @@ local XPC = {
             key = 'Ts'
         }),
         config = {
-            extra = {x_mult = 1.0, x_mult_add = 0.3, poker_hand = 'Straight'}
+            extra = {
+                x_mult = 1.0,
+                x_mult_add = 0.3,
+                poker_hand = 'Straight'
+            }
         },
 
         loc_vars = function(self, info_queue, card)
@@ -1042,10 +1047,13 @@ local XPC = {
             key = '2h'
         }),
 
-        config = { extra = {
-            money_per_size = 20,
-            max_bonus = 5,
-            applied = 0} },
+        config = {
+            extra = {
+                money_per_size = 20,
+                max_bonus = 5,
+                applied = 0
+            }
+        },
 
         loc_vars = function(self, info_queue, card)
             local extra = card.ability.extra
@@ -1336,7 +1344,7 @@ local XPC = {
             set = 'Joker',
             key = '6h'
         }),
-        config = {extra = {}},
+        config = {},
 
         loc_vars = function(self,info_queue,card)
             return {vars = {
@@ -1389,7 +1397,7 @@ local XPC = {
             set = 'Joker',
             key = '7h'
         }),
-        config = { extra = {enhancement = 'm_wild', x_mult_add = 0.1} },
+        config = {extra = {enhancement = 'm_wild', x_mult_add = 0.1}},
 
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
@@ -2291,7 +2299,7 @@ local XPC = {
             set = 'Joker',
             key = '9d'
         }),
-        config = { extra = { x_mult = 1 } },
+        config = {extra = {x_mult = 1}},
         loc_vars = function(self, info_queue, card)
             return {vars = {card.ability.extra.x_mult}}
         end,
@@ -2774,7 +2782,7 @@ local XPC = {
             set = 'Joker',
             key = '4c'
         }),
-        config = {extra = {}},
+        config = {},
 
         loc_vars = function(self, info_queue, card)
             return {vars = {
@@ -2987,7 +2995,7 @@ local XPC = {
             set = 'Joker',
             key = '7c'
         }),
-        config = { extra = {rank = 7, x_mult = 2, message = false}},
+        config = {extra = {rank = 7, x_mult = 2, message = false}},
 
         loc_vars = function(self, info_queue, card)
             return {
@@ -3366,7 +3374,7 @@ local XPC = {
             set = 'Joker',
             key = 'Qc'
         }),
-        config = { extra = {enhancement = 'm_bonus', x_mult = 2, message = false} },
+        config = {extra = {enhancement = 'm_bonus', x_mult = 2, message = false} },
 
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
@@ -3570,11 +3578,10 @@ local XPC = {
             then
                 local blueprint_or_self = context.blueprint_card or card
 
-                G.GAME.consumeable_buffer =
-                    (G.GAME.consumeable_buffer or 0) + 1
+                G.GAME.consumeable_buffer = (G.GAME.consumeable_buffer or 0) + 1
 
                 G.E_MANAGER:add_event(Event({
-                    func = (function()
+                    func = function()
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 local spectral = create_card(
@@ -3589,8 +3596,8 @@ local XPC = {
                                 G.GAME.consumeable_buffer = math.max(0, G.GAME.consumeable_buffer - 1)
 
                                 return true
-                            end}))
-            
+                            end
+                        }))
                         card_eval_status_text(blueprint_or_self,
                             'extra', nil, nil, nil, 
                             {message = localize('k_summoned'),
@@ -3598,7 +3605,6 @@ local XPC = {
 
                         return true
                     end
-                    )
                 }))
             end
         end
