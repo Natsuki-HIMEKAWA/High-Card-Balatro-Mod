@@ -311,7 +311,8 @@ local descriptions = {
             name = '倒楣鬼',
             text = {
                 '所有計分的{C:attention}#1#{}',
-                '其兩種效果必然觸發'
+                '其兩種效果必然觸發，',
+                '且於計分後將其摧毀'
             }
         },
         ['j_'.. mod_prefix ..'_Jd'] = {
@@ -498,6 +499,7 @@ local misc = {
         k_evolved = '進化！',
         k_swapped = '互換！',
         k_sacrificed = '獻祭！',
+        k_busted = '爆牌！',
         k_balor = '邪眼魔王',
         k_not_ready = '牌堆尚未就緒',
         k_ready = '由左至右抽牌',
