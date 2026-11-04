@@ -443,7 +443,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Ac'] = {
             name = '行尸走肉',
             text = {
-                '在选择{C:attention}盲注时',
+                '在选择{C:attention}盲注{}时',
                 '生成一张{C:spectral}幻灵牌{}',
                 '{C:inactive}（必须有空位）{}'
             }
