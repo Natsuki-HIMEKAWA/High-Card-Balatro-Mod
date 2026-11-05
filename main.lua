@@ -2784,10 +2784,6 @@ local XPC = {
         }),
         config = {},
 
-        loc_vars = function(self, info_queue, card)
-            return {vars = {}}
-        end,
-
         calculate = function(self,card,context)
             if context.selling_self then
                 adding_self(card)
