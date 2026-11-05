@@ -2785,14 +2785,7 @@ local XPC = {
         config = {},
 
         loc_vars = function(self, info_queue, card)
-            return {vars = {
-                localize({
-                    type = 'name_text',
-                    set = 'Enhanced',
-                    key = card.ability.extra.enhancement
-                }),
-                card.ability.extra.x_mult
-            }}
+            return {vars = {}}
         end,
 
         calculate = function(self,card,context)
