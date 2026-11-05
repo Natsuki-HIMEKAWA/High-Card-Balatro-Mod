@@ -1346,13 +1346,6 @@ local XPC = {
         }),
         config = {},
 
-        loc_vars = function(self,info_queue,card)
-            return {vars = {
-                localize(rank_to_string(card.ability.extra.rank),'ranks'),
-                card.ability.extra.x_mult
-            }}
-        end,
-
         calculate = function(self, card, context)
             if context.selling_self then
                 adding_self(card)
@@ -2539,11 +2532,9 @@ local XPC = {
             end
 
             for _, joker in ipairs(G.jokers.cards) do
-                if joker
-                    and joker.config
-                    and joker.config.center
-                    and joker.config.center.key == 'j_'.. mod_prefix ..'_Qd'
-                    and not joker.debuff
+                if joker and joker.config and joker.config.center
+                and joker.config.center.key == 'j_'.. mod_prefix ..'_Qd'
+                and not joker.debuff
                 then
                     return true
                 end
@@ -2636,7 +2627,6 @@ local XPC = {
             key = 'Kd'
         }),
         config = {},
-
         calculate = function(self, card, context)
             if context.selling_self then
                 adding_self(card)
