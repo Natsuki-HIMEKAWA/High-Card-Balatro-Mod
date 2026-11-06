@@ -45,6 +45,20 @@ SMODS.Atlas({
     px = 71, py = 95
 })
 
+SMODS.Atlas({
+    key = 'XPdeckLC',
+    path = 'face_Caro_LC.png',
+    px = 71,
+    py = 95,
+})
+
+SMODS.Atlas({
+    key = 'XPdeckHC',
+    path = 'face_Caro_HC.png',
+    px = 71,
+    py = 95,
+})
+
 SMODS.Sticker({
     key = 'clone',
     atlas = 'clone',
@@ -1413,7 +1427,7 @@ local XPC = {
             local x_mult = 1 + count * card.ability.extra.x_mult_add
             return { vars = {
                     localize({
-                        type = 'name_text',set = 'Enhanced',
+                        type = 'name_text', set = 'Enhanced',
                         key = card.ability.extra.enhancement
                     }),
                     card.ability.extra.x_mult_add,
@@ -3760,20 +3774,6 @@ local XPC_Back = SMODS.Back({
 })
 
 do
-    SMODS.Atlas({
-        key = 'XPdeck1',
-        path = 'face_Caro_LC.png',
-        px = 71,
-        py = 95,
-    })
-
-    SMODS.Atlas({
-        key = 'XPdeck2',
-        path = 'face_Caro_HC.png',
-        px = 71,
-        py = 95,
-    })
-
     local function isXPdeck()
         local selected_back = G.GAME and G.GAME.selected_back
 
@@ -3812,8 +3812,8 @@ do
         end
 
         local atlas_key = isXP_HC(front.suit)
-            and mod_prefix ..'_XPdeck2'
-            or mod_prefix ..'_XPdeck1'
+            and mod_prefix ..'_XPdeckHC'
+            or mod_prefix ..'_XPdeckLC'
 
         local custom_atlas = SMODS.get_atlas(atlas_key)
 
@@ -3990,8 +3990,7 @@ challenges = function(poker_hands, jokers)
                     {id = 'c_soul'},
                     {id = 'v_antimatter'},
                     {id = 'p_buffoon_normal_1', ids = {
-                        'p_buffoon_normal_1','p_buffoon_normal_2',
-                        'p_buffoon_jumbo_1','p_buffoon_mega_1',
+                        'p_buffoon_normal_1','p_buffoon_normal_2', 'p_buffoon_jumbo_1','p_buffoon_mega_1'
                     }}
                 },
                 banned_tags = {
