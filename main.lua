@@ -71,24 +71,6 @@ local contains = function(element, list)
     return false
 end
 
-local function has_dynamic_kinesis() -- Defined for Ad Dynamic Kinesis
-    if not (G.jokers and G.jokers.cards) then
-        return false
-    end
-
-    for _, joker in ipairs(G.jokers.cards) do
-        local center = joker.config and joker.config.center
-        local key = center and center.key
-
-        if not joker.debuff and key == 'j_'.. mod_prefix ..'_Ad'
-        then
-            return true
-        end
-    end
-
-    return false
-end
-
 local adding_self = function(joker)
     G.E_MANAGER:add_event(Event({
         func = function()
@@ -101,7 +83,26 @@ local adding_self = function(joker)
             )
 
             local area = G.deck
-            if has_dynamic_kinesis() and G.GAME.facing_blind then
+
+            local function hasDynamicKinesis() -- Defined for Ad Dynamic Kinesis
+                if not (G.jokers and G.jokers.cards) then
+                    return false
+                end
+
+                for _, joker in ipairs(G.jokers.cards) do
+                    local center = joker.config and joker.config.center
+                    local key = center and center.key
+
+                    if not joker.debuff and key == 'j_'.. mod_prefix ..'_Ad'
+                    then
+                        return true
+                    end
+                end
+
+                return false
+            end
+
+            if hasDynamicKinesis() and G.GAME.facing_blind then
                 area = G.hand
             end
             
@@ -141,7 +142,14 @@ local adding_self = function(joker)
             end
             
             if area == G.deck then
-                G.deck:shuffle()
+                card:juice_up()
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    func = function()
+                        G.deck:shuffle()
+                        return true
+                    end
+                }))
             end
             return true
         end
