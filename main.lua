@@ -1,6 +1,15 @@
 mod_prefix = SMODS.current_mod.prefix
 XPC_deck_key = 'X-Playing_Deck'
 
+local contains = function(element, list)
+    for _, e in ipairs(list) do
+        if e == element then
+            return true
+        end
+    end
+    return false
+end
+
 --Stone Viewer: Reveal the hidden base of Stone Cards--
 SMODS.Enhancement:take_ownership('stone', {
     loc_vars = function(self, info_queue, card)
@@ -76,15 +85,6 @@ local rank_to_string = function(rank)
     end
 end
 
-local contains = function(element, list)
-    for _, e in ipairs(list) do
-        if e == element then
-            return true
-        end
-    end
-    return false
-end
-
 local adding_self = function(joker)
     G.E_MANAGER:add_event(Event({
         func = function()
@@ -148,11 +148,8 @@ local adding_self = function(joker)
 
             if seal then card:set_seal(seal) end
 
-            local edition = joker.edition
-            if type(edition) == 'table' then
-                card:set_edition(copy_table(edition), true)
-            elseif type(edition) == 'string' then
-                card:set_edition({[edition:sub(3)] = true}, true)
+            if joker.edition then
+                card:set_edition(copy_table(joker.edition), true)
             end
             
             if area == G.deck then
