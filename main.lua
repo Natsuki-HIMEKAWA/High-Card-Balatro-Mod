@@ -140,7 +140,9 @@ local adding_self = function(joker)
                 card:set_edition({[edition:sub(3)] = true}, true)
             end
             
-            card:juice_up()
+            if area == G.deck then
+                G.deck:shuffle()
+            end
             return true
         end
     }))
@@ -3767,8 +3769,7 @@ do
     local function isXPdeck()
         local selected_back = G.GAME and G.GAME.selected_back
 
-        local center = 
-        selected_back and selected_back.effect
+        local center = selected_back and selected_back.effect
         and selected_back.effect.center
 
         if not center then
@@ -3868,7 +3869,7 @@ do
 
     function Card:set_sprites(center, front)
         local game = G and G.GAME
-        local original_viewed_back = game and game.viewed_back
+        local backup_viewed_back = game and game.viewed_back
 
         if game then
             local viewed_back = game.viewed_back
@@ -3886,7 +3887,7 @@ do
         local done, result = pcall(backup_set_sprites, self, center, front)
 
         if game then
-            game.viewed_back = original_viewed_back
+            game.viewed_back = backup_viewed_back
         end
 
         if not done then
