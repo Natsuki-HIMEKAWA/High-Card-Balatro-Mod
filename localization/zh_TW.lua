@@ -169,7 +169,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_6h'] = {
             name = '動物園',
             text = {
-                '每回合打出的{C:attention}第一手牌中{}，',
+                '每回合{C:attention}第一次{}出牌中，',
                 '每張無增強的{C:attention}計分牌{}在',
                 '計分時隨機獲得一種{C:dark_edition}增強{}'
             }
