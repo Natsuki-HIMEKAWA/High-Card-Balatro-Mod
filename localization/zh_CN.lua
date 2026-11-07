@@ -337,8 +337,12 @@ local descriptions = {
             name = '动态念力',
             text = {
                 '回合内出售{C:B4883C}X-扑克牌{}',
-                '会将立即其加入',
-                '{C:attention}手牌{}中，而非牌堆'
+                '会将立即其加入{C:attention}手牌{}，',
+                '而非牌堆；每售出一张',
+                '{C:B4883C}X-扑克牌{}，{C:legendary}动态念力{}',
+                '获得{C:white,X:mult}X#1#{}倍率，击败',
+                '{C:attention}Boss{}盲注后重置',
+                '{C:inactive}（当前为{C:white,X:mult}X#2#{C:inactive}倍率）{}'
             }
         },
         ['j_'.. mod_prefix ..'_2c'] = {
@@ -359,8 +363,9 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_4c'] = {
             name = '振翼疾风',
             text = {
-                '每手牌计分后，将',
-                '剩余手牌{C:attention}洗入{}牌堆'
+                '每手牌计分后，将剩余',
+                '除{C:attention}#1#{}和{C:attention}#2#{}之外',
+                '所有手牌{C:attention}洗入{}牌堆'
             }
         },
         ['j_'.. mod_prefix ..'_5c'] = {
