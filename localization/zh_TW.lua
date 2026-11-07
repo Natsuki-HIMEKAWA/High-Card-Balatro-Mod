@@ -336,7 +336,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Ad'] = {
             name = '動態念力',
             text = {
-                '回合內出售{C:B4883C}X-撲克牌{}',
+                '回合內賣出{C:B4883C}X-撲克牌{}',
                 '會將其立即加入{C:attention}手牌{}，',
                 '而非牌堆；每賣出一張',
                 '{C:B4883C}X-撲克牌{}，{C:legendary}動態念力{}',
