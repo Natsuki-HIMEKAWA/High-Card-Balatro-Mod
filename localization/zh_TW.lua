@@ -337,8 +337,12 @@ local descriptions = {
             name = '動態念力',
             text = {
                 '回合內出售{C:B4883C}X-撲克牌{}',
-                '會將其立即加入',
-                '{C:attention}手牌{}中，而非牌堆'
+                '會將其立即加入{C:attention}手牌{}，',
+                '而非牌堆；每賣出一張',
+                '{C:B4883C}X-撲克牌{}，{C:legendary}動態念力{}',
+                '獲得{C:white,X:mult}X#1#{}倍數，擊敗',
+                '{C:attention}Boss{}盲注後重置',
+                '{C:inactive}（目前為{C:white,X:mult}X#2#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_2c'] = {
@@ -359,8 +363,9 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_4c'] = {
             name = '振翼疾風',
             text = {
-                '每手牌計分後，將',
-                '剩餘手牌{C:attention}洗入{}牌堆'
+                '每手牌計分後，將剩餘',
+                '除{C:attention}#1#{}和{C:attention}#2#{}之外'
+                '所有手牌{C:attention}洗入{}牌堆'
             }
         },
         ['j_'.. mod_prefix ..'_5c'] = {
@@ -436,8 +441,8 @@ local descriptions = {
                 '版本提供的{C:chips}籌碼{}，{C:mult}倍數{}，',
                 '{C:white,X:mult}X倍數{}，或返還相應{C:money}金錢{}',
                 '擊敗{C:attention}Boss盲注{}後重置',
-                '{C:inactive}（目前為{C:chips}+#1#{}{C:inactive}籌碼，{}',
-                '{C:mult}+#2#{}{C:inactive}倍數，{}{X:mult,C:white}X#3#{}{C:inactive}倍數）{}'
+                '{C:inactive}（目前為{C:chips}+#1#{C:inactive}籌碼，{}',
+                '{C:mult}+#2#{C:inactive}倍數，{X:mult,C:white}X#3#{C:inactive}倍數）{}'
             }
         },
         ['j_'.. mod_prefix ..'_Ac'] = {
