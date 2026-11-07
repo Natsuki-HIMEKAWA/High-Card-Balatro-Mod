@@ -364,7 +364,7 @@ local descriptions = {
             name = '振翼疾風',
             text = {
                 '每手牌計分後，將剩餘',
-                '除{C:attention}#1#{}和{C:attention}#2#{}之外'
+                '除{C:attention}#1#{}和{C:attention}#2#{}之外',
                 '所有手牌{C:attention}洗入{}牌堆'
             }
         },
