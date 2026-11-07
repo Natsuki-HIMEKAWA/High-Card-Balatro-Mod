@@ -86,16 +86,14 @@ local rank_to_string = function(rank)
 end
 
 local adding_self = function(joker)
+    card_eval_status_text(joker, 'extra', nil, nil, nil, 
+        {
+            message = localize('k_deactivated'),
+            colour = G.C.GREEN
+        }
+    )
     G.E_MANAGER:add_event(Event({
         func = function()
-            card_eval_status_text(
-                joker, 'extra', nil, nil, nil, 
-                {
-                    message = localize('k_deactivated'),
-                    colour = G.C.GREEN
-                }
-            )
-
             local area = G.deck
 
             local function hasDynamicKinesis() -- Defined for Ad Dynamic Kinesis
@@ -445,11 +443,11 @@ local XPC = {
                             trigger = 'after',
                             func = function()
                                 card_eval_status_text(card, 'extra', nil, nil, nil, {
-                                    message = localize {
+                                    message = localize({
                                         type = 'variable',
                                         key = 'a_xmult',
                                         vars = {card.ability.extra.x_mult}
-                                    },
+                                    }),
                                     colour = G.C.EXTRA
                                 })
                                 return true
@@ -768,20 +766,17 @@ local XPC = {
         config = {extra = {enhancements = {'m_steel','m_gold'}, x_mult = 1.5}},
 
         loc_vars = function(self, info_queue, card)
+            local vars = {}
             for i = 1, #card.ability.extra.enhancements do
                 info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancements[i]]
+                vars[#vars + 1] = localize({
+                    type = 'name_text', set = 'Enhanced',
+                    key = card.ability.extra.enhancements[i]
+                })
             end
-            return {vars = {
-                localize({
-                    type = 'name_text', set = 'Enhanced',
-                    key = card.ability.extra.enhancements[1]
-                }),
-                localize({
-                    type = 'name_text', set = 'Enhanced',
-                    key = card.ability.extra.enhancements[2]
-                }),
-                card.ability.extra.x_mult
-            }}
+
+            vars[#vars + 1] = card.ability.extra.x_mult
+            return {vars = vars}
         end,
 
         calculate = function(self, card, context)
@@ -2659,8 +2654,6 @@ local XPC = {
     },
 
     DA = {
-        blueprint_compat = false,
-
         key = 'Ad',
         pos = {x=12,y=2},
         name = localize({
@@ -2673,10 +2666,43 @@ local XPC = {
             set = 'Joker',
             key = 'Ad'
         }),
-        config = {},
+        config = {extra = {x_mult = 1, x_mult_add = 1}},
+
+        loc_vars = function(self, info_queue, card)
+            return {vars = {
+                card.ability.extra.x_mult_add,
+                card.ability.extra.x_mult
+            }}
+        end,
+
         calculate = function(self,card,context)
-            if context.selling_self then
-                adding_self(card)
+            if not context.blueprint then
+                if context.selling_self then
+                    adding_self(card)
+                end
+
+                if context.selling_card and context.card and context.card ~= card
+                and string.find(context.card.config.center.key, 'j_'.. mod_prefix ..'_', 1, true)
+                then
+                    card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
+                    return{
+                        message = localize({
+                            type = 'variable',
+                            key = 'a_xmult',
+                            vars = {card.ability.extra.x_mult}
+                        }),
+                        colour = G.C.EXTRA
+                    }
+                end
+
+                if context.end_of_round and G.GAME.blind.boss and context.main_eval then
+                    card.ability.extra.x_mult = 1
+                    return {message = localize('k_reset')}
+                end
+            end
+            
+            if context.joker_main then
+                return {x_mult = card.ability.extra.x_mult}
             end
         end
     },
@@ -2699,19 +2725,15 @@ local XPC = {
         config = {extra = {enhancements = {'m_steel','m_gold'}}},
 
         loc_vars = function(self, info_queue, card)
+            local vars = {}
             for i = 1, #card.ability.extra.enhancements do
                 info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancements[i]]
+                vars[#vars + 1] = localize({
+                    type = 'name_text', set = 'Enhanced',
+                    key = card.ability.extra.enhancements[i]
+                })
             end
-            return {vars = {
-                localize({
-                    type = 'name_text', set = 'Enhanced',
-                    key = card.ability.extra.enhancements[1]
-                }),
-                localize({
-                    type = 'name_text', set = 'Enhanced',
-                    key = card.ability.extra.enhancements[2]
-                }),
-            }}
+            return {vars = vars}
         end,
 
         calculate = function(self, card, context)
@@ -2720,16 +2742,15 @@ local XPC = {
             end
 
             if context.individual and context.cardarea == G.hand then
-                local other_card = context.other_card
                 if context.end_of_round then
-                    if SMODS.has_enhancement(other_card, 'm_steel') then
+                    if SMODS.has_enhancement(context.other_card, 'm_steel') then
                         return {
                             dollars = G.P_CENTERS.m_gold.config.h_dollars,
                             card = card
                         }
                     end
                 else
-                    if SMODS.has_enhancement(other_card, 'm_gold') then
+                    if SMODS.has_enhancement(context.other_card, 'm_gold') then
                         return {
                             x_mult = G.P_CENTERS.m_steel.config.h_x_mult,
                             card = card
@@ -2793,7 +2814,19 @@ local XPC = {
             set = 'Joker',
             key = '4c'
         }),
-        config = {},
+        config = {extra = {enhancements = {'m_steel','m_gold'}}},
+
+        loc_vars = function(self, info_queue, card)
+            local vars = {}
+            for i = 1, #card.ability.extra.enhancements do
+                info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancements[i]]
+                vars[#vars + 1] = localize({
+                    type = 'name_text', set = 'Enhanced',
+                    key = card.ability.extra.enhancements[i]
+                })
+            end
+            return {vars = vars}
+        end,
 
         calculate = function(self,card,context)
             if context.selling_self then
@@ -2820,8 +2853,20 @@ local XPC = {
                                 }
                             )
 
-                            for i = 1, #G.hand.cards do
-                                draw_card(G.hand, G.deck, 50, 'up')
+                            local cards = {}
+                            for index = 1, #G.hand.cards do
+                                local hand_card = G.hand.cards[index]
+                                if not contains(
+                                    hand_card.config.center.key,
+                                    card.ability.extra.enhancements
+                                )
+                                then
+                                    cards[#cards + 1] = hand_card
+                                end
+                            end
+
+                            for _, hand_card in pairs(cards) do
+                                draw_card(G.hand, G.deck, 50, 'up', nil, hand_card)
                             end
 
                             G.E_MANAGER:add_event(Event({
@@ -3522,8 +3567,7 @@ local XPC = {
                     }
                 end
 
-                if context.end_of_round and G.GAME.blind.boss
-                and context.main_eval then
+                if context.end_of_round and G.GAME.blind.boss and context.main_eval then
                     card.ability.extra.chips = 0
                     card.ability.extra.mult = 0
                     card.ability.extra.x_mult = 1
