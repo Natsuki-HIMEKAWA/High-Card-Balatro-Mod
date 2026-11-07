@@ -374,19 +374,21 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Ad'] = {
             name = 'Dynamic Kinesis',
             text = {
-                'Selling {C:B4883C}X-Playing Cards{}',
-                'during a round will',
-                'add them to {C:attention}hand{},',
-                'instead of the deck'
+                'Selling {C:B4883C}X-Playing Cards{} during a',
+                'round will add them to {C:attention}hand{},',
+                'instead of the deck; {C:legendary}Dynamic{}',
+                '{C:legendary}Kinesis{} gains {C:white,X:mult}X#1#{} Mult for each',
+                '{C:B4883C}X-Playing Card{} sold, resets',
+                'when {C:attention}Boss Blind{} is defeated',
+                '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
             }
         },
         ['j_'.. mod_prefix ..'_2c'] = {
             name = 'Metallical Parade',
             text = {
                 'All {C:attention}#1#s{} and',
-                '{C:attention}#2#s{} gain the',
-                'effects of both',
-                '{C:enhanced}Enhancements{}'
+                '{C:attention}#2#s{} gain the effects',
+                'of both {C:enhanced}Enhancements{}'
             }
         },
         ['j_'.. mod_prefix ..'_3c'] = {
@@ -402,7 +404,8 @@ local descriptions = {
             text = {
                 'After each hand is scored,',
                 '{C:attention}shuffle{} all remaining cards',
-                'in hand into the deck'
+                'in hand except {C:attention}#1#s{}',
+                'and {C:attention}#2#s{} into the deck'
             }
         },
         ['j_'.. mod_prefix ..'_5c'] = {
@@ -482,7 +485,7 @@ local descriptions = {
                 'or returns {C:money}money{} from their',
                 '{C:enhanced}Enhancements{} and {C:dark_edition}Editions{} after scoring',
                 'Resets when {C:attention}Boss Blind{} is defeated',
-                '{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips, {C:mult}+#2#{} {C:inactive}Mult,{} {X:mult,C:white}X#3#{}{C:inactive} Mult){}'
+                '{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips, {C:mult}+#2#{} {C:inactive}Mult, {X:mult,C:white}X#3#{C:inactive} Mult){}'
             }
         },
         ['j_'.. mod_prefix ..'_Ac'] = {
