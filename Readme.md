@@ -6,11 +6,11 @@
 
 ## Features
 
-- **New Jokers** - Adds 52 custom Jokers modeled after the X-Playing Cards from *High Card*.
+- **New Jokers** — Adds 52 custom Jokers modeled after the X-Playing Cards from *High Card*.
 - **New Challenges** - Adds 10 new challenges centered around the Jokers introduced above.
-- **Stone Card Logic** - Reveals the normally hidden base value of Stone Cards in a side tooltip.
-- **Vanilla Game Fix** - The included `lovely.toml` file fixes a vanilla game bug that prevents Mr. Bones from working when a Game Over is caused by running out of cards in your deck.
-- **Multilingual Support** - Includes English, Simplified Chinese, and Traditional Chinese translations.
+- **Stone Card Logic** — Reveals the normally hidden base value of Stone Cards in a side tooltip.
+- **Vanilla Game Fix** — The included `lovely.toml` file fixes a vanilla game bug that prevents Mr. Bones from working when a Game Over is caused by running out of cards in your deck.
+- **Multilingual Support** — Includes English, Simplified Chinese, and Traditional Chinese translations.
 
 ## Compatibility
 
@@ -35,7 +35,7 @@ Install Steamodded and Lovely separately before installing this mod.
 
 1. Install Balatro, Steamodded, and Lovely.
 2. Download the released ZIP file and extract it.
-3. Locate the mod folder containing `main.lua`, `main.json`, and `lovely.toml`.
+3. Locate the mod folder containing `HighCard.lua`, `main.json`, and `lovely.toml`.
 4. Place that folder directly inside your Balatro `Mods` directory.
    Rename the folder to `HighCard` if necessary, and make sure the mod files are not nested inside an extra directory level.
 
@@ -58,9 +58,9 @@ HighCard/
 │   ├── en-us.lua
 │   ├── zh_CN.lua
 │   └── zh_TW.lua
+├── HighCard.lua
 ├── lovely.toml
-├── main.json
-└── main.lua
+└── main.json
 ```
 
 ## Localization
@@ -89,14 +89,14 @@ Suggestions for Joker balancing and additional translations are also welcome.
 
 Bug reports, balancing suggestions, and additional language translations are welcome.
 
-You may [submit a Pull Request](../../pulls) to propose changes for review.
+You may submit a Pull Request to propose changes for review.
 Please note that submitting a Pull Request does not grant permission to redistribute modified versions of this mod.
 
 
 ## License
 
 This project is distributed under a custom non-commercial license.
-You may download, use, and redistribute the original, unmodified mod free of charge for personal, non-commercial purposes.
+You may download, use, and redistribute the original, unmodified mod and related assets free of charge for personal, non-commercial purposes.
 
 Redistribution of modified versions and commercial use require prior written permission from the copyright holder.
 
