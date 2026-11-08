@@ -380,7 +380,7 @@ local XPC = {
                             colour = G.C.RED
                         }
                     else
-                        return { remove = true }
+                        return {remove = true}
                     end
                 end
 
@@ -439,20 +439,14 @@ local XPC = {
                     if count > 0 then
                         card.ability.extra.x_mult =
                         card.ability.extra.x_mult + card.ability.extra.x_mult_add * count
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            func = function()
-                                card_eval_status_text(card, 'extra', nil, nil, nil, {
-                                    message = localize({
-                                        type = 'variable',
-                                        key = 'a_xmult',
-                                        vars = {card.ability.extra.x_mult}
-                                    }),
-                                    colour = G.C.EXTRA
-                                })
-                                return true
-                            end
-                        }))
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
+                            message = localize({
+                                type = 'variable',
+                                key = 'a_xmult',
+                                vars = {card.ability.extra.x_mult}
+                            }),
+                            colour = G.C.EXTRA
+                        })
                     end
                 end
             end
@@ -1358,7 +1352,7 @@ local XPC = {
             set = 'Joker',
             key = '6h'
         }),
-        config = {},
+        config = {extra = {message = false}},
 
         calculate = function(self, card, context)
             if context.selling_self then
@@ -1369,6 +1363,7 @@ local XPC = {
                 for _, scored_card in ipairs(context.scoring_hand) do
                     if scored_card.config.center.key == 'c_base'
                     and not scored_card.debuff then
+                        card.ability.extra.message = true
                         local enhancement = pseudorandom_element(
                             G.P_CENTER_POOLS['Enhanced'],
                             pseudoseed('The Zoo')
@@ -1386,7 +1381,10 @@ local XPC = {
                     end
                 end
 
-                return {message = localize('k_transform'), colour = G.C.EXTRA}
+                if card.ability.extra.message then
+                    card.ability.extra.message = false
+                    return {message = localize('k_transform'), colour = G.C.EXTRA}
+                end
             end
         end
     },
