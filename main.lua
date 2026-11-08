@@ -1243,16 +1243,14 @@ local XPC = {
                 end
                 
                 if context.end_of_round and context.main_eval then
-                    local destroy = {}
-
+                    local clones = {}
                     for _, playing_card in ipairs(G.playing_cards) do
                         if playing_card.ability.clone then
-                            table.insert(destroy, playing_card)
+                            table.insert(clones, playing_card)
                         end
                     end
-
-                    if next(destroy) then
-                        SMODS.destroy_cards(destroy)
+                    if next(clones) then
+                        SMODS.destroy_cards(clones)
                         return {
                             message = localize('k_merged'),
                             colour = G.C.RARITY[4],
@@ -1267,21 +1265,21 @@ local XPC = {
                 for count = 1, card.ability.extra.duplicates do
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                     
-                    local _card = copy_card(context.full_hand[1], nil, nil, G.playing_card)
-                    _card.ability.clone = true
+                    local clone = copy_card(context.full_hand[1], nil, nil, G.playing_card)
+                    clone.ability.clone = true
 
-                    _card:add_sticker(mod_prefix ..'_clone', true)
-                    _card:add_to_deck()
+                    clone:add_sticker(mod_prefix ..'_clone', true)
+                    clone:add_to_deck()
 
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
                     
-                    table.insert(G.playing_cards, _card)
-                    G.hand:emplace(_card)
-                    _card.states.visible = nil
+                    table.insert(G.playing_cards, clone)
+                    G.hand:emplace(clone)
+                    clone.states.visible = nil
 
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            _card:start_materialize()
+                            clone:start_materialize()
                             return true
                         end
                     }))

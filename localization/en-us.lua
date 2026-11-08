@@ -60,9 +60,9 @@ local descriptions = {
             name = 'Brain Buster',
             text = {
                 'Destroy all played {C:attention}#1#s{}',
-                'after scoring, and {C:legendary}Brain{}',
-                '{C:legendary}Buster{} gains {X:mult,C:white}X#2#{} Mult',
-                'for each of them',
+                'after scoring, and the',
+                '{C:legendary}Brain Buster{} gains {X:mult,C:white}X#2#{}',
+                'Mult for each of them',
                 '{C:inactive}(Currently {C:white,X:mult}X#3#{} {C:inactive}Mult){}'
             }
         },
