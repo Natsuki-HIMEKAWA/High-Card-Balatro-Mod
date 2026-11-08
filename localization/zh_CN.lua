@@ -109,7 +109,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Qs'] = {
             name = '美杜莎之鞭',
             text = {
-                '打出的{C:attention}第一手牌{}中，',
+                '每回合{C:attention}第一次{}出牌中，',
                 '所有计分牌额外触发',
                 '{C:attention}#1#{}次，且于计分后将',
                 '其转化为{C:attention}#2#{}'
@@ -127,9 +127,9 @@ local descriptions = {
             text = {
                 '{C:attention}完整牌组{}中的每张{C:attention}#1#{}在',
                 '计分时提供{C:white,X:mult}X#2#{}倍率；',
-                '打出本回合{C:attention}第一手牌{}',
-                '之前，迫使{C:attention}1{}张牌被',
-                '选中，若该牌被计分，',
+                '每回合{C:attention}第一次{}出牌前，',
+                '迫使{C:attention}1{}张牌被选中，',
+                '若该牌被计分，',
                 '则计分后将其摧毁',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
             }
@@ -177,11 +177,10 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_7h'] = {
             name = '变色龙',
             text = {
-                '本回合{C:attention}第一次{}出牌中，',
+                '每回合{C:attention}第一次{}出牌中',
                 '的所有计分牌转化为',
-                '{C:attention}#1#{}；{C:attention}完整牌组{}',
-                '中的每张{C:attention}#1#{}为',
-                '{C:legendary}变色龙{}提供{C:white,X:mult}X#2#{}倍率',
+                '{C:attention}#1#{}；{C:attention}完整牌组{}中的',
+                '每张{C:attention}#1#{}提供{C:white,X:mult}X#2#{}倍率',
                 '{C:inactive}（当前为{C:white,X:mult}X#3#{C:inactive}倍率）{}'
             }
         },
@@ -336,12 +335,11 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Ad'] = {
             name = '动态念力',
             text = {
-                '回合内出售{C:B4883C}X-扑克牌{}',
-                '会将立即其加入{C:attention}手牌{}，',
-                '而非牌堆；每售出一张',
-                '{C:B4883C}X-扑克牌{}，{C:legendary}动态念力{}',
-                '获得{C:white,X:mult}X#1#{}倍率，击败',
-                '{C:attention}Boss{}盲注后重置',
+                '回合内出售的{C:B4883C}X-扑克牌{}',
+                '立即进入{C:attention}手牌{}而非牌堆；',
+                '每出售一张{C:B4883C}X-扑克牌{}，',
+                '{C:legendary}动态念力{}获得{C:white,X:mult}X#1#{}倍率，',
+                '击败{C:attention}Boss{}盲注后重置',
                 '{C:inactive}（当前为{C:white,X:mult}X#2#{C:inactive}倍率）{}'
             }
         },
@@ -379,7 +377,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_6c'] = {
             name = '淡蓝波涛',
             text = {
-                '每回合的{C:attention}第一手牌{}中，',
+                '每回合{C:attention}第一次{}出牌中，',
                 '每张没有版本的{C:attention}计分牌{}',
                 '都有{C:green}#1#/#2#{}概率获得{C:dark_edition}闪箔{}'
             }
@@ -395,7 +393,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_8c'] = {
             name = '沉沦暗影',
             text = {
-                '每回合的{C:attention}第一手牌{}中，',
+                '每回合{C:attention}第一次{}出牌中，',
                 '每张没有版本的{C:attention}计分牌{}',
                 '都有{C:green}#1#/#2#{}概率获得{C:dark_edition}负片{}'
             }
@@ -403,7 +401,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_9c'] = {
             name = '初升光明',
             text = {
-                '每回合的{C:attention}第一手牌中{}，',
+                '每回合{C:attention}第一次{}出牌中，',
                 '每张没有版本的{C:attention}计分牌{}',
                 '都有{C:green}#1#/#2#{}概率获得{C:dark_edition}多彩{}'
             }
@@ -411,7 +409,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Tc'] = {
             name = '百万伏特',
             text = {
-                '每回合的{C:attention}第一手牌{}中，',
+                '每回合{C:attention}第一次{}出牌中，',
                 '每张没有版本的{C:attention}计分牌{}',
                 '都有{C:green}#1#/#2#{}概率获得{C:dark_edition}全息{}'
             }

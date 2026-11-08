@@ -80,7 +80,7 @@ local descriptions = {
             text = {
                 'Upgrade the {C:attention}first{}',
                 '{C:attention}poker hand{} played each',
-                'round by {C:attention}#1#{} level; with',
+                'round by {C:attention}#1#{} level, with',
                 'a {C:green}#2# in #3#{} chance to',
                 'upgrade it by {C:attention}#4#{} levels'
             }
@@ -116,7 +116,7 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Js'] = {
             name = 'Noah Metal',
             text = {
-                'Played {C:attention}#1#s{} or',
+                'Played {C:attention}#1#s{} and',
                 '{C:attention}#2#s{} each gives',
                 '{C:white,X:mult}X#3#{} Mult when scored'
             }
@@ -125,9 +125,9 @@ local descriptions = {
             name = 'Gorgon Whip',
             text = {
                 'Retrigger each scored',
-                'card in the {C:attention}first{} played',
-                'hand {C:attention}#1#{} additional times,',
-                'then enhance them to',
+                'card in the {C:attention}first hand{} of',
+                'round {C:attention}#1#{} additional times,',
+                'then enhances them to',
                 '{C:attention}#2#s{} after scoring'
             }
         },
@@ -172,7 +172,7 @@ local descriptions = {
             text = {
                 'If the {C:attention}first hand{} of',
                 'round has only {C:attention}1{} card,',
-                'create {C:attention}#1#{} {C:attention}clones{} to hand'
+                'add {C:attention}#1#{} {C:attention}Clones{} of it to hand'
             }
         },
         ['j_'.. mod_prefix ..'_5h'] = {
@@ -187,18 +187,18 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_6h'] = {
             name = 'The Zoo',
             text = {
-                'Gives each unenhanced',
-                'card scored in the',
-                '{C:attention}first{} hand of round',
-                'a random {C:dark_edition}Enhancement{}'
+                'Gives each unenhanced card',
+                'played in the {C:attention}first hand{}',
+                'of round a random',
+                '{C:dark_edition}Enhancement{} when scored'
             }
         },
         ['j_'.. mod_prefix ..'_7h'] = {
             name = 'Chameleon',
             text = {
                 'All cards played in the',
-                '{C:attention}first hand{} become {C:attention}#1#s{}',
-                'when scored, and {C:legendary}Chameleon{}',
+                '{C:attention}first hand{} of round become',
+                '{C:attention}#1#s{} when scored, and',
                 'gives {C:white,X:mult}X#2#{} Mult for each',
                 '{C:attention}#1#{} in your {C:attention}full deck{}',
                 '{C:inactive}(Currently {C:white,X:mult}X#3#{}{C:inactive} Mult){}'
@@ -209,7 +209,7 @@ local descriptions = {
             text = {
                 'Converts all scored cards',
                 'into the same suit as',
-                'the {C:attention}first card scored{}'
+                'the {C:attention}first{} card scored'
             }
         },
         ['j_'.. mod_prefix ..'_9h'] = {
@@ -243,9 +243,9 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Qh'] = {
             name = 'Sonic Move',
             text = {
-                'The {C:legendary}Sonic Move{} gains {C:white,X:mult}X#1#{}',
-                'Mult if {C:attention}Blind{} is defeated',
-                'in a {C:attention}single{} hand',
+                'The {C:legendary}Sonic Move{} gains',
+                '{C:white,X:mult}X#1#{} Mult if {C:attention}Blind{} is',
+                'defeated in a {C:attention}single{} hand',
                 '{C:inactive}(Currently {C:white,X:mult}X#2#{}{C:inactive} Mult){}'
             }
         },
@@ -280,18 +280,18 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_3d'] = {
             name = 'Marble Rumble',
             text = {
-                'All played cards in',
-                'the {C:attention}first hand{} become',
-                '{C:attention}#1#{} when scored'
+                'All played cards in the',
+                '{C:attention}first hand{} of round become',
+                '{C:attention}#1#s{} when scored'
             }
         },
         ['j_'.. mod_prefix ..'_4d'] = {
             name = 'Time Mime',
             text = {
-                'Retrigger all played cards',
-                'in the {C:attention}first hand{} scored',
-                '{C:attention}#1#{} additional times,',
-                'then destroy them'
+                'Retrigger each scored',
+                'card in the {C:attention}first hand{}',
+                'of round {C:attention}#1#{} additional',
+                'times, then destroy them'
             }
         },
         ['j_'.. mod_prefix ..'_5d'] = {
@@ -333,9 +333,9 @@ local descriptions = {
             text = {
                 'The {C:legendary}No Mercy{} gains {C:white,X:mult}XMult{}',
                 'equal to {C:attention}quarter{} of the',
-                '{C:attention}rank{} of the {C:attention}first scored{}',
-                '{C:attention}card{} of each round,',
-                'then destroys it, resets',
+                '{C:attention}rank{} of the {C:attention}first{} score',
+                'card of each round,',
+                'then destroy it, resets',
                 'at the end of round',
                 '{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult){}'
             }
@@ -345,7 +345,7 @@ local descriptions = {
             text = {
                 '{C:attention}#1#s{} always trigger',
                 'their effects when scored,',
-                'then destroy them'
+                'then are destroyed'
             }
         },
         ['j_'.. mod_prefix ..'_Jd'] = {
@@ -373,13 +373,12 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Ad'] = {
             name = 'Dynamic Kinesis',
             text = {
-                'Selling {C:B4883C}X-Playing Cards{} during a',
-                'round will add them to {C:attention}hand{},',
-                'instead of the deck; the {C:legendary}Dynamic{}',
-                '{C:legendary}Kinesis{} gains {C:white,X:mult}X#1#{} Mult for each',
-                '{C:B4883C}X-Playing Card{} sold, resets',
+                'Selling an {C:B4883C}X-Playing Card{} during',
+                'a round will add it to {C:attention}hand{}',
+                'instead of the deck, and gives',
+                '{C:legendary}Dynamic Kinesis{} {C:white,X:mult}X#1#{} Mult, resets',
                 'when {C:attention}Boss Blind{} is defeated',
-                '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
+                '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}'
             }
         },
         ['j_'.. mod_prefix ..'_2c'] = {
@@ -418,10 +417,10 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_6c'] = {
             name = 'Shallow Blue',
             text = {
-                '{C:green}#1# in #2#{} chance to add {C:dark_edition}Foil{}',
-                'to every scored card',
-                'during the {C:attention}first{} hand',
-                'if it has no edition'
+                '{C:green}#1# in #2#{} chance to add',
+                '{C:dark_edition}Foil{} to every scored card',
+                'in the {C:attention}first hand{} of',
+                'round if it has no edition'
             }
         },
         ['j_'.. mod_prefix ..'_7c'] = {
@@ -437,8 +436,8 @@ local descriptions = {
             text = {
                 '{C:green}#1# in #2#{} chance to add',
                 '{C:dark_edition}Negative{} to every scored',
-                'card during the {C:attention}first{}',
-                'hand if it has no edition'
+                'card in the {C:attention}first hand{} of',
+                'round if it has no edition'
             }
         },
         ['j_'.. mod_prefix ..'_9c'] = {
@@ -446,8 +445,8 @@ local descriptions = {
             text = {
                 '{C:green}#1# in #2#{} chance to add',
                 '{C:dark_edition}Polychrome{} to every scored',
-                'card during the {C:attention}first{}',
-                'hand if it has no edition'
+                'card in the {C:attention}first hand{} of',
+                'round if it has no edition'
             }
         },
         ['j_'.. mod_prefix ..'_Tc'] = {
@@ -455,16 +454,15 @@ local descriptions = {
             text = {
                 '{C:green}#1# in #2#{} chance to add',
                 '{C:dark_edition}Holographic{} to every scored',
-                'card during the {C:attention}first{}',
-                'hand if it has no edition'
+                'card in the {C:attention}first hand{} of',
+                'round if it has no edition'
             }
         },
         ['j_'.. mod_prefix ..'_Jc'] = {
             name = 'Coming Home',
             text = {
-                'Return the {C:attention}first{}',
-                '{C:attention}played card{} scored',
-                'to hand after scoring'
+                'Return the {C:attention}first{} scored',
+                'card to hand after scoring'
             }
         },
         ['j_'.. mod_prefix ..'_Qc'] = {
@@ -478,12 +476,12 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Kc'] = {
             name = "Reaper's Hand",
             text = {
-                'Destroy all scored cards in the',
-                "{C:attention}first hand{}, and the {C:legendary}Reaper's Hand{} gains",
-                'corresponding {C:chips}Chips{}, {C:mult}Mult{}, {C:white,X:mult}XMult{}, or',
-                'returns {C:money}money{} from their {C:enhanced}Enhancements{}',
-                'and {C:dark_edition}Editions{} after scoring, resets',
-                'when {C:attention}Boss Blind{} is defeated',
+                'Destroy all scored cards in the {C:attention}first{}',
+                "{C:attention}hand{} of round, and the {C:legendary}Reaper's Hand{}",
+                'gains corresponding {C:chips}Chips{}, {C:mult}Mult{}, {C:white,X:mult}XMult{},',
+                'or returns {C:money}money{} from their {C:dark_edition}Editions{}',
+                'and {C:enhanced}Enhancements{} after scoring',
+                'Resets when {C:attention}Boss Blind{} is defeated',
                 '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips, {C:mult}+#2#{C:inactive} Mult, {X:mult,C:white}X#3#{C:inactive} Mult){}'
             }
         },
