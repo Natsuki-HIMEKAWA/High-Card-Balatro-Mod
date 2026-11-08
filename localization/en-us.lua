@@ -116,8 +116,8 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Js'] = {
             name = 'Noah Metal',
             text = {
-                'Every played {C:attention}#1#{}',
-                'or {C:attention}#2#{} gives',
+                'Played {C:attention}#1#s{} or',
+                '{C:attention}#2#s{} each gives',
                 '{C:white,X:mult}X#3#{} Mult when scored'
             }
         },
@@ -141,12 +141,11 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_As'] = {
             name = 'Love and Peace',
             text = {
-                'Each {C:attention}#1#{} in your {C:attention}full deck{}',
-                'gives {C:white,X:mult}X#2#{} Mult; always',
-                'forces {C:attention}1{} card in hand to be',
-                'selected if {C:attention}no hands{} have',
-                'been {C:attention}played{} yet this round,',
-                'and destroys the {C:attention}selected{}',
+                'Each {C:attention}#1#{} in your {C:attention}full deck{} gives',
+                '{C:white,X:mult}X#2#{} Mult; always forces {C:attention}1{} card',
+                'in hand to be selected if {C:attention}no{}',
+                '{C:attention}hands{} have been {C:attention}played{} yet this',
+                'round, and destroys the {C:attention}selected{}',
                 'card if it has been scored',
                 '{C:inactive}(Currently {X:mult,C:white}X#3#{}{C:inactive} Mult){}'
             }
@@ -261,9 +260,9 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Ah'] = {
             name = 'Faceless',
             text = {
-                'All played cards',
-                'become {C:attention}#1#{} of',
-                '{V:1}#2#{} after scoring',
+                'All played cards become',
+                '{C:attention}#1#{} of {V:1}#2#{}',
+                'after scoring',
                 '{s:0.8}Card changes every round{}'
             }
         },
@@ -299,7 +298,7 @@ local descriptions = {
             name = 'Greatest Man',
             text = {
                 'All played {C:attention}#1#{} and',
-                '{C:attention}#2#{} increase ',
+                '{C:attention}#2#{} increase',
                 'ranks by {C:attention}#3#{} after scoring'
             }
         },
@@ -376,7 +375,7 @@ local descriptions = {
             text = {
                 'Selling {C:B4883C}X-Playing Cards{} during a',
                 'round will add them to {C:attention}hand{},',
-                'instead of the deck; {C:legendary}Dynamic{}',
+                'instead of the deck; the {C:legendary}Dynamic{}',
                 '{C:legendary}Kinesis{} gains {C:white,X:mult}X#1#{} Mult for each',
                 '{C:B4883C}X-Playing Card{} sold, resets',
                 'when {C:attention}Boss Blind{} is defeated',
@@ -471,8 +470,8 @@ local descriptions = {
         ['j_'.. mod_prefix ..'_Qc'] = {
             name = 'Gladiator',
             text = {
-                'Each played {C:attention}#1#{}',
-                'gives {C:white,X:mult}X#2#{} Mult when scored,',
+                'All played {C:attention}#1#s{}',
+                'give {C:white,X:mult}X#2#{} Mult when scored,',
                 'then destroy them'
             }
         },
@@ -480,12 +479,12 @@ local descriptions = {
             name = "Reaper's Hand",
             text = {
                 'Destroy all scored cards in the',
-                "{C:attention}first hand{}, and {C:legendary}Reaper's Hand{} gains",
-                'corresponding {C:chips}Chips{}, {C:mult}Mult{}, {C:white,X:mult}XMult{},',
-                'or returns {C:money}money{} from their',
-                '{C:enhanced}Enhancements{} and {C:dark_edition}Editions{} after scoring',
-                'Resets when {C:attention}Boss Blind{} is defeated',
-                '{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips, {C:mult}+#2#{} {C:inactive}Mult, {X:mult,C:white}X#3#{C:inactive} Mult){}'
+                "{C:attention}first hand{}, and the {C:legendary}Reaper's Hand{} gains",
+                'corresponding {C:chips}Chips{}, {C:mult}Mult{}, {C:white,X:mult}XMult{}, or',
+                'returns {C:money}money{} from their {C:enhanced}Enhancements{}',
+                'and {C:dark_edition}Editions{} after scoring, resets',
+                'when {C:attention}Boss Blind{} is defeated',
+                '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips, {C:mult}+#2#{C:inactive} Mult, {X:mult,C:white}X#3#{C:inactive} Mult){}'
             }
         },
         ['j_'.. mod_prefix ..'_Ac'] = {
@@ -512,9 +511,9 @@ local descriptions = {
 for key, Joker in pairs(descriptions.Joker) do
     if key:sub(-1,-1) ~= 'x' then
         local add = {
-            '{C:legendary,s:0.8}Sell to deactivate this card and{}',
-            '{C:legendary,s:0.8}add it to deck with its edition,{}',
-            '{C:legendary,s:0.8}original enhancement and seal{}'
+            '{C:green,s:0.8}Sell to deactivate this card and{}',
+            '{C:green,s:0.8}add it to deck with its edition,{}',
+            '{C:green,s:0.8}original enhancement and seal{}'
         }
         for _, string in ipairs(add) do
             Joker.text[#Joker.text + 1] = string
@@ -555,7 +554,7 @@ local misc = {
         k_blown = 'Blown!',
         k_crumbled = 'Crumbled!',
         k_submerged = 'Submerged!',
-        k_ignited = 'Ignited!',
+        k_burnt = 'Burnt!',
         k_sunk = 'Sunk!',
         k_shone = 'Shone!',
         k_charged = 'Charged!',

@@ -1065,7 +1065,7 @@ local XPC = {
 
         config = {
             extra = {
-                money_per_size = 20,
+                money_per_size = 10,
                 max_bonus = 5,
                 applied = 0
             }
@@ -3068,7 +3068,7 @@ local XPC = {
                         card.ability.extra.message = false
                         return {
                             remove = true,
-                            message = localize('k_ignited'),
+                            message = localize('k_burnt'),
                             colour = G.C.RED
                         }
                     else return {remove = true}
@@ -3832,7 +3832,7 @@ do
         return center.key == XPC_deck_key
     end
 
-    local function isXP_HC(suit)
+    local function isHighContrast(suit)
         local settings = G.SETTINGS
         local palettes = settings and settings.colour_palettes
 
@@ -3852,7 +3852,7 @@ do
             return atlas, pos, sprite_args
         end
 
-        local atlas_key = isXP_HC(front.suit)
+        local atlas_key = isHighContrast(front.suit)
             and mod_prefix ..'_XPdeckHC'
             or mod_prefix ..'_XPdeckLC'
 
@@ -3886,7 +3886,7 @@ do
         then return end
 
         local suit = card.base.suit
-        local palette = isXP_HC(suit) and suit_colours.hc or suit_colours.lc
+        local palette = isHighContrast(suit) and suit_colours.hc or suit_colours.lc
 
         local colour = palette[suit]
 

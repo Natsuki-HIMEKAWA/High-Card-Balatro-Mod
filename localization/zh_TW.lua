@@ -138,8 +138,8 @@ local descriptions = {
             name = '果凍爬蟲',
             text = {
                 '每持有{C:money}$#1#{}，',
-                '手牌上限{C:attention}+1{}，至多{C:attention}+#2#{}',
-                '{C:inactive}（目前為{C:attention}+#3#{C:inactive}手牌上限）{}'
+                '手牌數量{C:attention}+1{}，至多{C:attention}+#2#{}',
+                '{C:inactive}（目前為{C:attention}+#3#{C:inactive}手牌數量）{}'
             }
         },
         ['j_'.. mod_prefix ..'_3h'] = {
@@ -437,8 +437,8 @@ local descriptions = {
                 '每回合{C:attention}第一次{}出牌中的',
                 '所有計分牌將在計分後',
                 '被摧毀，同時{C:legendary}死神之手{}',
-                '獲得這些牌相應增強與',
-                '版本提供的{C:chips}籌碼{}，{C:mult}倍數{}，',
+                '獲得這些牌相應{C:dark_edition}增強{}與',
+                '{C:dark_edition}版本{}提供的{C:chips}籌碼{}，{C:mult}倍數{}，',
                 '{C:white,X:mult}X倍數{}，或返還相應{C:money}金錢{}',
                 '擊敗{C:attention}Boss盲注{}後重置',
                 '{C:inactive}（目前為{C:chips}+#1#{C:inactive}籌碼，{}',
@@ -469,9 +469,9 @@ local descriptions = {
 for key, Joker in pairs(descriptions.Joker) do
     if key:sub(-1,-1) ~= 'x' then
         local add = {
-            '{C:legendary,s:0.8}出售此牌以將其停用，隨後向{}',
-            '{C:legendary,s:0.8}牌組中加入一張同版本、帶有{}',
-            '{C:legendary,s:0.8}原增強及封蠟章的相應撲克牌{}'
+            '{C:green,s:0.8}出售此牌以將其停用，隨後向{}',
+            '{C:green,s:0.8}牌組中加入一張同版本、帶有{}',
+            '{C:green,s:0.8}原增強及封蠟章的相應撲克牌{}'
         }
         for _, string in ipairs(add) do
             Joker.text[#Joker.text + 1] = string
@@ -512,7 +512,7 @@ local misc = {
         k_blown = '吹散！',
         k_crumbled = '粉碎！',
         k_submerged = '淹沒！',
-        k_ignited = '點燃！',
+        k_burnt = '燃燒！',
         k_sunk = '沈沒！',
         k_shone = '閃耀！',
         k_charged = '充能！',

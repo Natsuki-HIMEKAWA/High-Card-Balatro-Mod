@@ -437,8 +437,8 @@ local descriptions = {
                 '每回合{C:attention}第一次{}出牌中的',
                 '所有计分牌将在计分后',
                 '被摧毁，同时{C:legendary}死神之手{}',
-                '获得这些牌相应增强与',
-                '版本提供的{C:chips}筹码{}，{C:mult}倍率{}，',
+                '获得这些牌相应{C:dark_edition}增强{}与',
+                '{C:dark_edition}版本{}提供的{C:chips}筹码{}，{C:mult}倍率{}，',
                 '{C:white,X:mult}X倍率{}，或返还相应{C:money}金钱{}',
                 '击败{C:attention}Boss盲注{}后重置',
                 '{C:inactive}（当前为{C:chips}+#1#{}{C:inactive}筹码，{}',
@@ -469,9 +469,9 @@ local descriptions = {
 for key, Joker in pairs(descriptions.Joker) do
     if key:sub(-1,-1) ~= 'x' then
         local add = {
-            '{C:legendary,s:0.8}出售此牌以将其停用，随后向{}',
-            '{C:legendary,s:0.8}牌组中加入一张同版本、带有{}',
-            '{C:legendary,s:0.8}原有增强及蜡封的相应扑克牌{}'
+            '{C:green,s:0.8}出售此牌以将其停用，随后向{}',
+            '{C:green,s:0.8}牌组中加入一张同版本、带有{}',
+            '{C:green,s:0.8}原有增强及蜡封的相应扑克牌{}'
         }
         for _, string in ipairs(add) do
             Joker.text[#Joker.text + 1] = string
@@ -512,7 +512,7 @@ local misc = {
         k_blown = '吹散！',
         k_crumbled = '粉碎！',
         k_submerged = '淹没！',
-        k_ignited = '焚毁！',
+        k_burnt = '焚毁！',
         k_sunk = '沉没！',
         k_shone = '闪耀！',
         k_charged = '充能！',
