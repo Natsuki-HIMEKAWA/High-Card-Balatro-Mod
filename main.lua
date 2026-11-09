@@ -3965,16 +3965,38 @@ local jokers = {
 
 challenges = function(poker_hands, jokers)
     for h, j in pairs(jokers) do
-        local temp = {}
-        for _, key in ipairs(j) do
-            temp[#temp + 1] = {id = 'j_'.. mod_prefix ..'_'.. key}
+        for i = 1, #j do
+            j[i] = {id = 'j_'.. mod_prefix ..'_'.. j[i]}
         end
-        jokers[h] = temp
+    end
+
+    local suits = {'S','H','D','C'}
+    local ranks = {'A','K','Q','J','T','9','8','7','6','5','4','3','2'}
+    local standard_deck = {}
+    for _, suit in ipairs(suits) do
+        for _, rank in ipairs(ranks) do
+            table.insert(standard_deck, {s = suit, r = rank})
+        end
     end
 
     for index = #poker_hands, 1, -1 do
         local consumables = {}
         local hand = poker_hands[index]
+        local cards = {}
+        
+        for _, card in ipairs(standard_deck) do
+            local flag = true
+            for _, joker in ipairs(jokers[hand]) do
+                local suit = joker.id:sub(-1,-1)
+                local rank = joker.id:sub(-2,-2)
+                if suit:upper() == card.s and rank == card.r then
+                    flag = false
+                end
+            end
+            if flag then
+                table.insert(cards, card)
+            end
+        end
 
         if hand == 'HC' then
             consumables = {{id = 'c_pluto'}}
@@ -4012,7 +4034,10 @@ challenges = function(poker_hands, jokers)
                 return true
             end,
 
-            deck = {type = 'Challenge Deck'},
+            deck = {
+                type = 'Challenge Deck',
+                cards = cards
+            },
             rules = {
                 custom = {{id = 'no_shop_jokers'}},
                 modifiers = {{id = 'joker_slots', value = 0}}
