@@ -1,10 +1,8 @@
-HIGH CARD BALATRO MOD
-CUSTOM NON-COMMERCIAL LICENSE
+# HIGH CARD BALATRO MOD CUSTOM NON-COMMERCIAL LICENSE
 
 This license applies to the High Card Balatro Mod (the “Mod”). It is a custom license and is not an open-source license.
 
-ENGLISH
-========
+## English
 
 1. Scope and Ownership
 
@@ -48,8 +46,7 @@ Any exception to these terms must be authorized in advance and in writing by the
 
 If the English and Simplified Chinese versions differ in interpretation, the Simplified Chinese version shall prevail.
 
-简体中文
-========
+## 简体中文
 
 1. 适用范围与权利归属
 
