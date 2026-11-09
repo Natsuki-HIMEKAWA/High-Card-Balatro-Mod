@@ -2189,14 +2189,14 @@ local XPC = {
                     end
                 end
 
-                if context.destroy_card and context.cardarea == G.play
-                    and  context.destroy_card == card.ability.extra.destroy_card then
-
-                    card_eval_status_text(card, 'extra', 
-                    nil, nil, nil, {message = localize('k_slain')})
-
+                if context.destroy_card and (context.cardarea == G.play or context.cardarea == 'unscored')
+                and context.destroy_card == card.ability.extra.destroy_card then
+                    card_eval_status_text(
+                        card, 'extra', nil, nil, nil,
+                        {message = localize('k_slain')}
+                    )
                     card.ability.extra.destroy_card = nil
-                    return { remove = true }
+                    return {remove = true}
                 end
 
                 if context.selling_self then
