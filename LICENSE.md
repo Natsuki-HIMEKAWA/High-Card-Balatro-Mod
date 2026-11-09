@@ -3,7 +3,6 @@ CUSTOM NON-COMMERCIAL LICENSE
 
 This license applies to the High Card Balatro Mod (the “Mod”). It is a custom license and is not an open-source license.
 
-========
 ENGLISH
 ========
 
@@ -49,7 +48,6 @@ Any exception to these terms must be authorized in advance and in writing by the
 
 If the English and Simplified Chinese versions differ in interpretation, the Simplified Chinese version shall prevail.
 
-========
 简体中文
 ========
 
