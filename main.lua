@@ -2452,7 +2452,7 @@ local XPC = {
             local poker_hands = context.poker_hands or {}
 
             if poker_hands['Flush'] and next(poker_hands['Flush']) then
-                return { replace_scoring_name = 'Flush Five' }
+                return {replace_scoring_name = 'Flush Five'}
             else 
                 return {replace_scoring_name = 'Five of a Kind' }
             end
@@ -2490,10 +2490,10 @@ local XPC = {
 
                 if card ~= nil then
                     local copy = copy_card(card, nil ,0.8)
-                        copy.T.x = view_deck.T.x + view_deck.T.w / 2
-                        copy.T.y = view_deck.T.y
-                        copy:hard_set_T()
-                        view_deck:emplace(copy)
+                    copy.T.x = view_deck.T.x + view_deck.T.w / 2
+                    copy.T.y = view_deck.T.y
+                    copy:hard_set_T()
+                    view_deck:emplace(copy)
                 end
             end
 
@@ -2507,7 +2507,7 @@ local XPC = {
             
             return {
                 n = G.UIT.ROOT,
-                config = { align = "cm", colour = G.C.CLEAR },
+                config = {align = "cm", colour = G.C.CLEAR},
                 nodes = {
                     {
                         n = G.UIT.R,
@@ -2518,19 +2518,19 @@ local XPC = {
                             colour = G.C.BLACK,
                             emboss = 0.05
                         },
-                        nodes = { {n = G.UIT.O, config = {object = view_deck}} }
+                        nodes = {{n = G.UIT.O, config = {object = view_deck}}}
                     },
                     {
                         n = G.UIT.R,
-                        config = { align = 'cm', minh = 0.8, padding = 0.05 },
+                        config = {align = 'cm', minh = 0.8, padding = 0.05},
                         nodes = {{
-                                n = G.UIT.T,
-                                config = {
-                                    text = tips,
-                                    colour = G.C.WHITE,
-                                    scale = 0.6
-                                }
-                            }}
+                            n = G.UIT.T,
+                            config = {
+                                text = tips,
+                                colour = G.C.WHITE,
+                                scale = 0.6
+                            }
+                        }}
                     }
                 }
             }
@@ -2538,7 +2538,7 @@ local XPC = {
 
         local backup_create_tabs = create_tabs
 
-        local function has_balor()
+        local function hasBalor()
             if not (G and G.jokers and G.jokers.cards) then
                 return false
             end
@@ -2566,9 +2566,8 @@ local XPC = {
                         end
                     end
 
-                    if has_balor() and args
-                        and type(args.tabs) == 'table'
-                        and type(UIDEF.view_deck) == 'function'
+                    if hasBalor() and args and type(args.tabs) == 'table'
+                    and type(UIDEF.view_deck) == 'function'
                     then
                         local is_view_deck = false
                         local has_balor_tab = false
