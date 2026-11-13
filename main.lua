@@ -2992,11 +2992,12 @@ local XPC = {
                         ) then
                             scored_card:set_edition(
                                 {foil = true},
-                                true, false, true
+                                true, true, true
                             )
                             message = true
                             G.E_MANAGER:add_event(Event({
                                 func = function()
+                                    play_sound('foil1', 1.2, 0.4)
                                     scored_card:juice_up()
                                     return true
                                 end
@@ -3127,11 +3128,12 @@ local XPC = {
                         ) then
                             scored_card:set_edition(
                                 {negative = true},
-                                true, false, true
+                                true, true, true
                             )
                             message = true
                             G.E_MANAGER:add_event(Event({
                                 func = function()
+                                    play_sound('negative', 1.5, 0.4)
                                     scored_card:juice_up()
                                     return true
                                 end
@@ -3201,11 +3203,12 @@ local XPC = {
                         ) then
                             scored_card:set_edition(
                                 {polychrome = true},
-                                true, false, true
+                                true, true, true
                             )
                             message = true
                             G.E_MANAGER:add_event(Event({
                                 func = function()
+                                    play_sound('polychrome1', 1.2, 0.7)
                                     scored_card:juice_up()
                                     return true
                                 end
@@ -3275,11 +3278,12 @@ local XPC = {
                         ) then
                             scored_card:set_edition(
                                 {holo = true},
-                                true, false, true
+                                true, true, true
                             )
                             message = true
                             G.E_MANAGER:add_event(Event({
                                 func = function()
+                                    play_sound('holo1', 1.2 * 1.58, 0.4)
                                     scored_card:juice_up()
                                     return true
                                 end
