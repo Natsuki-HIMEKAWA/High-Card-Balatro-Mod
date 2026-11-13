@@ -1,9 +1,7 @@
 # HIGH CARD BALATRO MOD CUSTOM NON-COMMERCIAL LICENSE
-
 This license applies to the High Card Balatro Mod (the “Mod”). It is a custom license and is not an open-source license.
 
 ## English
-
 1. Scope and Ownership
 
 The “Mod” means the original files in this project that are created and provided by the Mod's copyright holder(s), including its code, assets, localization files, configuration files, and documentation. “Mod Assets” include, but are not limited to, sprites, textures, graphics, and other resources created for or included with the Mod. Mod Assets are protected as part of the Mod, and all rights not expressly granted by this license are reserved by the relevant copyright holder(s).
@@ -13,7 +11,6 @@ This license does not grant ownership of, or any license to, third-party intelle
 2. Permitted Use
 
 Subject to the terms of this license, you may:
-
 - Download, install, and use the unmodified Mod for your own personal, non-commercial purposes.
 - Make changes to a copy of the Mod for your own private, personal, non-commercial use.
 - redistribute a complete, unmodified copy of the original Mod free of charge, provided that you include this license and retain all copyright, attribution, and other notices included with the Mod.
@@ -21,14 +18,11 @@ Subject to the terms of this license, you may:
 3. Restrictions
 
 Unless you have obtained prior written permission from the relevant copyright holder(s), you may not:
-
 - Use the Mod or any part of it for commercial purposes. This includes selling it, charging for access to it, placing it behind a paid subscription or paywall, or bundling it with a paid product or service.
 - Distribute, publish, sublicense, or otherwise make available a modified version of the Mod, whether in source-code form or compiled form, in whole or in part.
-- Extract, copy, reproduce, publish, redistribute, or reuse any Mod Assets separately from the complete, unmodified Mod, or incorporate Mod Assets into another mod, project, game, or other work, unless you have obtained prior written permission from the relevant copyright holder(s). This restriction applies whether the assets are used unchanged or modified, and whether the intended use is commercial or non-commercial. Giving credit does not replace the requirement to obtain permission.
+- Extract, copy, reproduce, publish, redistribute, or reuse any Mod Assets separately from the complete, unmodified Mod, or incorporate Mod Assets into another mod, project, game, or work, unless you have obtained prior written permission from the relevant copyright holder(s). This restriction applies whether the assets are used unchanged or modified, and whether the intended use is commercial or non-commercial. Giving credit does not replace the requirement to obtain permission.
 - Remove or alter copyright notices, attribution, or this license from a copy of the Mod.
 - Present the Mod as an official product of, or imply affiliation with or endorsement by, the creators or rights holders of Balatro or High Card.
-
-Submitting a pull request or making other related contribution does not, by itself, grant permission to distribute a modified version of the Mod. Any such permission must be granted separately in writing by the relevant copyright holder(s).
 
 4. Third-Party Rights and Disclaimer
 
@@ -47,7 +41,6 @@ Any exception to these terms must be authorized in advance and in writing by the
 If the English and Simplified Chinese versions differ in interpretation, the Simplified Chinese version shall prevail.
 
 ## 简体中文
-
 1. 适用范围与权利归属
 
 本许可证适用于“High Card Balatro Mod”（以下简称“本Mod”）。本Mod是指本项目中由本Mod版权持有人创作并提供的原始文件，包括代码、素材、语言文件、配置文件和文档等。“本Mod素材”包括但不限于为本Mod创作或随本Mod提供的图片素材及其他相关资源。本Mod素材作为本Mod的一部分受到保护；除本许可证明确授予的权限外，其余权利均由相应版权持有人保留。
@@ -57,7 +50,6 @@ If the English and Simplified Chinese versions differ in interpretation, the Sim
 2. 使用方式
 
 在遵守本许可证条款的前提下，你可以：
-
 - 因个人非商业目的免费下载、安装和使用未经修改的本Mod；
 - 因个人、私下且非商业的用途修改本Mod的副本；
 - 免费再分发完整且未经修改的原版本Mod，但必须同时附带本许可证，并保留本Mod原有的版权声明、署名及其他声明。
@@ -65,14 +57,11 @@ If the English and Simplified Chinese versions differ in interpretation, the Sim
 3. 使用限制
 
 除非事先取得相关版权持有人的书面许可，否则你不得：
-
 - 将本Mod或其任何部分用于商业目的，包括出售本Mod、对访问或下载本Mod收费、将其置于付费订阅或付费墙之后，或将其与收费产品或服务捆绑提供。
 - 分发、发布、再许可或以其他方式向他人提供本Mod的修改版本，无论该版本为源代码形式还是编译形式，也无论涉及全部还是部分内容。
-- 将本Mod素材从完整、未经修改的本Mod中单独提取、复制、更改、发布、再分发或复用，或将本Mod素材整合进其他Mod、项目、游戏或其他作品，除非事先取得相关版权持有人的书面许可；无论素材是否经过修改，也无论用途是否商业化，均适用此限制。标注来源或作者不能替代取得许可的要求。
+- 将本Mod素材从完整、未经修改的本Mod中单独提取、复制、更改、发布、再分发或复用，或将本Mod素材整合进其他Mod、项目、游戏或作品，除非事先取得相关版权持有人的书面许可；无论素材是否经过修改，也无论用途是否商业化，均适用此限制。标注来源或作者不能替代取得许可的要求。
 - 删除或更改本Mod副本中的版权声明、署名或本许可证。
 - 将本Mod宣称为Balatro或《至高之牌》的官方产品，或暗示本Mod与Balatro或《至高之牌》的创作者、版权持有人存在关联或已获得其授权。
-
-提交Pull Request或做出其他有关贡献不代表获得修改后分发本Mod的许可，此类许可须由相关版权持有人另行书面授予。
 
 4. 第三方权利与免责声明
 

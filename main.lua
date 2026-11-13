@@ -24,8 +24,7 @@ SMODS.Enhancement:take_ownership('stone', {
                 }
             }
         end
-
-        return {vars = {self.config.bonus or 50}}
+        return {vars = {'+'.. tostring(self.config.bonus or 50)}}
     end
 }, true)
 ---The end of Stone Viewer--
@@ -484,7 +483,6 @@ local XPC = {
                 card.ability.extra.denominator,
                 'Interceptor'
             )
-
             return {vars = {
                 card.ability.extra.basic_level,
                 numerator,
@@ -635,7 +633,6 @@ local XPC = {
                     card.ability.extra.denominator
                 ) then
                     G.GAME.blind:disable()
-
                     return {
                         message = localize('ph_boss_disabled'),
                         colour = G.C.RED
@@ -643,35 +640,28 @@ local XPC = {
                 end
             end
 
-            if not context.game_over then
-                return
-            end
+            if not context.game_over
+            then return end
 
             local blind = G.GAME and G.GAME.blind
-            if not blind or not blind.chips or blind.chips <= 0 then
-                return
-            end
+            if not blind or not blind.chips or blind.chips <= 0
+            then return end
 
             local ratio = card.ability.extra.ratio
-
-            if G.GAME.chips / blind.chips < ratio then
-                return
-            end
+            if G.GAME.chips / blind.chips < ratio
+            then return end
 
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    if G.hand_text_area
-                        and G.hand_text_area.blind_chips then
-                        G.hand_text_area.blind_chips:juice_up()
+                    if G.hand_text_area then
+                        if G.hand_text_area.blind_chips then
+                            G.hand_text_area.blind_chips:juice_up()
+                        end
+                        if G.hand_text_area.game_chips then
+                            G.hand_text_area.game_chips:juice_up()
+                        end
                     end
-
-                    if G.hand_text_area
-                        and G.hand_text_area.game_chips then
-                        G.hand_text_area.game_chips:juice_up()
-                    end
-
                     play_sound('tarot1')
-
                     return true
                 end
             }))
@@ -714,8 +704,6 @@ local XPC = {
         end,
 
         calculate = function(self, card, context)
-
-
             if context.cardarea == G.jokers and context.joker_main then
                 if card.ability.extra.x_mult > 1 then
                     return {
@@ -838,7 +826,6 @@ local XPC = {
                         return {
                             message = localize('k_petrified'),
                             colour = G.C.GREY,
-
                             func = function()
                                 G.E_MANAGER:add_event(Event({
                                     trigger = 'immediate',
@@ -847,8 +834,8 @@ local XPC = {
                                             if not scored_card.debuff then
                                                 local petrify = scored_card:set_ability(
                                                     G.P_CENTERS[card.ability.extra.enhancement],
-                                                    nil, true)
-
+                                                    nil, true
+                                                )
                                                 if petrify then
                                                     scored_card:set_sprites(nil, scored_card.config.card)
                                                     scored_card:juice_up()
@@ -865,8 +852,7 @@ local XPC = {
             end
             
             if context.repetition and context.cardarea == G.play
-            and context.scoring_hand
-            and G.GAME.current_round.hands_played == 0
+            and context.scoring_hand and G.GAME.current_round.hands_played == 0
             then
                 return {
                     message = localize('k_again_ex'),
@@ -874,7 +860,6 @@ local XPC = {
                     card = card
                 }
             end
-
         end
     },
 
@@ -900,10 +885,10 @@ local XPC = {
             return {vars = {
                 localize(rank_to_string(card.ability.extra.rank),'ranks'),
                 localize({
-                        type = 'name_text',
-                        set = 'Enhanced',
-                        key = card.ability.extra.enhancement
-                    })
+                    type = 'name_text',
+                    set = 'Enhanced',
+                    key = card.ability.extra.enhancement
+                })
             }}
         end,
 
@@ -1310,9 +1295,9 @@ local XPC = {
                 card.ability.extra.x_mult = 1 + (remaining - 1) * card.ability.extra.x_mult_add
             else card.ability.extra.x_mult = 1 end
             return {vars = {
-                    card.ability.extra.x_mult_add,
-                    card.ability.extra.x_mult
-                }}
+                card.ability.extra.x_mult_add,
+                card.ability.extra.x_mult
+            }}
         end,
 
         calculate = function(self,card,context)
@@ -1368,10 +1353,7 @@ local XPC = {
                             G.P_CENTER_POOLS['Enhanced'],
                             pseudoseed('The Zoo')
                         )
-                        scored_card:set_ability(
-                            enhancement,
-                            nil, true
-                        )
+                        scored_card:set_ability(enhancement, nil, true)
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 scored_card:juice_up()
@@ -1437,7 +1419,6 @@ local XPC = {
                                 G.P_CENTERS[card.ability.extra.enhancement],
                                 nil, true
                             )
-
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     scored_card:juice_up()
@@ -1500,8 +1481,7 @@ local XPC = {
                 for index = 2, #context.scoring_hand do
                     local scored_card = context.scoring_hand[index]
                     if scored_card.config.center.key ~= 'm_stone' then
-                        local converts = SMODS.change_base(
-                            scored_card, suit, nil, true)
+                        local converts = SMODS.change_base(scored_card, suit, nil, true)
                         if converts then
                             table.insert(changed_cards, scored_card)
                         end
@@ -1672,17 +1652,18 @@ local XPC = {
                         {
                             sound = 'button', volume = 0.7,
                             pitch = 0.8, delay = 0
-                    },
-
+                        },
                         {
                             handname = localize(hand_type, 'poker_hands'),
                             chips = G.GAME.hands[hand_type].chips,
                             mult = G.GAME.hands[hand_type].mult,
                             level = G.GAME.hands[hand_type].level
-                    })
-
-                    level_up_hand(blueprint_or_self, hand_type, 
-                                nil, card.ability.extra.level)
+                        }
+                    )
+                    level_up_hand(
+                        blueprint_or_self, hand_type, nil,
+                        card.ability.extra.level
+                    )
                 end
             end
         end
@@ -1716,12 +1697,10 @@ local XPC = {
                     adding_self(card)
                 end
 
-                if context.end_of_round and not G.GAME_OVER
-                and context.cardarea == G.jokers
+                if context.end_of_round and not G.GAME_OVER and context.cardarea == G.jokers
                 and G.GAME.current_round.hands_played == 1 then
                     card.ability.extra.x_mult = 
                     card.ability.extra.x_mult + card.ability.extra.x_mult_add
-
                     return {
                         message = localize('k_sonic_boom'),
                         colour = G.C.RARITY[4],
@@ -1758,11 +1737,11 @@ local XPC = {
                 key = card.ability.extra.seal, set = 'Other'
             }
             return {vars = {
-                localize{
+                localize({
                     type = 'name_text',
                     set = 'Other',
                     key = card.ability.extra.seal
-                },
+                }),
                 localize(card.ability.extra.cards)
             }}
         end,
@@ -1821,7 +1800,6 @@ local XPC = {
             if from_debuff then return end
 
             local all_stone = true
-
             for _, playing_card in ipairs(G.playing_cards) do
                 if playing_card.config.center.key ~= 'm_stone' then
                     all_stone = false
@@ -1848,9 +1826,8 @@ local XPC = {
 
             if context.end_of_round and context.cardarea == G.jokers then
                 local full_deck = {}
-
                 for _, playing_card in ipairs(G.playing_cards or {}) do
-                    if not SMODS.has_enhancement(playing_card, 'm_stone') then
+                    if playing_card.config.center.key ~= 'm_stone' then
                         full_deck[#full_deck + 1] = playing_card
                     end
                 end
@@ -1860,7 +1837,6 @@ local XPC = {
                         full_deck,
                         pseudoseed('Faceless')
                     )
-
                     card.ability.extra.rank = playing_card.base.value
                     card.ability.extra.suit = playing_card.base.suit
                 end
@@ -1869,17 +1845,8 @@ local XPC = {
             if context.after then
                 local changed_cards = {}
                 for _, scored_card in pairs(context.scoring_hand) do
-                    if not SMODS.has_enhancement(scored_card, 'm_stone') then
-                        local change = 
-                            SMODS.change_base(
-                                scored_card,
-                                card.ability.extra.suit,
-                                card.ability.extra.rank,
-                                true
-                            )
-                        if change then
-                            table.insert(changed_cards, scored_card)
-                        end
+                    if scored_card.config.center.key ~= 'm_stone' then
+                        changed_cards[#changed_cards + 1] = scored_card
                     end
                 end
 
@@ -1892,8 +1859,16 @@ local XPC = {
                                 trigger = 'immediate',
                                 func = function()
                                     for _, scored_card in ipairs(changed_cards) do
-                                        scored_card:set_sprites(nil, scored_card.config.card)
-                                        scored_card:juice_up()
+                                        if not scored_card.REMOVED then
+                                            SMODS.change_base(
+                                                scored_card,
+                                                card.ability.extra.suit,
+                                                card.ability.extra.rank,
+                                                true
+                                            )
+                                            scored_card:set_sprites(nil, scored_card.config.card)
+                                            scored_card:juice_up()
+                                        end
                                     end
                                     return true
                                 end
@@ -1983,9 +1958,10 @@ local XPC = {
 
         loc_vars = function (self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
-            return { vars = { localize({
-                type = 'name_text', set = 'Enhanced',
-                key = card.ability.extra.enhancement
+            return {vars = {
+                localize({
+                    type = 'name_text', set = 'Enhanced',
+                    key = card.ability.extra.enhancement
                 })
             }}
         end,
@@ -2032,7 +2008,7 @@ local XPC = {
             set = 'Joker',
             key = '4d'
         }),
-        config = { extra = {retrigger = 3, message = false} },
+        config = {extra = {retrigger = 3, message = false}},
         
         loc_vars = function(self,info_queue,card)
             return {vars = {card.ability.extra.retrigger}}
@@ -2106,15 +2082,8 @@ local XPC = {
             if context.after then
                 local changed_cards = {}
                 for _, scored_card in ipairs(context.scoring_hand) do
-                    if not SMODS.has_enhancement(scored_card, 'm_stone') 
-                    and scored_card:get_id() < 14 then
-                        local increase = SMODS.modify_rank(
-                            scored_card, 
-                            card.ability.extra.rank,
-                            true)
-                        if increase then
-                            table.insert(changed_cards, scored_card)
-                        end
+                    if scored_card.config.center.key ~= 'm_stone' and scored_card:get_id() < 14 then
+                        changed_cards[#changed_cards + 1] = scored_card
                     end
                 end
 
@@ -2127,8 +2096,13 @@ local XPC = {
                                 trigger = 'immediate',
                                 func = function()
                                     for _, scored_card in ipairs(changed_cards) do
-                                        scored_card:set_sprites(nil, scored_card.config.card)
-                                        scored_card:juice_up()
+                                        if not scored_card.REMOVED then
+                                            SMODS.modify_rank(
+                                                scored_card, card.ability.extra.rank, true
+                                            )
+                                            scored_card:set_sprites(nil, scored_card.config.card)
+                                            scored_card:juice_up()
+                                        end
                                     end
                                     return true
                                 end
@@ -2242,11 +2216,11 @@ local XPC = {
                     card.ability.extra.x_mult =
                     card.ability.extra.x_mult + (-context.amount) * card.ability.extra.x_mult_add
                     return {
-                        message = localize {
+                        message = localize({
                             type = 'variable',
                             key = 'a_xmult',
                             vars = {card.ability.extra.x_mult}
-                        },
+                        }),
                         colour = G.C.RED,
                         card = card
                     }
@@ -2326,7 +2300,6 @@ local XPC = {
                     elseif rank == 14 then
                         point = 11
                     end
-                    
                     card.ability.extra.x_mult = 1 + point / 4
                 end
 
@@ -2445,8 +2418,7 @@ local XPC = {
             then return end
 
             if context.scoring_name ~= 'Four of a Kind'
-                or not context.full_hand
-                or #context.full_hand ~= 5
+                or not context.full_hand or #context.full_hand ~= 5
             then return end
 
             local poker_hands = context.poker_hands or {}
@@ -2463,81 +2435,106 @@ local XPC = {
         local Balor = function()
             G.VIEWING_DECK = true
             local drawpile = {}
-
             if G.deck and G.deck.cards then
-                for _, card in ipairs(G.deck.cards) do
-                    table.insert(drawpile, card)
+                for i = 1, #G.deck.cards do
+                    drawpile[#drawpile + 1] = G.deck.cards[i]
                 end
             end
 
-            local view_deck = CardArea(
-                G.ROOM.T.x + 0.05 * G.ROOM.T.w,
-                G.ROOM.T.h,
-                8 * G.CARD_W,
-                0.5 * G.CARD_H,
-                {
-                    card_limit = math.max(#drawpile, 1),
-                    type = 'title',
-                    view_deck = true,
-                    highlight_limit = 0,
-                    card_w = G.CARD_W * 0.5,
-                    draw_layers = {'card'}
-                }
-            )
-
-            for index = #drawpile, 1, -1 do
-                local card = drawpile[index]
-
-                if card ~= nil then
-                    local copy = copy_card(card, nil ,0.8)
-                    copy.T.x = view_deck.T.x + view_deck.T.w / 2
-                    copy.T.y = view_deck.T.y
-                    copy:hard_set_T()
-                    view_deck:emplace(copy)
+            local containers = {}
+            local max_count = 3
+            local cards_per_container = 40
+            local area_count = math.min(math.ceil(#drawpile / cards_per_container), max_count)
+            local card_counts = {}
+            if #G.deck.cards <= max_count * cards_per_container then
+                local base = math.floor(#G.deck.cards / area_count)
+                local r = #G.deck.cards % area_count
+                for i = 1, area_count do
+                    card_counts[i] = base + (i <= r and 1 or 0)
                 end
+            else
+                for i = 1, area_count - 1 do
+                    card_counts[i] = cards_per_container
+                end
+                card_counts[area_count] = #G.deck.cards - (area_count - 1) * cards_per_container
             end
 
-            local tips = nil
+            local end_index = #G.deck.cards
+            for i = 1, area_count do
+                local card_count = card_counts[i]
+                local start_index = end_index - card_count + 1
+
+                local container = CardArea(
+                    G.ROOM.T.x + 0.05 * G.ROOM.T.w,
+                    G.ROOM.T.h, 8 * G.CARD_W, 0.5 * G.CARD_H,
+                    {
+                        card_limit = math.max(card_count, 1),
+                        type = 'title',
+                        view_deck = true,
+                        highlight_limit = 0,
+                        card_w = G.CARD_W * 0.5,
+                        draw_layers = {'card'}
+                    }
+                )
+                for index = end_index, start_index, -1 do
+                    local card = drawpile[index]
+                    if card ~= nil then
+                        local copy = copy_card(card, nil, 0.8)
+                        copy.T.x = container.T.x + container.T.w / 2
+                        copy.T.y = container.T.y
+                        copy:hard_set_T()
+                        container:emplace(copy)
+                    end
+                end
+                containers[#containers + 1] = container
+                end_index = start_index - 1
+            end
+
+            local tips = ''
             if not G.GAME.blind or not G.GAME.blind.in_blind then
                 tips = localize('k_not_ready')
-            elseif #drawpile > 0 then
-                tips = localize('k_ready')
-            else tips = localize('k_drawn')
+            else
+                tips = localize('k_ready_sl')
+                if #drawpile > 0 then
+                    if area_count > 1 then 
+                        tips = localize('k_ready_pl')
+                    end                     
+                else
+                    tips = localize('k_drawn')
+                end
             end
-            
+
+            local deck_nodes = {}
+            for _, container in ipairs(containers) do
+                table.insert(deck_nodes, {
+                    n = G.UIT.R,
+                    config = {
+                        align = 'cm',
+                        padding = 0.5,
+                        r = 0.1,
+                        colour = G.C.BLACK,
+                        emboss = 0.05
+                    },
+                    nodes = {{n = G.UIT.O, config = {object = container}}}
+                })
+            end
+            table.insert(deck_nodes, {
+                n = G.UIT.R,
+                config = {align = 'cm', minh = 0.8, padding = 0.05},
+                nodes = {{
+                    n = G.UIT.T,
+                    config = {text = tips, colour = G.C.WHITE, scale = 0.6}
+                }}
+            })
+
             return {
                 n = G.UIT.ROOT,
-                config = {align = "cm", colour = G.C.CLEAR},
-                nodes = {
-                    {
-                        n = G.UIT.R,
-                        config = {
-                            align = 'cm',
-                            padding = 0.1,
-                            r = 0.1,
-                            colour = G.C.BLACK,
-                            emboss = 0.05
-                        },
-                        nodes = {{n = G.UIT.O, config = {object = view_deck}}}
-                    },
-                    {
-                        n = G.UIT.R,
-                        config = {align = 'cm', minh = 0.8, padding = 0.05},
-                        nodes = {{
-                            n = G.UIT.T,
-                            config = {
-                                text = tips,
-                                colour = G.C.WHITE,
-                                scale = 0.6
-                            }
-                        }}
-                    }
-                }
+                config = {align = 'cm', colour = G.C.CLEAR},
+                nodes = deck_nodes
             }
         end
 
         local backup_create_tabs = create_tabs
-
         local function hasBalor()
             if not (G and G.jokers and G.jokers.cards) then
                 return false
@@ -2551,14 +2548,12 @@ local XPC = {
                     return true
                 end
             end
-
             return false
         end
 
         if type(backup_create_tabs) == 'function' then
             create_tabs = function(args)
                 local UIDEF = G and G.UIDEF
-
                 if UIDEF then
                     if type(UIDEF.Balor) ~= 'function' then
                         UIDEF.Balor = function()
@@ -2571,7 +2566,6 @@ local XPC = {
                     then
                         local is_view_deck = false
                         local has_balor_tab = false
-
                         for _, tab in ipairs(args.tabs) do
                             if type(tab) == 'table' then
                                 if tab.tab_definition_function == UIDEF.view_deck then
@@ -2592,7 +2586,6 @@ local XPC = {
                         end
                     end
                 end
-
                 return backup_create_tabs(args)
             end
         end
@@ -2676,10 +2669,13 @@ local XPC = {
                     adding_self(card)
                 end
 
-                if context.selling_card and context.card and context.card ~= card
-                and string.find(context.card.config.center.key, 'j_'.. mod_prefix ..'_', 1, true)
-                then
-                    card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
+                if context.selling_card
+                and context.card and context.card ~= card and string.find(
+                    context.card.config.center.key,
+                    'j_'.. mod_prefix ..'_', 1, true
+                ) then
+                    card.ability.extra.x_mult =
+                    card.ability.extra.x_mult + card.ability.extra.x_mult_add
                     return{
                         message = localize({
                             type = 'variable',
@@ -2738,14 +2734,14 @@ local XPC = {
 
             if context.individual and context.cardarea == G.hand then
                 if context.end_of_round then
-                    if SMODS.has_enhancement(context.other_card, 'm_steel') then
+                    if context.other_card.config.center.key == 'm_steel' then
                         return {
                             dollars = G.P_CENTERS.m_gold.config.h_dollars,
                             card = card
                         }
                     end
                 else
-                    if SMODS.has_enhancement(context.other_card, 'm_gold') then
+                    if context.other_card.config.center.key == 'm_gold' then
                         return {
                             x_mult = G.P_CENTERS.m_steel.config.h_x_mult,
                             card = card
@@ -2940,7 +2936,7 @@ local XPC = {
                         x_mult = card.ability.extra.x_mult,
                         colour = G.C.RED,
                         card = card
-                        }
+                    }
                 end
             end
         end
@@ -2959,7 +2955,7 @@ local XPC = {
             set = 'Joker',
             key = '6c'
         }),
-        config = {extra = {numerator = 1, denominator = 4}},
+        config = {extra = {numerator = 1, denominator = 6}},
 
         loc_vars = function(self,info_queue,card)
             info_queue[#info_queue + 1] = {
@@ -2967,13 +2963,11 @@ local XPC = {
                 set = 'Edition',
                 config = {extra = 50}
             }
-
             local numerator, denominator = SMODS.get_probability_vars(
                 card, card.ability.extra.numerator,
                 card.ability.extra.denominator, 'Shallow Blue'
             )
-
-            return {vars = { numerator, denominator }}
+            return {vars = {numerator, denominator}}
         end,
 
         calculate = function(self, card, context)
@@ -3104,12 +3098,10 @@ local XPC = {
                 set = 'Edition',
                 config = {extra = 1}
             }
-            
             local numerator, denominator = SMODS.get_probability_vars(
                 card, card.ability.extra.numerator,
                 card.ability.extra.denominator, 'Sinking Shadow'
             )
-
             return {vars = { numerator, denominator }}
         end,
 
@@ -3180,13 +3172,11 @@ local XPC = {
                 set = 'Edition',
                 config = {extra = 1.5}
             }
-
             local numerator, denominator = SMODS.get_probability_vars(
                 card, card.ability.extra.numerator,
                 card.ability.extra.denominator, 'Rising Light'
             )
-
-            return {vars = { numerator, denominator }}
+            return {vars = {numerator, denominator}}
         end,
 
         calculate = function(self, card, context)
@@ -3311,14 +3301,12 @@ local XPC = {
 
     CJ = (function()
         local backup_draw_from_play_to_discard = G.FUNCS.draw_from_play_to_discard
-
-        local card_target = nil
+        local card_target
         local massage = false
 
         G.FUNCS.draw_from_play_to_discard = function(e)
             local target = card_target
             card_target = nil
-
             if not (
                 target and G.play and G.hand
                 and target.area == G.play
@@ -3333,14 +3321,12 @@ local XPC = {
 
             for _, scored_card in ipairs(G.play.cards) do
                 if scored_card ~= target
-                    and not scored_card.shattered
-                    and not scored_card.destroyed then
-
+                and not scored_card.shattered
+                and not scored_card.destroyed then
                     draw_card(
                         G.play, G.discard, it * 100 / play_count,
                         'down', false, scored_card
                     )
-
                     it = it + 1
                 end
             end
@@ -3349,8 +3335,7 @@ local XPC = {
                 trigger = 'after',
                 func = function()
                     if target and G.play and G.hand  and target.area == G.play
-                        and not target.shattered and not target.destroyed then
-
+                    and not target.shattered and not target.destroyed then
                         draw_card(G.play, G.hand, nil, 'up', true, target)
                         massage = true
                     end
@@ -3616,7 +3601,6 @@ local XPC = {
             and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
             then
                 local blueprint_or_self = context.blueprint_card or card
-
                 G.GAME.consumeable_buffer = (G.GAME.consumeable_buffer or 0) + 1
 
                 G.E_MANAGER:add_event(Event({
@@ -3640,8 +3624,8 @@ local XPC = {
                         card_eval_status_text(blueprint_or_self,
                             'extra', nil, nil, nil, 
                             {message = localize('k_summoned'),
-                            colour = G.C.SECONDARY_SET.Spectral})
-
+                            colour = G.C.SECONDARY_SET.Spectral}
+                        )
                         return true
                     end
                 }))
@@ -3702,13 +3686,11 @@ end
 
 ---
 
-local last_triggered_game = nil
-local last_triggered_hand = nil
+local last_triggered_game, last_triggered_hand
 
 local XPC_Back = SMODS.Back({
     key = XPC_deck_key,
     atlas = 'XPCB',
-
     loc_txt = {
         name = localize({
             type = 'name_text',
@@ -3812,7 +3794,6 @@ local XPC_Back = SMODS.Back({
 do
     local function isXPdeck()
         local selected_back = G.GAME and G.GAME.selected_back
-
         local center = selected_back and selected_back.effect
         and selected_back.effect.center
 
@@ -3823,7 +3804,6 @@ do
         if XPC_Back and center.key == XPC_Back.key then
             return true
         end
-
         return center.key == XPC_deck_key
     end
 
@@ -3839,24 +3819,19 @@ do
     end
 
     local backup_get_front_spriteinfo = get_front_spriteinfo
-
     function get_front_spriteinfo(front)
         local atlas, pos, sprite_args = backup_get_front_spriteinfo(front)
-
         if not isXPdeck() or not front or not front.suit then
             return atlas, pos, sprite_args
         end
 
-        local atlas_key = isHighContrast(front.suit)
-            and mod_prefix ..'_XPdeckHC'
-            or mod_prefix ..'_XPdeckLC'
+        local atlas_key = isHighContrast(front.suit) and
+        mod_prefix ..'_XPdeckHC' or mod_prefix ..'_XPdeckLC'
 
         local custom_atlas = SMODS.get_atlas(atlas_key)
-
         if not custom_atlas then
             return atlas, pos, sprite_args
         end
-
         return custom_atlas, front.pos, sprite_args
     end
 
@@ -3891,34 +3866,27 @@ do
     end
 
     local backup_set_base = Card.set_base
-
     function Card:set_base(card, initial, manual_sprites)
         local result = backup_set_base(
             self, card, initial,
             manual_sprites
         )
-
         apply_suit_colour(self)
-
         return result
     end
-
-
-    local backup_set_sprites = Card.set_sprites
 
     local function effect_valid(back)
         return type(back) == 'table' and type(back.effect) == 'table'
         and type(back.effect.center) == 'table'
     end
 
+    local backup_set_sprites = Card.set_sprites
     function Card:set_sprites(center, front)
         local game = G and G.GAME
         local backup_viewed_back = game and game.viewed_back
-
         if game then
             local viewed_back = game.viewed_back
             local selected_back = game.selected_back
-
             if not effect_valid(viewed_back) then
                 if effect_valid(selected_back) then
                     game.viewed_back = nil
@@ -3939,7 +3907,6 @@ do
         end
 
         apply_suit_colour(self)
-
         return result
     end
 end
@@ -3969,11 +3936,9 @@ challenges = function(poker_hands, jokers)
         end
     end
 
-    local suits = {'S','H','D','C'}
-    local ranks = {'A','K','Q','J','T','9','8','7','6','5','4','3','2'}
     local standard_deck = {}
-    for _, suit in ipairs(suits) do
-        for _, rank in ipairs(ranks) do
+    for _, suit in ipairs({'S','H','D','C'}) do
+        for _, rank in ipairs({'A','K','Q','J','T','9','8','7','6','5','4','3','2'}) do
             table.insert(standard_deck, {s = suit, r = rank})
         end
     end
@@ -4019,8 +3984,7 @@ challenges = function(poker_hands, jokers)
             consumables = {{id = 'c_fool'},{id = 'c_neptune'}}
         end
 
-        local challenge_jokers = jokers[hand] or {}
-        
+        local challenge_jokers = jokers[hand] or {'j_joker'}
         SMODS.Challenge{
             key = hand,
             unlocked = function()
@@ -4032,7 +3996,6 @@ challenges = function(poker_hands, jokers)
                 end
                 return true
             end,
-
             deck = {
                 type = 'Challenge Deck',
                 cards = cards
@@ -4050,7 +4013,7 @@ challenges = function(poker_hands, jokers)
                     {id = 'c_wraith'},
                     {id = 'c_soul'},
                     {id = 'v_antimatter'},
-                    {id = 'p_buffoon_normal_1', ids = {
+                    {id = 'p_buffoon_normal_2', ids = {
                         'p_buffoon_normal_1','p_buffoon_normal_2', 'p_buffoon_jumbo_1','p_buffoon_mega_1'
                     }}
                 },
@@ -4069,5 +4032,4 @@ challenges = function(poker_hands, jokers)
         }
     end
 end
-
 challenges(poker_hands, jokers)
