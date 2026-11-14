@@ -256,7 +256,7 @@ local descriptions = {
             }
         },
         ['j_'.. mod_prefix ..'_4d'] = {
-            name = '时间默剧',
+            name = '时间哑剧',
             text = {
                 '打出的{C:attention}第一手牌{}中所有',
                 '计分牌额外触发{C:attention}#1#{}次，',
