@@ -16,7 +16,6 @@
 - **Steamodded (SMODS)：** `v26.1002.0`
 - **Lovely注入器：** `v0.10.0`
 - **操作系统：** Windows 11
-
 其他版本或配置可能兼容，但尚未经过完整测试。
 
 ## 运行需求
@@ -28,7 +27,7 @@
 ## 安装方法
 1. 安装Balatro、Steamodded和Lovely。
 2. 下载Release中的ZIP压缩包并解压。
-3. 找到包含`main.lua`、`main.json`和`lovely.toml`的Mod文件夹。
+3. 找到包含`main.lua`、`main.json`、`challenges.lua`和`lovely.toml`的Mod文件夹。
 4. 将Mod文件夹直接放入Balatro的`Mods`目录中，若名称不同则将文件夹重命名为`HighCard`，并确保Mod文件没有被额外的文件夹层级包裹。
    - **Windows：** `%AppData%/Balatro/Mods/`
    - **macOS：** `~/Library/Application Support/Balatro/Mods/`
@@ -47,6 +46,7 @@ HighCard/
 │   ├── en-us.lua
 │   ├── zh_CN.lua
 │   └── zh_TW.lua
+├── challenges.lua
 ├── lovely.toml
 ├── main.json
 └── main.lua

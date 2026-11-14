@@ -27,7 +27,7 @@ Install Steamodded and Lovely separately before installing this mod.
 ## Installation
 1. Install Balatro, Steamodded, and Lovely.
 2. Download the released ZIP file and extract it.
-3. Locate the mod folder containing `main.lua`, `main.json`, and `lovely.toml`.
+3. Locate the mod folder containing `main.lua`, `main.json`, `challenges.lua`, and `lovely.toml`.
 4. Place that folder directly inside your Balatro `Mods` directory.
    Rename the folder to `HighCard` if necessary, and make sure the mod files are not nested inside an extra directory level.
    - **Windows:** `%AppData%/Balatro/Mods/`
@@ -46,6 +46,7 @@ HighCard/
 │   ├── en-us.lua
 │   ├── zh_CN.lua
 │   └── zh_TW.lua
+├── challenges.lua
 ├── lovely.toml
 ├── main.json
 └── main.lua
