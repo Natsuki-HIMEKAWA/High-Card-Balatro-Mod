@@ -2997,7 +2997,7 @@ local XPC = {
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     play_sound('foil1', 1.2, 0.4)
-                                    scored_card:juice_up()
+                                    scored_card:juice_up(1, 0.5)
                                     return true
                                 end
                             }))
@@ -3133,7 +3133,7 @@ local XPC = {
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     play_sound('negative', 1.5, 0.4)
-                                    scored_card:juice_up()
+                                    scored_card:juice_up(1, 0.5)
                                     return true
                                 end
                             }))
@@ -3208,7 +3208,7 @@ local XPC = {
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     play_sound('polychrome1', 1.2, 0.7)
-                                    scored_card:juice_up()
+                                    scored_card:juice_up(1, 0.5)
                                     return true
                                 end
                             }))
@@ -3283,7 +3283,7 @@ local XPC = {
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     play_sound('holo1', 1.2 * 1.58, 0.4)
-                                    scored_card:juice_up()
+                                    scored_card:juice_up(1, 0.5)
                                     return true
                                 end
                             }))
